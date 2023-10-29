@@ -35,11 +35,13 @@ public:
     
 private:
 
-    void CreateAboutModalPopup(bool& showModalAbout);
+    
+    void CreateAboutWindow(bool& showAboutWindow);
     void URLButton(const char* url);
     void CreateConsoleWindow(bool& showConsoleWindow);
     void ModuleEditor::WindowCollapsingHeader();
     void ModuleEditor::RenderCollapsingHeader();
+    void UpdatePlots();
     
 public:
     std::deque<std::string>* logs = nullptr;
@@ -50,7 +52,7 @@ private:
     std::vector<float> mMsLog;
     
     //Window info
-    bool showAboutModal;
+    bool showAboutWindow;
     bool fullscreen;
     bool resizable;
     bool borderless;
@@ -74,8 +76,11 @@ private:
     bool showConsoleWindow;
     int width, height;
 
-    //Hardware info
+    //Libraries Info
     std::string sdlVersion;
+    std::string assimpVersion;
+
+    //Hardware info
     float systemRAM;
     int cpuCount;
     int cpuCacheSize;
