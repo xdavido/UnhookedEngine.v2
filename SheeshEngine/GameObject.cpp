@@ -1,4 +1,9 @@
 #include "GameObject.h"
+#include "Globals.h"
+
+#include "ComponentTransform.h"
+#include "ComponentMesh.h"
+#include "ComponentMaterial.h"
 
 
 GameObject::GameObject(GameObject* parent)
@@ -16,17 +21,18 @@ GameObject::GameObject(GameObject* parent)
 
 GameObject::~GameObject()
 {
-    for (size_t i = mChildren.size(); i > 0; i--)
-    {
-        mChildren[i - 1] = nullptr;
-        delete mChildren[i - 1];
-    }
+    // Delete all childrens
+    RELEASE_VECTOR(mChildren, mChildren.size());
+    mChildren.clear();
 
-    for (size_t i = 0; i < mComponents.size(); i++)
-    {
-        mComponents[i - 1] = nullptr;
-        delete mComponents[i - 1];
-    }
+    // Delete all components
+    RELEASE_VECTOR(mComponents, mComponents.size());
+    mComponents.clear();
+
+   
+
+    transform = nullptr;
+    mParent = nullptr;
 }
 
 void GameObject::Update()

@@ -18,8 +18,8 @@ bool ModuleScene::Init()
 
 bool ModuleScene::Start() {
     
-    /*root = new GameObject(nullptr);
-    root->name = ("Scene");*/
+    root = new GameObject(nullptr);
+    root->name = ("Scene");
 
     //Load Baker House
     /*App->assimpMeshes->LoadMeshFromFile("Assets/Models/BakerHouse.fbx");

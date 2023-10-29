@@ -37,6 +37,16 @@ void log(const char file[], int line, const char* format, ...);
 		 }\
 	 }
 
+// Deletes an std::vector
+#define RELEASE_VECTOR( x, s )\
+	{\
+		for (size_t i = 0; i < s; i++)\
+		{\
+			delete x[i];\
+			x[i] = nullptr;\
+		}\
+	}
+
 
 
 typedef unsigned int uint;
