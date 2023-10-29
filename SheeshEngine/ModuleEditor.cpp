@@ -13,6 +13,7 @@
 #include "ModuleHierarchy.h"
 
 #include "Assimp/include/ai_assert.h"
+#include "Assimp/include/version.h"
 
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -46,7 +47,7 @@ bool ModuleEditor::Init()
 
     //Editor attributes Initialization
     showConsoleWindow = false;
-    showAboutModal = false;
+    showAboutWindow = false;
     wireframeMode = false;
 
     //Window info
@@ -77,6 +78,8 @@ bool ModuleEditor::Init()
                  std::to_string(versionSDL.major) + "." +
                  std::to_string(versionSDL.minor) + "." +
                  std::to_string(versionSDL.patch);
+
+    assimpVersion = std::to_string(aiGetVersionMajor()) + '.' + std::to_string(aiGetVersionMinor()) + '.' + std::to_string(aiGetVersionRevision());
 
     systemRAM = (float) SDL_GetSystemRAM() / (1024.f);
     cpuCount = SDL_GetCPUCount();
@@ -133,8 +136,33 @@ void ModuleEditor::DrawEditor()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
+
+    ImGuiWindowFlags flags = ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoMove |
+        ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoNavFocus;
+
+    const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
+    ImGui::SetNextWindowPos(main_viewport->WorkPos);
+    ImGui::SetNextWindowSize(main_viewport->Size);
+    ImGui::SetNextWindowViewport(main_viewport->ID);
+
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+    ImGui::Begin("DockingInv", nullptr, flags);
+
+    ImGui::PopStyleVar(3);
+
+    ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+    ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
+
+    ImGui::End();
+
     /*AddFPS(1 / App->dt);
     AddMs(App->dt * 1000.0f);*/
+
+    //UpdatePlots();
+
     ImGuiIO& io = ImGui::GetIO();
 
     if (ImGui::BeginMainMenuBar())
@@ -149,9 +177,49 @@ void ModuleEditor::DrawEditor()
             ImGui::Text("Hello world!");
             ImGui::EndMenu();
         }
-        if (ImGui::BeginMenu("Objects"))
+        if (ImGui::BeginMenu("Game Objects"))
         {
-            ImGui::Text("Hello world!");
+
+            if (ImGui::MenuItem(" CUBE  ")) {
+
+            }
+
+            if (ImGui::MenuItem(" PLANE "))
+            {
+
+            }
+
+            if (ImGui::MenuItem(" SPHERE  "))
+            {
+
+            }
+
+            if (ImGui::MenuItem(" ICOSPHERE  "))
+            {
+
+            }
+
+            if (ImGui::MenuItem(" PYRAMID  "))
+            {
+
+            }
+
+            if (ImGui::MenuItem(" CYLINDER  "))
+            {
+
+            }
+
+            if (ImGui::MenuItem(" TORUS  "))
+            {
+
+            }
+
+            if (ImGui::MenuItem(" SUZZANE  "))
+            {
+
+            }
+
+
             ImGui::EndMenu();
         }
 
@@ -205,12 +273,12 @@ void ModuleEditor::DrawEditor()
             ImGui::End();
         }
 
-        bool showModalAbout = false;
+        
         if (ImGui::BeginMenu("Help"))
         {
             if (ImGui::MenuItem("About..."))
             {
-                showModalAbout = true; // Cuando se hace clic en "About...", se muestra la ventana modal About
+                showAboutWindow = true; // Cuando se hace clic en "About...", se muestra la ventana modal About
             }
 
             ImGui::EndMenu();
@@ -226,7 +294,8 @@ void ModuleEditor::DrawEditor()
             ImGui::EndMenu();
         }
 
-        CreateAboutModalPopup(showModalAbout);
+        //CreateAboutModalPopup(showModalAbout);
+        CreateAboutWindow(showAboutWindow);
         CreateConsoleWindow(showConsoleWindow);
 
         ImGui::EndMainMenuBar();
@@ -425,6 +494,101 @@ void ModuleEditor::RenderCollapsingHeader()
     }
 }
 
+void ModuleEditor::UpdatePlots()
+{
+    AddMs(App->GetFrameRate());
+
+    AddFPS(1000.0f * App->GetDt());
+}
+
+
+void ModuleEditor::CreateAboutWindow(bool& showAboutWindow)
+{
+    if (!showAboutWindow)
+        return;
+
+    ImGui::SetNextWindowSize(ImVec2(920, 300), ImGuiCond_FirstUseEver);
+    if (!ImGui::Begin("About", &showAboutWindow))
+    {
+        showAboutWindow = true;
+        ImGui::End();
+        return;
+    }
+
+    // Basic Info
+    ImGui::Text("Sheesh Engine");
+    ImGui::Separator();
+    ImGui::Spacing();
+    ImGui::Text("Venture into the realm of game development with the legendary Sheesh Engine, \na creation born from the collaborative efforts of two visionary minds at CITM.");
+    ImGui::Text("Whether you seek to forge epic tales of heroism or weave enchanting mysteries,\nthis engine is your magical wand.");
+    ImGui::Spacing();
+    if (ImGui::Button("Autors: Oriol Martin Corella & Xiao Shan Costajussa Bellver"))
+    {
+        URLButton("https://github.com/xaita/SheeshEngine");
+    }
+
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Spacing();
+
+    // Libraries
+    ImGui::Text("Libraries and links to their websites:");
+
+    if (ImGui::Button("SDL"))
+    {
+        URLButton("https://libsdl.org/index.php");
+    }
+    ImGui::SameLine();
+    ImGui::Text(sdlVersion.c_str());
+
+    if (ImGui::Button("OpenGL"))
+    {
+        URLButton("https://www.opengl.org/");
+    }
+    ImGui::SameLine();
+    ImGui::Text("OpenGL: %s", glewGetString(GLEW_VERSION));
+
+    if (ImGui::Button("ImGui"))
+    {
+        URLButton("https://github.com/ocornut/imgui/");
+    }
+    ImGui::SameLine();
+    ImGui::Text(ImGui::GetVersion());
+
+    if (ImGui::Button("Glew"))
+    {
+        URLButton("http://glew.sourceforge.net/");
+    }
+    ImGui::SameLine();
+    ImGui::Text((const char*)glewGetString(GLEW_VERSION));
+
+    // Phys
+    // Assimp
+    if (ImGui::Button("Assimp"))
+    {
+        URLButton("https://www.assimp.org/");
+    }
+    ImGui::SameLine();
+    ImGui::Text(assimpVersion.c_str());
+
+    ImGui::Separator();
+    ImGui::Spacing();
+
+    // Licence
+    ImGui::Text(license.c_str());
+
+    // Close Button
+    if (ImGui::Button("Close", ImVec2(60, 0)))
+    {
+        showAboutWindow = false;
+    }
+
+    ImGui::End();
+
+
+
+}
+
 void ModuleEditor::CreateConsoleWindow(bool& showConsoleWindow)
 {
     if (!showConsoleWindow)
@@ -523,6 +687,12 @@ void ModuleEditor::CreateAboutModalPopup(bool& showModalAbout)
         //Phys
 
         //Assimp
+        if (ImGui::Button("Assimp"))
+        {
+            URLButton("https://www.assimp.org/");
+        }
+        ImGui::SameLine();
+        ImGui::Text(assimpVersion.c_str());
 
         ImGui::Separator();
         ImGui::Spacing();

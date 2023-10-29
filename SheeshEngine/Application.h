@@ -48,6 +48,9 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	float GetDt() const { return dt; }
+	float GetFrameRate() const { return 1.f / dt; }
+
 	void LOGToEditor(const char* text);
 
 private:
