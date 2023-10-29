@@ -22,7 +22,9 @@ public:
 	void Move(const float3&Movement);
 	float* GetViewMatrix();
 	void FocusCameraToSelectedObject();
-	void OrbitSelectedObject();
+	void RotationAroundCamera(float dt);
+	void OrbitSelectedObject(float dt);
+	float3 RotateVector(const float3& u, float angle, const float3& v);
 
 private:
 

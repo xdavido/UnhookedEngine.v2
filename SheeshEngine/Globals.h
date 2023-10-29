@@ -107,7 +107,7 @@ enum update_status
 #define PLANE "Assets/Models/Plane.fbx"
 #define SPHERE "Assets/Models/Sphere.fbx"
 #define ICOSPHERE "Assets/Models/IcoSphere.fbx"
-#define PYRAMID "Assets/Models/Pyramid.fbx"
+#define CONE "Assets/Models/Cone.fbx"
 #define CYLINDER "Assets/Models/Cylinder.fbx"
 #define TORUS "Assets/Models/Torus.fbx"
 #define SUZZANE "Assets/Models/Suzanne.fbx"
