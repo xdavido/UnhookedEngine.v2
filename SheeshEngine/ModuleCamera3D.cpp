@@ -1,7 +1,8 @@
-#include "Globals.h"
+﻿#include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
 #include "MathGeoLib/include/Math/Quat.h"
+#include "MathGeoLib/include/Math/float3.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -42,67 +43,35 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	float3 newPos(0,0,0);
+	float3 newPos(0, 0, 0);
 	float speed = 3.0f * dt;
-	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) FocusCameraToSelectedObject();
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
 
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) newPos += Y * speed;
+		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos -= Y * speed;
+
+		RotationAroundCamera(dt);
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) FocusCameraToSelectedObject();
+
+
 
 	newPos -= App->input->GetMouseZ() * Z;
 
 	Position += newPos;
 	Reference += newPos;
 
-	OrbitSelectedObject();
-
-	// Mouse motion ----------------
-
-	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
-	{
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
-
-		float Sensitivity = 1.35f * dt;
-
-		Position -= Reference;
-
-		if(dx != 0)
-		{
-			float DeltaX = (float)dx * Sensitivity;
-
-			float3 rotationAxis(0.0f, 1.0f, 0.0f);
-			Quat rotationQuat = Quat::RotateAxisAngle(rotationAxis, DeltaX);
-
-			X = rotationQuat * X;
-			Y = rotationQuat * Y;
-			Z = rotationQuat * Z;
-		}
-
-		if(dy != 0)
-		{
-			float DeltaY = (float)dy * Sensitivity;
-
-			Quat rotationQuat = Quat::RotateAxisAngle(X, DeltaY);
-
-			Y = rotationQuat * Y;
-			Z = rotationQuat * Z;
-
-			if(Y.y < 0.0f)
-			{
-				Z = float3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-				Y = Z.Cross(X);
-			}
-		}
-
-		Position = Reference + Z * Position.Length();
-	}
+	OrbitSelectedObject(dt);
 
 	LookAt(Reference);
 
@@ -113,7 +82,7 @@ update_status ModuleCamera3D::Update(float dt)
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::Look(const float3&Position, const float3&Reference, bool RotateAroundReference)
+void ModuleCamera3D::Look(const float3& Position, const float3& Reference, bool RotateAroundReference)
 {
 	this->Position = Position;
 	this->Reference = Reference;
@@ -122,7 +91,7 @@ void ModuleCamera3D::Look(const float3&Position, const float3&Reference, bool Ro
 	X = (float3(0.0f, 1.0f, 0.0f).Cross(Z)).Normalized();
 	Y = Z.Cross(X);
 
-	if(!RotateAroundReference)
+	if (!RotateAroundReference)
 	{
 		this->Reference = this->Position;
 		this->Position += Z * 0.05f;
@@ -132,7 +101,7 @@ void ModuleCamera3D::Look(const float3&Position, const float3&Reference, bool Ro
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::LookAt( const float3&Spot)
+void ModuleCamera3D::LookAt(const float3& Spot)
 {
 	Reference = Spot;
 
@@ -145,7 +114,7 @@ void ModuleCamera3D::LookAt( const float3&Spot)
 
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::Move(const float3&Movement)
+void ModuleCamera3D::Move(const float3& Movement)
 {
 	Position += Movement;
 	Reference += Movement;
@@ -161,24 +130,128 @@ float* ModuleCamera3D::GetViewMatrix()
 
 void ModuleCamera3D::FocusCameraToSelectedObject()
 {
-	//TODO
 
-	//float3 focusObjectPosition;
+	float3 focusObjectPosition;
 	//Get the GameObject selected in hierarchy
-	//if(GameObjectSelected != nullptr)
-	//	focusObjectPosition = App->//->HierarchySelectedGameObject->transform->position;
-
-	//LookAt(focusObjectPosition)
+	if (App->hierarchy->objSelected != nullptr)
+	{
+		focusObjectPosition = App->hierarchy->objSelected->transform->getPosition();
+		LookAt(focusObjectPosition);
+	}
 
 }
 
-void ModuleCamera3D::OrbitSelectedObject()
+void ModuleCamera3D::OrbitSelectedObject(float dt)
 {
-	//TODO
-	
-	//Tendriamos que utilizar el mismo codigo del preupdate sobre mouse motion aqui:
+	float3 pivot = float3(0, 0, 0);
+	GameObject* gameObject = App->hierarchy->objSelected;
 
-	//Pero teniendo en cuenta que Reference no es la camera, sino el SelectedObject
+	float3 posGO = { 0, 0, 0 };
+
+	if (gameObject != nullptr)posGO = gameObject->transform->getPosition();
+
+	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
+	{
+		int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();
+		float Sensitivity = 1.35f * dt;
+
+		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
+		{
+
+			if (gameObject != nullptr)
+			{
+				pivot = float3(posGO.x, posGO.y, posGO.z);
+			}
+			else
+			{
+				return;
+			}
+		}
+		else
+		{
+			return;
+		}
+
+		Position -= pivot;
+
+		if (dx != 0)
+		{
+			float DeltaX = (float)dx * Sensitivity;
+
+			X = RotateVector(X, DeltaX, float3(0.0f, 1.0f, 0.0f));
+			Y = RotateVector(Y, DeltaX, float3(0.0f, 1.0f, 0.0f));
+			Z = RotateVector(Z, DeltaX, float3(0.0f, 1.0f, 0.0f));
+		}
+
+		if (dy != 0)
+		{
+			float DeltaY = (float)dy * Sensitivity;
+
+			Y = RotateVector(Y, DeltaY, X);
+			Z = RotateVector(Z, DeltaY, X);
+
+			if (Y.y < 0.0f)
+			{
+				Z = float3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+				Y = Cross(Z, X);
+
+			}
+		}
+		Position = pivot + Z * Length(Position);
+		Reference = pivot;
+
+	}
+
+}
+
+void ModuleCamera3D::RotationAroundCamera(float dt)
+{
+	int dx = -App->input->GetMouseXMotion();
+	int dy = -App->input->GetMouseYMotion();
+
+	float Sensitivity = 1.35f * dt;
+
+	Position -= Reference;
+
+	if (dx != 0)
+	{
+		float DeltaX = (float)dx * Sensitivity;
+
+		float3 rotationAxis(0.0f, 1.0f, 0.0f);
+		Quat rotationQuat = Quat::RotateAxisAngle(rotationAxis, DeltaX);
+
+		X = rotationQuat * X;
+		Y = rotationQuat * Y;
+		Z = rotationQuat * Z;
+	}
+
+	if (dy != 0)
+	{
+		float DeltaY = (float)dy * Sensitivity;
+
+		Quat rotationQuat = Quat::RotateAxisAngle(X, DeltaY);
+
+		Y = rotationQuat * Y;
+		Z = rotationQuat * Z;
+
+		if (Y.y < 0.0f)
+		{
+			Z = float3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
+			Y = Z.Cross(X);
+		}
+	}
+
+	Position = Reference + Z * Position.Length();
+}
+
+float3 ModuleCamera3D::RotateVector(const float3& u, float angle, const float3& v)
+{
+	// Crear un cuaterni�n de rotaci�n a partir del eje y el �ngulo
+	Quat rotationQuat = Quat::RotateAxisAngle(v, angle);
+
+	// Aplicar la rotaci�n al vector
+	return rotationQuat * u;
 }
 
 // -----------------------------------------------------------------

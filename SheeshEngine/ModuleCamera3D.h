@@ -17,19 +17,21 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void Look(const float3 &Position, const float3&Reference, bool RotateAroundReference = false);
-	void LookAt(const float3&Spot);
-	void Move(const float3&Movement);
+	void Look(const float3& Position, const float3& Reference, bool RotateAroundReference = false);
+	void LookAt(const float3& Spot);
+	void Move(const float3& Movement);
 	float* GetViewMatrix();
 	void FocusCameraToSelectedObject();
-	void OrbitSelectedObject();
+	void RotationAroundCamera(float dt);
+	void OrbitSelectedObject(float dt);
+	float3 RotateVector(const float3& u, float angle, const float3& v);
 
 private:
 
 	void CalculateViewMatrix();
 
 public:
-	
+
 	//You won't need this after using Frustum
 	float3 X, Y, Z, Position, Reference;
 

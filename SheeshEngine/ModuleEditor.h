@@ -31,7 +31,7 @@ public:
     std::string ReadFileIO(const char* file);
     void LOGToConsole(const char* text);
 
-    void PrintInspector();
+    
     
 private:
 
