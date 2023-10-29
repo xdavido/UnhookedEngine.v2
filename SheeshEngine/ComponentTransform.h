@@ -2,6 +2,7 @@
 
 #include "Component.h"
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "ImGui/imgui.h"
 #include <vector>
 #include <string>
 
@@ -27,6 +28,9 @@ public:
 	void setRotation(float3 rot);
 	float3 getScale();
 	void setScale(float3 sca);
+
+	void PrintInspector();
+
 
 	
 

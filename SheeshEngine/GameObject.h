@@ -2,14 +2,13 @@
 #include "Module.h"
 #include <vector>
 #include <string>
-#include "Component.h"
-#include "ComponentTransform.h"
-#include "ComponentMesh.h"
+
 
 enum class ComponentType;
 class Component;
 class ComponentTransform;
 class ComponentMesh;
+class ComponentMaterial;
 class GameObject
 {
 public:
@@ -22,11 +21,14 @@ public:
 	void Update();
 	GameObject* GetParent();
 	bool SetNewParent(GameObject* newParent);
+	void PrintInspector();
 	bool CheckChildOf(GameObject* parent);
 	void DeleteChild(GameObject* child);
 
 
 	ComponentMesh* GetMeshComponent();
+
+	ComponentMaterial* GetComponentTexture();
 
 
 	std::string name;

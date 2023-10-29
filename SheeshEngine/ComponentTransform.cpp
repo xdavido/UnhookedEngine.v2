@@ -91,3 +91,23 @@ void ComponentTransform::calculateMatrix()
 
 
 }
+
+void ComponentTransform:: PrintInspector() {
+
+	if (ImGui::CollapsingHeader("Transform"))
+	{
+		ImGui::Text("X\t\t Y\t\t Z");
+		ImGui::InputFloat3("Position", position.ptr());
+
+		ImGui::Text("X\t\t Y\t\t Z");
+		ImGui::InputFloat3("Rotation", rotation.ptr());
+
+		ImGui::Text("X\t\t Y\t\t Z");
+		ImGui::InputFloat3("Scale", scale.ptr());
+	}
+
+
+	calculateMatrix();
+
+
+}

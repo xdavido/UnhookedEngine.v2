@@ -21,7 +21,7 @@ void Component::Update()
 
 }
 
-void Component::OnEditor() {}
+void Component::PrintInspector() {}
 
 void Component::EnableComponent() {}
 

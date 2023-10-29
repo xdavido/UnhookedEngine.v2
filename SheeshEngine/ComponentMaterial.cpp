@@ -49,17 +49,29 @@ void ComponentMaterial::UpdateMeshTexture()
 		return;
 	}
 
-	/*if (textureSelected == 1)
+	if (textureSelected == 1)
 	{
 		componentMesh->mesh->id_texture = App->textures->checkersID;
 		return;
-	}*/
+	}
 	
 	componentMesh->mesh->id_texture = 0;
 
 }
 
-void ComponentMaterial::OnEditor()
+void ComponentMaterial::PrintInspector()
 {
+	const char* listTextures[]{ "Texture", "None", "Checkes" };
+
+	//Texture component inspector
+	if (ImGui::CollapsingHeader("Texture", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth))
+	{
+		ImGui::Text("Texture: ");
+		ImGui::SameLine();
+		ImGui::Combo("##ChoseTexture", &textureSelected, listTextures, IM_ARRAYSIZE(listTextures));
+
+	}
+
+	UpdateMeshTexture();
 
 }

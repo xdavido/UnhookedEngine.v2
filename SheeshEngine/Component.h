@@ -16,7 +16,7 @@ public:
 	Component(GameObject* owner);
 	virtual ~Component();
 
-	virtual void OnEditor();
+	virtual void PrintInspector();
 	virtual void Update();
 
 	void EnableComponent();

@@ -1,7 +1,10 @@
 #pragma once
 #include "Component.h"
-#include "ModuleAssimpMeshes.h"
+
 #include "Application.h"
+#include "ImGui/imgui.h"
+
+struct Mesh;
 
 class ComponentMesh : public Component
 {
@@ -11,5 +14,7 @@ public:
 
 	Mesh* mesh;
 
-	void OnEditor();
+	bool faceNormals;
+
+	void PrintInspector();
 };

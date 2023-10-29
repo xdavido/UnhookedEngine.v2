@@ -1,4 +1,7 @@
 #include "GameObject.h"
+#include "Component.h"
+#include "ComponentTransform.h"
+#include "ComponentMesh.h"
 
 
 GameObject::GameObject()
@@ -103,6 +106,16 @@ ComponentMesh* GameObject::GetMeshComponent()
 	return nullptr;
 }
 
+ComponentMaterial* GameObject::GetComponentTexture()
+{
+	for (size_t i = 0; i < mComponents.size(); i++)
+	{
+		if (mComponents[i]->type == ComponentType::MATERIAL) return (ComponentMaterial*)mComponents[i];
+	}
+	return nullptr;
+}
+
+
 bool GameObject::CheckChildOf(GameObject* parent)
 {
 	if (parent->mChildren.empty()) return false;
@@ -137,4 +150,82 @@ bool GameObject::SetNewParent(GameObject* newParent)
 	newParent->mChildren.push_back(this);
 
 	return true;
+}
+
+
+void GameObject::PrintInspector()
+{
+
+
+	char* listComponenets[]{ "Add Component", "Mesh Component", "Texture Component" };
+	char aux[255] = { ' ' }; 
+
+
+	if (mParent != nullptr)
+	{
+		strcpy(aux, this->name.c_str());
+
+		//name i enable
+		//ImGui::Text(name.c_str());
+		
+
+		ImGui::BulletText("Name:");
+		ImGui::SameLine();
+
+		//input the name of the Game Object
+		ImGui::InputText("##Name", aux, 255, ImGuiInputTextFlags_EnterReturnsTrue);
+
+		if (ImGui::IsKeyDown(ImGuiKey_Enter))
+			name = aux;
+
+		for (size_t i = 0; i < mComponents.size(); i++)
+		{
+			ImGui::Separator();
+
+			mComponents[i]->PrintInspector();
+
+			//strcpy(*listComponenets, components[i]->nameComponent.c_str());
+		}
+
+		ImGui::Separator();
+		ImGui::Text("");
+		ImGui::Text("");
+		ImGui::Text("");
+
+		ImGui::Text("");
+		ImGui::SameLine(ImGui::GetWindowWidth() / 6);
+		//if (ImGui::Combo("##AddComponent", &componentNum, listComponenets, 3)) //number of total components u can give to a GO
+		//{
+		//	switch (componentNum) {
+		//	case 1:
+		//	{
+		//		//Mesh component
+		//		if (GetMeshComponent() == nullptr) {
+		//			ComponentMesh* cm = new ComponentMesh();
+		//			AddComponent(cm);
+		//		}
+		//		else {
+		//			LOG("Mesh Component already added, can't duplicate.")
+		//		}
+		//	}
+		//	break;
+		//	case 2:
+		//	{
+		//		//Texture component
+		//		if (GetTextureComponent() == nullptr) {
+		//			ComponentTexture* ct = new ComponentTexture();
+		//			AddComponent(ct);
+		//		}
+		//		else {
+		//			LOG("Texture Component already added, can't duplicate.")
+		//		}
+		//	}
+		//	break;
+		//	}
+		//	componentNum = 0;
+		//}
+
+	}
+
+
 }

@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "ModuleAssimpMeshes.h"
 #include "ComponentMesh.h"
+#include "ImGui/imgui.h"
 #include <string>
 
 
@@ -16,7 +17,7 @@ public:
 	void ResetTexture();
 	void UpdateMeshTexture();
 
-	void OnEditor();
+	void PrintInspector();
 
 
 	GLuint textureID = 0;

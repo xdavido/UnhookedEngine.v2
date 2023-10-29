@@ -232,6 +232,19 @@ void ModuleEditor::DrawEditor()
         ImGui::EndMainMenuBar();
     }
 
+    if (App->hierarchy->objSelected) {
+
+        if (ImGui::Begin("Inspector")) {
+            ;
+            App->hierarchy->objSelected->PrintInspector();
+        }
+        ImGui::End();
+      
+    }
+
+  
+
+
     if (ImGui::Begin("GameObjects Hierarchy")) {
 
         App->hierarchy->GameObjectTree(App->scene->root, 0);
@@ -663,6 +676,8 @@ void ModuleEditor::LOGToConsole(const char* text) {
     logs->push_front(aux);
 
 }
+
+
 
 
 
