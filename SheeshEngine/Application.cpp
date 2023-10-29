@@ -43,6 +43,7 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	maxFrameRate = 60;
 
 	// Call Init() in all modules
 	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret; ++it)
@@ -76,19 +77,14 @@ void Application::FinishUpdate()
 	{
 		msLastFrame = ms_timer.Read();
 
-		float timeToWait = 1000.0f / maxFrameRate;
+		float timeToWait = 1000.0f / (float)maxFrameRate;
 
 		if (msLastFrame < timeToWait)
-			SDL_Delay(timeToWait - msLastFrame);
+			SDL_Delay(static_cast<Uint32>(fabs(timeToWait - msLastFrame)));
 
 		msLastFrame = ms_timer.Read();
 
 	}
-
-	//Si no funciona de esta manera, comentar estas dos lineas y descomentar el UpdatePlot de moduleEditor.cpp y probar a ver
-	App->editor->AddMs(msLastFrame);
-	App->editor->AddFPS(1000.0f / msLastFrame);
-	
 
 }
 

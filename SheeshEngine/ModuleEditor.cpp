@@ -158,10 +158,7 @@ void ModuleEditor::DrawEditor()
 
     ImGui::End();
 
-    /*AddFPS(1 / App->dt);
-    AddMs(App->dt * 1000.0f);*/
-
-    //UpdatePlots();
+    UpdatePlots();
 
     ImGuiIO& io = ImGui::GetIO();
 
@@ -225,19 +222,20 @@ void ModuleEditor::DrawEditor()
 
         if (ImGui::BeginMenu("Configuration"))
         {
-            ImGui::Text("Vsync");
             if (ImGui::Checkbox("Vsync", &vsync))
             {
                 App->renderer3D->SetVsync(vsync);
             }
 
-            ImGui::Text("FPS");
-            std::string fps = std::to_string(AverageFPS(mFPSLog));
+            std::string fps = std::to_string(AverageValueFloatVector(mFPSLog));
             std::string fpsText = "Average FPS: " + fps;
             ImGui::Text(fpsText.c_str());
-            
-            //ImGui::PlotHistogram("FPS", mFPSLog.data(), mFPSLog.size(), 0, NULL, 0.0f, 100.0f, ImVec2(310,80));
-            ImGui::PlotHistogram("FPS", &mFPSLog[0], mFPSLog.size(), 0, NULL, 0.0f, 100.0f, ImVec2(450, 100));
+            ImGui::PlotHistogram("FPS", &mFPSLog[0], mFPSLog.size(), 0, "FPS", 0.0f, 100.0f, ImVec2(450, 100));
+
+
+            std::string ms = std::to_string(AverageValueFloatVector(mMsLog));
+            std::string msText = "Average Miliseconds: " + ms;
+            ImGui::Text(msText.c_str());
             ImGui::PlotHistogram("Ms.", &mMsLog[0], mMsLog.size(), 0, "Miliseconds", 0.0f, 100.0f, ImVec2(450, 100));
 
 
@@ -648,6 +646,14 @@ void ModuleEditor::URLButton(const char* url)
 #endif
 }
 
+void ModuleEditor::UpdatePlots()
+{
+    AddMs(1000.0 * App->GetDt());
+    AddFPS(App->GetFrameRate());
+    
+}
+
+
 void ModuleEditor::AddFPS(const float aFPS)
 {
 
@@ -715,7 +721,7 @@ std::string ModuleEditor::ReadFileIO(const char* filePath)
     return contenido;
 }
 
-float ModuleEditor::AverageFPS(const std::vector<float>& fps)
+float ModuleEditor::AverageValueFloatVector(const std::vector<float>& fps)
 {
     if (fps.empty()) {
         return std::numeric_limits<float>::quiet_NaN();
@@ -729,6 +735,8 @@ float ModuleEditor::AverageFPS(const std::vector<float>& fps)
     float average = total / fps.size();
     return std::round(average * 10) / 10.0f;
 }
+
+
 
 void ModuleEditor::LOGToConsole(const char* text) {
 
@@ -754,14 +762,6 @@ void ModuleEditor::LOGToConsole(const char* text) {
     logs->push_front(aux);
 
 }
-
-void ModuleEditor::UpdatePlots()
-{
-    AddMs(App->GetFrameRate());
-
-    AddFPS(1000.0f * App->GetDt());
-}
-
 
 
 

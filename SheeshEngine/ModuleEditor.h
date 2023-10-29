@@ -26,12 +26,13 @@ public:
     bool CleanUp();
     void AddFPS(const float aFPS);
     void AddMs(const float aFPS);
-    float AverageFPS(const std::vector<float>& fps);
+    float AverageValueFloatVector(const std::vector<float>& fps);
+    
 
     std::string ReadFileIO(const char* file);
     void LOGToConsole(const char* text);
 
-    
+    void PushBackLog(std::vector<float>* log, float current);
     
 private:
 
