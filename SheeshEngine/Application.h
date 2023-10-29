@@ -50,6 +50,9 @@ public:
 
 	void LOGToEditor(const char* text);
 
+	float GetDt() const { return dt; }
+	float GetFrameRate() const { return 1.f / dt; }
+
 private:
 
 	void AddModule(Module* mod);

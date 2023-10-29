@@ -85,8 +85,8 @@ void Application::FinishUpdate()
 
 	}
 
+	//Si no funciona de esta manera, comentar estas dos lineas y descomentar el UpdatePlot de moduleEditor.cpp y probar a ver
 	App->editor->AddMs(msLastFrame);
-
 	App->editor->AddFPS(1000.0f / msLastFrame);
 	
 
