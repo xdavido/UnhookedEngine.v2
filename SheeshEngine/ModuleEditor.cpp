@@ -10,6 +10,7 @@
 #include "parson.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleHierarchy.h"
 
 #include "Assimp/include/ai_assert.h"
 
@@ -231,7 +232,13 @@ void ModuleEditor::DrawEditor()
         ImGui::EndMainMenuBar();
     }
 
-    
+    if (ImGui::Begin("GameObjects Hierarchy")) {
+
+        App->hierarchy->GameObjectTree(App->scene->root, 0);
+
+
+    }
+    ImGui::End();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

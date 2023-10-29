@@ -1,49 +1,40 @@
 #pragma once
-#include "ComponentTransform.h"
-#include "ModuleAssimpMeshes.h"
+#include "Module.h"
 #include <vector>
 #include <string>
+#include "Component.h"
+#include "ComponentTransform.h"
+#include "ComponentMesh.h"
 
 enum class ComponentType;
 class Component;
 class ComponentTransform;
 class ComponentMesh;
-
 class GameObject
 {
 public:
+
+	GameObject();
 	GameObject(GameObject* parent);
 	~GameObject();
 
+	void AddComponent(ComponentType type);
 	void Update();
-
 	GameObject* GetParent();
-	void SetParent(GameObject* parent);
-	
-	std::vector<GameObject*> GetChildren();
-	void AddChild(GameObject* child);
-
-	std::vector<Component*> GetComponents();
-	void CreateComponent(ComponentType type);
-
+	bool SetNewParent(GameObject* newParent);
+	bool CheckChildOf(GameObject* parent);
 	void DeleteChild(GameObject* child);
 
-	bool ChangeParent(GameObject* NewParent);
 
-	bool CheckChildOf(GameObject* parent);
+	ComponentMesh* GetMeshComponent();
 
-	ComponentMesh* GetComponentMesh();
-	
 
-public:
 	std::string name;
+
+	GameObject* mParent;
+	std::vector<GameObject*> mChildren;
+	std::vector<Component*> mComponents;
+
 	ComponentTransform* transform;
 
-
-private:
-	GameObject* mParent;
-	std::vector<GameObject*>	mChildren;
-	std::vector<Component*>		mComponents;
-	
-	 
 };

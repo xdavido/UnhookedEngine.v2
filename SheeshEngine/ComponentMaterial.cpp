@@ -38,7 +38,7 @@ void ComponentMaterial::ResetTexture()
 
 void ComponentMaterial::UpdateMeshTexture()
 {
-	ComponentMesh* componentMesh = mOwner->GetComponentMesh();
+	ComponentMesh* componentMesh = mOwner->GetMeshComponent();
 
 	if (componentMesh == nullptr)
 		return;

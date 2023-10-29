@@ -18,6 +18,12 @@ public:
 
 	GameObject* CreateGameObject(GameObject* parent);
 	GameObject* root = nullptr;
+	GameObject* prova1;
+	GameObject* prova2;
+	GameObject* prova3;
+	GameObject* prova4;
+	GameObject* prova5;
+	GameObject* prova6;
 
 private:
 	

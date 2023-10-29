@@ -21,6 +21,13 @@ bool ModuleScene::Start() {
     root = new GameObject(nullptr);
     root->name = ("Scene");
 
+    prova1 = new GameObject(root);
+    prova2 = new GameObject(prova1);
+    prova3 = new GameObject(prova1);
+    prova4 = new GameObject(root);
+    prova5 = new GameObject(prova4);
+    prova6 = new GameObject(prova4);
+
     //Load Baker House
     /*App->assimpMeshes->LoadMeshFromFile("Assets/Models/BakerHouse.fbx");
     App->textures->LoadTexture("Assets/Baker_house.png");*/
@@ -56,8 +63,6 @@ GameObject* ModuleScene::CreateGameObject(GameObject* parent)
     GameObject* newGameObject = new GameObject(parent);
 
 
-    if (parent != nullptr)
-        parent->AddChild(newGameObject);
 
     return newGameObject;
 

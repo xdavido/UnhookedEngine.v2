@@ -73,18 +73,7 @@ update_status ModuleHierarchy::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModuleHierarchy::DrawHierarchy()
-{
-	if (ImGui::Begin("GameObjects Hierarchy")) {
 
-		GameObjectTree(App->scene->root, 0);
-		
-		
-	}
-	ImGui::End();
-
-
-}
 
 void ModuleHierarchy::GameObjectTree(GameObject* obj, int index)
 {
@@ -103,7 +92,7 @@ void ModuleHierarchy::GameObjectTree(GameObject* obj, int index)
 		flag_TNode |= ImGuiTreeNodeFlags_Selected;
 	}
 
-	if (obj->GetChildren().size() != 0)
+	if (obj->mChildren.size() != 0)
 		isSelected = ImGui::TreeNodeEx((void*)(intptr_t)index, flag_TNode, obj->name.c_str(), index);
 
 	else {
@@ -111,23 +100,26 @@ void ModuleHierarchy::GameObjectTree(GameObject* obj, int index)
 		ImGui::TreeNodeEx((void*)(intptr_t)index, flag_TNode, obj->name.c_str(), index);
 		isSelected = false;
 	}
+	if (obj->GetParent() != nullptr) {
 
-	if (ImGui::BeginDragDropSource())
-	{
-		ImGui::SetDragDropPayload("GameObject", obj, sizeof(GameObject*));
-
-		TargetDropped = obj;
-		ImGui::Text("Changing...");
-		ImGui::EndDragDropSource();
-	}
-
-	if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
-	{
-		objHovered = obj;
-		if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+		if (ImGui::BeginDragDropSource())
 		{
-			SetGameObject(obj);
+			ImGui::SetDragDropPayload("GameObject", obj, sizeof(GameObject*));
+
+			TargetDropped = obj;
+			ImGui::Text("Changing...");
+			ImGui::EndDragDropSource();
 		}
+
+		if (ImGui::IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
+		{
+			objHovered = obj;
+			if (ImGui::IsMouseClicked(ImGuiMouseButton_::ImGuiMouseButton_Left))
+			{
+				SetGameObject(obj);
+			}
+		}
+
 	}
 
 	if (ImGui::IsWindowHovered())
@@ -146,7 +138,7 @@ void ModuleHierarchy::GameObjectTree(GameObject* obj, int index)
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GameObject")) {
 
 			/*if (!TargetDropped->fixed || !objHovered->fixed) {*/
-				TargetDropped->ChangeParent(objHovered);
+				TargetDropped->SetNewParent(objHovered);
 			/*}*/
 		}
 		ImGui::EndDragDropTarget();
@@ -154,10 +146,10 @@ void ModuleHierarchy::GameObjectTree(GameObject* obj, int index)
 
 	if (isSelected)
 	{
-		if (!obj->GetChildren().empty()) {
-			for (unsigned int i = 0; i < obj->GetChildren().size(); i++)
+		if (!obj->mChildren.empty()) {
+			for (unsigned int i = 0; i < obj->mChildren.size(); i++)
 			{
-				GameObjectTree(obj->GetChildren()[i], i);
+				GameObjectTree(obj->mChildren[i], i);
 			}
 		}
 		ImGui::TreePop();

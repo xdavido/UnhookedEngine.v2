@@ -1,131 +1,140 @@
 #include "GameObject.h"
-#include "Globals.h"
-
-#include "ComponentTransform.h"
-#include "ComponentMesh.h"
-#include "ComponentMaterial.h"
 
 
-GameObject::GameObject(GameObject* parent)
+GameObject::GameObject()
 {
-    name = "Game Object";
-    mParent = parent;
-    
-    if (parent != nullptr) { parent->mChildren.push_back(this); }
+	name = "GameObject";
+	mParent = nullptr;
+	transform = new ComponentTransform();
 
-    
-    transform = new ComponentTransform();
-    mComponents.push_back(transform);
+	mComponents.push_back(transform);
 }
-
 
 GameObject::~GameObject()
 {
-    // Delete all childrens
-    RELEASE_VECTOR(mChildren, mChildren.size());
-    mChildren.clear();
+	name = "";
+	mParent = nullptr;
+	transform = nullptr;
 
-    // Delete all components
-    RELEASE_VECTOR(mComponents, mComponents.size());
-    mComponents.clear();
+	// pilota (delete del reves?)
 
-   
+	for (size_t i = 0; i < mComponents.size(); ++i)
+	{
+		delete mComponents[i];
+		mComponents[i] = nullptr;
+	}
 
-    transform = nullptr;
-    mParent = nullptr;
+	for (size_t i = 0; i < mChildren.size(); ++i)
+	{
+		delete mChildren[i];
+		mChildren[i] = nullptr;
+	}
+	/*for (size_t i = mComponents.size(); i >= 0; --i)
+	{
+		delete mComponents[i];
+		mComponents[i] = nullptr;
+	}
+
+	for (size_t i = mChildren.size(); i >= 0; --i)
+	{
+		delete mChildren[i];
+		mChildren[i] = nullptr;
+	}*/
+
+	mComponents.clear();
 }
+
+GameObject::GameObject(GameObject* parent)
+{
+	name = "GameObject";
+	this->mParent = parent;
+
+	if (parent != nullptr)
+	{
+		parent->mChildren.push_back(this);
+	}
+
+	transform = new ComponentTransform();
+
+	mComponents.push_back(transform);
+}
+
+void GameObject::AddComponent(ComponentType type)
+{
+	Component* newComponent = new Component(this);
+
+	newComponent->type = type;
+	newComponent->isActive = true;
+
+	mComponents.push_back(newComponent);
+
+	delete newComponent;
+}
+
 
 void GameObject::Update()
 {
-    for (size_t i = 0; i < mChildren.size(); i++)
-    {
-        mChildren[i]->Update();
-    }
+	// No tots els children o components tenen un update
+	for (size_t i = 0; i < mChildren.size(); ++i)
+	{
+		mChildren[i]->Update();
+	}
 
-    for (size_t i = 0; i < mComponents.size(); i++)
-    {
-        mComponents[i]->Update();
-    }
+	for (size_t i = 0; i < mComponents.size(); ++i)
+	{
+		mComponents[i]->Update();
+	}
 }
 
-GameObject* GameObject::GetParent() {
-    return mParent;
-}
-
-void GameObject::SetParent(GameObject* parent) {
-    mParent = parent;
-}
-
-std::vector<GameObject*> GameObject::GetChildren() {
-    return mChildren;
-}
-
-void GameObject::AddChild(GameObject* child) {
-    mChildren.push_back(child);
-}
-
-std::vector<Component*> GameObject::GetComponents() {
-    return mComponents;
-}
-
-void GameObject::CreateComponent(ComponentType type) {
-    
-    Component* newComponent = new Component(this);
-
-    newComponent->type = type;
-    newComponent->isActive = true;
-
-    mComponents.push_back(newComponent);
-
-    delete newComponent;
-
-}
-void GameObject::DeleteChild(GameObject* child)
+GameObject* GameObject::GetParent()
 {
-    for (int i = 0; i < GetChildren().size(); i++) {
-        if (GetChildren()[i] == child) {
-            GetChildren().erase(GetChildren().begin() + i);
-            child->mParent = nullptr;
-        }
-    }
+	return mParent;
 }
 
-
-bool GameObject::ChangeParent(GameObject* NewParent)
+ComponentMesh* GameObject::GetMeshComponent()
 {
-    if (mParent != nullptr) {
-        if (NewParent->CheckChildOf(this)) return false;
-
-        mParent->DeleteChild(this);
-    }
-
-    mParent = NewParent;
-    NewParent->GetChildren().push_back(this);
-
-    return true;
+	for (size_t i = 0; i < mComponents.size(); i++)
+	{
+		if (mComponents[i]->type == ComponentType::MESH)
+		{
+			return (ComponentMesh*)mComponents[i];
+		}
+	}
+	return nullptr;
 }
 
 bool GameObject::CheckChildOf(GameObject* parent)
 {
-    if (parent->GetChildren().empty()) return false;
+	if (parent->mChildren.empty()) return false;
 
-    for (int i = 0; i < parent->GetChildren().size(); i++) {
+	for (int i = 0; i < parent->mChildren.size(); i++) {
 
-        if (GetChildren()[i] == this) return true;
+		if (mChildren[i] == this) return true;
 
-    }
-    return false;
+	}
+	return false;
 }
 
-ComponentMesh* GameObject::GetComponentMesh()
+void GameObject::DeleteChild(GameObject* child)
 {
+	for (int i = 0; i < mChildren.size(); i++) {
+		if (mChildren[i] == child) {
+			mChildren.erase(mChildren.begin() + i);
+			child->mParent = nullptr;
+		}
+	}
+}
 
-    for (size_t i = 0; i < mComponents.size(); i++)
-    {
-        if (mComponents[i]->type == ComponentType::MESH) {
-            return (ComponentMesh*)mComponents[i];
-        }
-    }
+bool GameObject::SetNewParent(GameObject* newParent)
+{
+	if (mParent != nullptr) {
+		if (newParent->CheckChildOf(this)) return false;
 
-    return nullptr;
+		mParent->DeleteChild(this);
+	}
+
+	mParent = newParent;
+	newParent->mChildren.push_back(this);
+
+	return true;
 }
