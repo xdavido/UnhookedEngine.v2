@@ -42,15 +42,15 @@ GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
 
 
     
-    if (scene->HasMeshes() && scene != nullptr)
+    if (scene != nullptr&& scene->HasMeshes())
     {
         GameObject* OBJ = new GameObject(App->scene->root);
         for (int i = 0; i < scene->mNumMeshes; i++)
         {
-            GameObject* childGameObject = new GameObject();
-            OBJ->SetAsChildOf(childGameObject);
-            childGameObject->name = "Mesh_" + std::to_string(i);
-            ImportAssimpMesh(scene->mMeshes[i],OBJ, childGameObject,scene,i);
+            GameObject* obj = new GameObject();
+            OBJ->SetAsChildOf(obj);
+            obj->name = "Mesh_" + std::to_string(i);
+            ImportAssimpMesh(scene->mMeshes[i],OBJ, obj,           scene,i);
         }
         
         aiReleaseImport(scene);
