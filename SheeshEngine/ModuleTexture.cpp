@@ -53,7 +53,7 @@ bool ModuleTexture::Start()
 		0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);
 
 	//Mipmap can be added or not
-	glGenerateMipmap(GL_TEXTURE_2D);
+	//glGenerateMipmap(GL_TEXTURE_2D);
 
 	//cleaning texture
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -73,11 +73,12 @@ bool ModuleTexture::Start()
 
 bool ModuleTexture::CreateTexture(GLuint* imgData, GLuint width, GLuint height)
 {
-	//Clean textures if there is another
+	// Clear any existing textures
 	CleanTexture();
     textureWidth = width;
 	textureHeight = height;
 		
+	// Enable 2D texture and set active texture unit
 	glEnable(GL_TEXTURE_2D);
 	glActiveTexture(GL_TEXTURE0);
 
@@ -86,19 +87,22 @@ bool ModuleTexture::CreateTexture(GLuint* imgData, GLuint width, GLuint height)
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
-	//How texture behaves outside 0,1 range (S->x, T->y)
+	// Define texture wrap behavior outside the 0-1 range (S->x, T->y)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); //GL_CLAMP
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	//Texture behaviour after resize (MIN->smaller , MAG->bigger)
+	// Define texture behavior after resizing (MIN->smaller, MAG->bigger)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-	//Generate the texture
+	// Generate the texture with image data
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
 		0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
 
-	//unbind texture
+	//Mipmap can be added or not
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	// Unbind the texture and disable 2D texture mode
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 	return true;
