@@ -4,12 +4,10 @@
 
 ModuleAssimpMeshes::ModuleAssimpMeshes(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-
 }
 
 ModuleAssimpMeshes::~ModuleAssimpMeshes()
 {
-
 }
 
 bool ModuleAssimpMeshes::Init()
@@ -38,17 +36,15 @@ void ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
 {
     const aiScene* scene = aiImportFile(file_path, aiProcess_Triangulate|aiProcess_FlipUVs);
 
-    // Si la escena té meshes
-    if (scene != nullptr && scene->HasMeshes())
+    
+    if (scene->HasMeshes() && scene != nullptr)
     {
 
-        // ProcessNode here?
         for (int i = 0; i < scene->mNumMeshes; i++)
         {
             ImportAssimpMesh(scene->mMeshes[i]);
         }
-
-        // Use scene->mNumMeshes to iterate on scene->mMeshes array
+        
         aiReleaseImport(scene);
     }
     else
@@ -61,9 +57,11 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh)
 {
     Mesh* ourMesh = new Mesh();
 
-    std::string assimpMeshName("Importing Assing Mesh: ");
-    assimpMeshName += aiMesh->mName.C_Str();
+    // Log the mesh name
+    std::string assimpMeshName = "Importing Assimp Mesh: " + std::string(aiMesh->mName.C_Str());
     LOG(assimpMeshName.c_str());
+
+
       
     ourMesh->vertexCount = aiMesh->mNumVertices;
     ourMesh->vertex = new float[ourMesh->vertexCount * VERTEX];
@@ -72,23 +70,20 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh)
     memcpy(ourMesh->vertexNormalFaces, aiMesh->mVertices, sizeof(float) * ourMesh->vertexCount * 3);
 
     for (int v = 0; v < ourMesh->vertexCount; v++) {    
-        //vertices
         ourMesh->vertex[v * VERTEX] = aiMesh->mVertices[v].x;
         ourMesh->vertex[v * VERTEX + 1] = aiMesh->mVertices[v].y;
         ourMesh->vertex[v * VERTEX + 2] = aiMesh->mVertices[v].z;
 
-        //uvs
         ourMesh->vertex[v * VERTEX + 3] = aiMesh->mTextureCoords[0][v].x;
         ourMesh->vertex[v * VERTEX + 4] = aiMesh->mTextureCoords[0][v].y;
     }
-
-
 
     // Load faces
     if (aiMesh->HasFaces())     
     {
         ourMesh->indexCount = aiMesh->mNumFaces * 3;
-        ourMesh->index = new uint[ourMesh->indexCount]; // assume each face is a triangle
+        // assume each face is a triangle
+        ourMesh->index = new uint[ourMesh->indexCount]; 
 
         for (uint i = 0; i < aiMesh->mNumFaces; ++i)
         {
