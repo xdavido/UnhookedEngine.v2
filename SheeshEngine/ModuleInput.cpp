@@ -112,12 +112,12 @@ update_status ModuleInput::PreUpdate(float dt)
 				extension = e.drop.file;
 				extension = extension.substr(extension.find_last_of(".") + 1);
 
-				if (extension == "fbx") {
+				if (extension == "fbx" || "FBX") {
 					
 					App->assimpMeshes->LoadMeshFromFile(dropped_filedir);
 
 				}
-				else if (extension == "png" || extension == "dds")
+				else if (extension == "png" || extension == "dds" || extension == "PNG" || extension == "DDS")
 				{
 					App->textures->LoadTexture(dropped_filedir);
 				}
