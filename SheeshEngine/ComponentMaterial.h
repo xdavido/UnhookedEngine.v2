@@ -10,6 +10,7 @@
 class ComponentMaterial : public Component
 {
 public:
+	ComponentMaterial();
 	ComponentMaterial(GameObject* owner);
 	~ComponentMaterial();
 

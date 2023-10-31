@@ -2,6 +2,10 @@
 #pragma once
 #include "ComponentMaterial.h"
 
+ComponentMaterial::ComponentMaterial() : Component(nullptr)
+{
+
+}
 ComponentMaterial::ComponentMaterial(GameObject* owner) : Component(owner)
 {
 	type = ComponentType::MATERIAL;

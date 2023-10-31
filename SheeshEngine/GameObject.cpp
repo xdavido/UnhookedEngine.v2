@@ -62,16 +62,10 @@ GameObject::GameObject(GameObject* parent)
 	mComponents.push_back(transform);
 }
 
-void GameObject::AddComponent(ComponentType type)
+void GameObject::AddComponent(Component* component)
 {
-	Component* newComponent = new Component(this);
-
-	newComponent->type = type;
-	newComponent->isActive = true;
-
-	mComponents.push_back(newComponent);
-
-	delete newComponent;
+	mComponents.push_back(component);
+	component->mOwner = this;
 }
 
 
@@ -118,12 +112,17 @@ ComponentMaterial* GameObject::GetComponentTexture()
 
 bool GameObject::CheckChildOf(GameObject* parent)
 {
-	if (parent->mChildren.empty()) return false;
-
-	for (int i = 0; i < parent->mChildren.size(); i++) {
-
-		if (mChildren[i] == this) return true;
-
+	if (parent == this)
+	{
+		return true;
+	}
+	if (parent->mChildren.empty())
+	{
+		return false;
+	}
+	for (size_t i = 0; i < parent->mChildren.size(); i++)
+	{
+		if (CheckChildOf(parent->mChildren[i])) return true;
 	}
 	return false;
 }
@@ -149,6 +148,17 @@ bool GameObject::SetNewParent(GameObject* newParent)
 	mParent = newParent;
 	newParent->mChildren.push_back(this);
 
+	return true;
+}
+
+bool GameObject::SetAsChildOf(GameObject* gameObject)
+{
+	if (CheckChildOf(gameObject))
+	{
+		return false;
+	}
+	gameObject->mParent = this;
+	mChildren.push_back(gameObject);
 	return true;
 }
 

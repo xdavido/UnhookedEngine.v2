@@ -336,6 +336,9 @@
     <ClInclude Include="ModuleHierarchy.h">
       <Filter>Sources\Modules\Header</Filter>
     </ClInclude>
+    <ClInclude Include="OurPrimitive.h">
+      <Filter>Sources\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="log.cpp">
@@ -526,6 +529,9 @@
     </ClCompile>
     <ClCompile Include="ModuleHierarchy.cpp">
       <Filter>Sources\Modules\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="OurPrimitive.cpp">
+      <Filter>Sources\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

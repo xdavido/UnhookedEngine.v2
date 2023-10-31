@@ -11,6 +11,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleHierarchy.h"
+#include "OurPrimitive.h"
 
 #include "Assimp/include/ai_assert.h"
 #include "Assimp/include/version.h"
@@ -178,42 +179,43 @@ void ModuleEditor::DrawEditor()
         {
 
             if (ImGui::MenuItem(" CUBE  ")) {
-
+                
+                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
             }
 
             if (ImGui::MenuItem(" PLANE "))
             {
-
+                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
             }
 
             if (ImGui::MenuItem(" SPHERE  "))
             {
-
+                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
             }
 
             if (ImGui::MenuItem(" ICOSPHERE  "))
             {
-
+                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
             }
 
             if (ImGui::MenuItem(" PYRAMID  "))
             {
-
+                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
             }
 
             if (ImGui::MenuItem(" CYLINDER  "))
             {
-
+                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
             }
 
             if (ImGui::MenuItem(" TORUS  "))
             {
-
+                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
             }
 
             if (ImGui::MenuItem(" SUZZANE  "))
             {
-
+                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
             }
 
 

@@ -7,6 +7,7 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include"Glew/include/glew.h"
+#include "GameObject.h"
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
 
@@ -26,6 +27,9 @@ struct Mesh {
     float* vertexNormalFaces = nullptr;
 
     aiVector3D* vertexNormals = nullptr; 
+
+    GameObject* owner;
+
 
     uint VAO;
     uint VBO;
@@ -52,8 +56,8 @@ public:
     bool Init() override;
     bool Start() override;
     bool CleanUp() override;
-    void LoadMeshFromFile(const char* file_path);
-    void ImportAssimpMesh(aiMesh* aiMesh);
+    GameObject* LoadMeshFromFile(const char* file_path);
+    void ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObject, GameObject* CgameObject, const aiScene* scene, int index);
     void BufferMesh(Mesh* mesh);
     void RenderScene();
 

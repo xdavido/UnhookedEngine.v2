@@ -1,5 +1,9 @@
 #include "ComponentMesh.h"
 
+ComponentMesh::ComponentMesh() : Component(nullptr)
+{
+
+}
 ComponentMesh::ComponentMesh(GameObject* owner) : Component(owner)
 {
 	mOwner = owner;

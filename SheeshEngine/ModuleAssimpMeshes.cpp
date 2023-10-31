@@ -1,6 +1,9 @@
 #include "ModuleAssimpMeshes.h"
 #include "Application.h"
 #include "ModuleTexture.h"
+#include"GameObject.h"
+#include"ComponentMesh.h"
+#include"ComponentMaterial.h"
 
 ModuleAssimpMeshes::ModuleAssimpMeshes(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -32,28 +35,36 @@ bool ModuleAssimpMeshes::Start()
 
 
 
-void ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
+GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
 {
     const aiScene* scene = aiImportFile(file_path, aiProcess_Triangulate|aiProcess_FlipUVs);
+
+
 
     
     if (scene->HasMeshes() && scene != nullptr)
     {
-
+        GameObject* OBJ = new GameObject(App->scene->root);
         for (int i = 0; i < scene->mNumMeshes; i++)
         {
-            ImportAssimpMesh(scene->mMeshes[i]);
+            GameObject* childGameObject = new GameObject();
+            OBJ->SetAsChildOf(childGameObject);
+            childGameObject->name = "Mesh_" + std::to_string(i);
+            ImportAssimpMesh(scene->mMeshes[i],OBJ, childGameObject,scene,i);
         }
         
         aiReleaseImport(scene);
+
+        return OBJ;
     }
     else
     {
         LOG("Error loading scene: %s", file_path);
     }
+    
 }
 
-void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh)
+void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObject, GameObject* CgameObject, const aiScene* scene, int index)
 {
     Mesh* ourMesh = new Mesh();
 
@@ -106,9 +117,31 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh)
 
         BufferMesh(ourMesh);
 
+        ComponentMesh* meshComp = new ComponentMesh();
+        ourMesh->owner = CgameObject;
+        meshComp->mesh = ourMesh;
+        CgameObject->AddComponent(meshComp);
 
         //Add mesh to meshes vector
         meshes.push_back(ourMesh);
+
+        //Has a texture
+        if (scene->HasMaterials()) {
+            if (scene->mMaterials[scene->mMeshes[index]->mMaterialIndex]->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
+                //Get texture path
+                aiString texture_path;
+                scene->mMaterials[scene->mMeshes[index]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
+                aiString new_path;
+                new_path.Set("Assets/Textures/");
+                new_path.Append(texture_path.C_Str());
+
+                //Build component
+                ComponentMaterial* matComp = new ComponentMaterial();
+                matComp->mOwner = CgameObject;
+                matComp->SetTexture(new_path.C_Str());
+                CgameObject->AddComponent(matComp);
+            }
+        }
 
     }
     else

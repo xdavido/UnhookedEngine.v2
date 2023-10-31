@@ -9,6 +9,7 @@ struct Mesh;
 class ComponentMesh : public Component
 {
 public:
+	ComponentMesh();
 	ComponentMesh(GameObject* owner);
 	~ComponentMesh();
 

@@ -17,10 +17,11 @@ public:
 	GameObject(GameObject* parent);
 	~GameObject();
 
-	void AddComponent(ComponentType type);
+	void AddComponent(Component* component);
 	void Update();
 	GameObject* GetParent();
 	bool SetNewParent(GameObject* newParent);
+	bool GameObject::SetAsChildOf(GameObject* gameObject);
 	void PrintInspector();
 	bool CheckChildOf(GameObject* parent);
 	void DeleteChild(GameObject* child);
