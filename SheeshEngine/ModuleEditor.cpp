@@ -450,6 +450,8 @@ void ModuleEditor::RenderCollapsingHeader()
                 App->renderer3D->SetLightingAttribute(lighting);
             }
 
+            ImGui::Spacing();
+
             ImGui::TableNextColumn();
             if (ImGui::Checkbox("GL_COLOR_MATERIAL", &coloMaterial))
             {
@@ -467,6 +469,8 @@ void ModuleEditor::RenderCollapsingHeader()
             {
                 App->renderer3D->SetBlendAttribute(blend);
             }
+
+            ImGui::Spacing();
 
             ImGui::TableNextColumn();
             if (ImGui::Checkbox("GL_ALPHA_TEST", &alphaTest))
@@ -499,6 +503,8 @@ void ModuleEditor::RenderCollapsingHeader()
             }
 
             ImGui::Spacing();
+
+   
             ImGui::EndTable();
         }
     }

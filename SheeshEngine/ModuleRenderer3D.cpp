@@ -471,7 +471,7 @@ void ModuleRenderer3D::SetDepthTestAttribute(bool enable) {
 void ModuleRenderer3D::SetCullFaceAttribute(bool enable) {
 	cullFaceAttribute = enable;
 
-	depthTestAttribute ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
+	cullFaceAttribute ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
 
 	std::string aux = "Renderer cullFaceAttribute updated to: " + std::string(enable ? "true" : "false");
 	LOG(aux.c_str());
@@ -480,7 +480,7 @@ void ModuleRenderer3D::SetCullFaceAttribute(bool enable) {
 void ModuleRenderer3D::SetLightingAttribute(bool enable) {
 	lightingAttribute = enable;
 
-	depthTestAttribute ? glEnable(GL_LIGHTING) : glDisable(GL_LIGHTING);
+	lightingAttribute ? glEnable(GL_LIGHTING) : glDisable(GL_LIGHTING);
 
 	std::string aux = "Renderer lightingAttribute updated to: " + std::string(enable ? "true" : "false");
 	LOG(aux.c_str());
@@ -489,7 +489,7 @@ void ModuleRenderer3D::SetLightingAttribute(bool enable) {
 void ModuleRenderer3D::SetColorMaterialAttribute(bool enable) {
 	colorMaterialAttribute = enable;
 
-	depthTestAttribute ? glEnable(GL_COLOR_MATERIAL) : glDisable(GL_COLOR_MATERIAL);
+	colorMaterialAttribute ? glEnable(GL_COLOR_MATERIAL) : glDisable(GL_COLOR_MATERIAL);
 
 	std::string aux = "Renderer coloMaterialAttribute updated to: " + std::string(enable ? "true" : "false");
 	LOG(aux.c_str());
