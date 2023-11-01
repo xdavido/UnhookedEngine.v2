@@ -10,7 +10,7 @@
 #include "GameObject.h"
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
-
+#include <string>
 
 
 #define VERTEX 5
