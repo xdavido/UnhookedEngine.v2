@@ -108,7 +108,7 @@ bool ModuleTexture::CreateTexture(GLuint* imgData, GLuint width, GLuint height)
 	return true;
 }
 
-bool ModuleTexture::LoadTexture(std::string path)
+uint ModuleTexture::LoadTexture(std::string path)
 {
 	bool textureLoaded = false;
 	//Generate and set current image ID
@@ -134,8 +134,11 @@ bool ModuleTexture::LoadTexture(std::string path)
 		{
 			printf("Unable to load %s\n", path.c_str());
 		}
+
+
+		App->hierarchy->objSelected
 	}
-	return textureLoaded;
+	return imgID;
 }
 
 bool ModuleTexture::CleanTexture()

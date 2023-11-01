@@ -112,7 +112,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				extension = e.drop.file;
 				extension = extension.substr(extension.find_last_of(".") + 1);
 
-				if (extension == "fbx" || "FBX") {
+				if (extension == "fbx" || extension == "FBX") {
 					
 					App->assimpMeshes->LoadMeshFromFile(dropped_filedir);
 

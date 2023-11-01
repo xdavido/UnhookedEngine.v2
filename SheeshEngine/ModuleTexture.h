@@ -29,7 +29,7 @@ public:
 
 	bool Start();
 	bool CreateTexture(GLuint* imgData, GLuint width, GLuint height);
-	bool LoadTexture(std::string path);
+	uint LoadTexture(std::string path);
 	bool CleanTexture();
 	bool CleanTexture(GLuint id);
 	void DestroyTexture(uint textureID);

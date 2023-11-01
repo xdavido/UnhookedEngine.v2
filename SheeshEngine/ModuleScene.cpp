@@ -29,7 +29,7 @@ bool ModuleScene::Start() {
     prova6 = new GameObject(prova4);
 
     //Load Baker House
-    App->assimpMeshes->LoadMeshFromFile("Assets/Models/BakerHouse.fbx");
+    /*App->assimpMeshes->LoadMeshFromFile("Assets/Models/BakerHouse.fbx");*/
    
 
     return true;
