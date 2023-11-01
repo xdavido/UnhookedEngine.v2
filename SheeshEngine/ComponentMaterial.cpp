@@ -46,7 +46,7 @@ void ComponentMaterial::UpdateMeshTexture()
 
 	if (componentMesh == nullptr)
 		return;
-
+	 
 	if (textureSelected == 0)
 	{
 		componentMesh->mesh->id_texture = textureID;

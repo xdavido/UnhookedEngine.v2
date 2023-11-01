@@ -9,6 +9,7 @@ GameObject::GameObject()
 	name = "GameObject";
 	mParent = nullptr;
 	transform = new ComponentTransform();
+	isTimetoDelete = false;
 
 	mComponents.push_back(transform);
 }
@@ -19,8 +20,7 @@ GameObject::~GameObject()
 	transform = nullptr;
 
 	//Unbind with parent
-	if (mParent != nullptr) {
-		//Unbind with parent
+	if (isTimetoDelete && mParent != nullptr) {
 		mParent->DeleteChild(this);
 	}
 
@@ -57,6 +57,7 @@ GameObject::GameObject(GameObject* parent)
 {
 	name = "GameObject";
 	this->mParent = parent;
+	isTimetoDelete = false;
 
 	if (parent != nullptr)
 	{
@@ -197,6 +198,7 @@ void GameObject::PrintInspector()
 
 		if (ImGui::Button("Delete")) {
 			
+			isTimetoDelete = true;
 			delete App->hierarchy->objSelected;
 			App->hierarchy->objSelected = nullptr;
 		}

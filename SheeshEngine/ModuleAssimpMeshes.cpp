@@ -115,9 +115,10 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
 
         BufferMesh(ourMesh);
 
-        ComponentMesh* meshComp = new ComponentMesh();
+        ComponentMesh* meshComp = new ComponentMesh(CgameObject);
         ourMesh->owner = CgameObject;
         meshComp->mesh = ourMesh;
+        meshComp->type = ComponentType::MESH;
         CgameObject->AddComponent(meshComp);
 
         //Add mesh to meshes vector
@@ -134,7 +135,7 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
                 new_path.Append(texture_path.C_Str());
 
                 //Build component
-                ComponentMaterial* matComp = new ComponentMaterial();
+                ComponentMaterial* matComp = new ComponentMaterial(CgameObject);
                 matComp->mOwner = CgameObject;
                 matComp->SetTexture(new_path.C_Str());
                 CgameObject->AddComponent(matComp);

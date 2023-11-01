@@ -6,6 +6,7 @@ ComponentMesh::ComponentMesh() : Component(nullptr)
 }
 ComponentMesh::ComponentMesh(GameObject* owner) : Component(owner)
 {
+	/*type = ComponentType::MESH;*/
 	mOwner = owner;
 	mesh = nullptr;
 }

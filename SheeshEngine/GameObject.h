@@ -31,7 +31,7 @@ public:
 
 	ComponentMaterial* GetComponentTexture();
 
-
+	bool isTimetoDelete;
 	std::string name;
 
 	GameObject* mParent;

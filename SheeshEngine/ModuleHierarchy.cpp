@@ -13,6 +13,7 @@ ModuleHierarchy::ModuleHierarchy(Application* app, bool start_enabled) : Module(
 
 	TargetDropped = nullptr;
 	objSelected = nullptr;
+	
 }
 
 ModuleHierarchy::~ModuleHierarchy()
@@ -48,8 +49,11 @@ update_status ModuleHierarchy::PreUpdate(float dt)
 update_status ModuleHierarchy::Update(float dt)
 {
 
-	if (App->input->GetKey(SDL_SCANCODE_DELETE))
+	if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN)
 	{
+		if (objSelected != nullptr) {
+			objSelected->isTimetoDelete = true;
+		}
 		delete objSelected;
 		objSelected = nullptr;
 	}
