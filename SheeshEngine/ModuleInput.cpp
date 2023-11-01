@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include"ComponentMaterial.h"
 #include "ImGui/backends/imgui_impl_sdl2.h"
 
 #define MAX_KEYS 300
@@ -119,7 +120,15 @@ update_status ModuleInput::PreUpdate(float dt)
 				}
 				else if (extension == "png" || extension == "dds" || extension == "PNG" || extension == "DDS")
 				{
-					App->textures->LoadTexture(dropped_filedir);
+					/*App->textures->LoadTexture(dropped_filedir);*/
+					if (App->hierarchy->objSelected != nullptr)
+					{
+						App->hierarchy->objSelected->GetComponentTexture()->SetTexture(dropped_filedir);
+					}
+					else
+					{
+						LOG("There's no GameObject selected");
+					}
 				}
 				SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "File dropped", dropped_filedir, App->window->window);
 				SDL_free(dropped_filedir);

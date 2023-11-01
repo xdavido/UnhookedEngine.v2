@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleTexture.h"
+#include "ComponentMaterial.h"
 #include "SDL/include/SDL_opengl.h"
 #include <string>
 
@@ -73,72 +74,65 @@ bool ModuleTexture::Start()
 
 bool ModuleTexture::CreateTexture(GLuint* imgData, GLuint width, GLuint height)
 {
-	// Clear any existing textures
-	CleanTexture();
-    textureWidth = width;
-	textureHeight = height;
-		
-	// Enable 2D texture and set active texture unit
-	glEnable(GL_TEXTURE_2D);
-	glActiveTexture(GL_TEXTURE0);
-
-	//Generate and bind texture
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);	
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-
-	// Define texture wrap behavior outside the 0-1 range (S->x, T->y)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); //GL_CLAMP
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	// Define texture behavior after resizing (MIN->smaller, MAG->bigger)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-	// Generate the texture with image data
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,
-		0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
-
-	//Mipmap can be added or not
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	// Unbind the texture and disable 2D texture mode
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glDisable(GL_TEXTURE_2D);
+	
 	return true;
 }
 
-uint ModuleTexture::LoadTexture(std::string path)
+uint ModuleTexture::LoadTexture(const char* path)
 {
-	bool textureLoaded = false;
-	//Generate and set current image ID
-	ILuint imgID = 0;
-	ilGenImages(1, &imgID);
-	ilBindImage(imgID);
-	//Load image
-		ILboolean success = ilLoadImage(path.c_str());
-	//Image loaded successfully
-	if (success == IL_TRUE)
-	{
-		//Convert image to RGBA
-		success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
-		if (success == IL_TRUE)
-		{
-			//Create texture from file pixels
-			textureLoaded = CreateTexture((GLuint*)ilGetData(), (GLuint)ilGetInteger(IL_IMAGE_WIDTH), (GLuint)ilGetInteger(IL_IMAGE_HEIGHT));
-		}
-		//Delete file from memory
-		ilDeleteImages(1, &imgID);
-		//Report error
-		if (!textureLoaded)
-		{
-			printf("Unable to load %s\n", path.c_str());
-		}
+	//Generate DevIL buffers
+		uint devilImageId;
+	ilGenImages(1, &devilImageId);
+	ilBindImage(devilImageId);
 
+	//Load image to binded buffer
+	bool success = ilLoadImage(path);
 
-		App->hierarchy->objSelected
-	}
-	return imgID;
+	/*if (!success) {
+		LOGT(LogsType::WARNINGLOG, "Error loading texture %s", file_path);
+		return 0;
+	}*/
+
+	success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+
+	//if (!success) {
+	//    LOGT(LogsType::WARNINGLOG, "Error converting texture %s", file_path);
+	//    return 0;
+	//}
+
+	//Extract loaded image data
+	BYTE* data = ilGetData();
+	ILuint imgWidth, imgHeight;
+	imgWidth = ilGetInteger(IL_IMAGE_WIDTH);
+	imgHeight = ilGetInteger(IL_IMAGE_HEIGHT);
+	int const type = ilGetInteger(IL_IMAGE_TYPE);
+	int const format = ilGetInteger(IL_IMAGE_FORMAT);
+
+	//Change DevIL buffer ID to Glew buffer ID (create buffer by copying binded buffer)
+	uint imageId = ilutGLBindTexImage();
+	glBindTexture(GL_TEXTURE_2D, imageId);
+
+	//How texture behaves outside 0,1 range (S->x, T->y)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+	//Texture behaviour after resize (MIN->smaller , MAG->bigger)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	//Create Texture
+	glTexImage2D(GL_TEXTURE_2D, 0, format, imgWidth, imgHeight, 0, format, type, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	//CLEANUP
+
+	//Delete DevIL image buffer
+	ilDeleteImages(1, &devilImageId);
+
+	//Unbind glew buffer
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	return imageId;
 }
 
 bool ModuleTexture::CleanTexture()
@@ -169,4 +163,22 @@ bool ModuleTexture::CleanTexture(GLuint id)
 void ModuleTexture::DestroyTexture(uint textureID)
 {
 	glDeleteBuffers(1, &textureID);
+}
+
+void ModuleTexture::NewTexture( uint imgId)
+{
+
+	if (App->hierarchy->objSelected != nullptr) {
+		
+		ComponentMaterial* mat = App->hierarchy->objSelected->GetComponentTexture();
+		if (mat == nullptr) {
+			App->hierarchy->objSelected->AddComponent(mat);
+		}
+		else
+		{
+			mat->textureID = imgId;
+		}
+
+
+	}
 }

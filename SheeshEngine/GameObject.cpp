@@ -24,7 +24,6 @@ GameObject::~GameObject()
 		mParent->DeleteChild(this);
 	}
 
-	// pilota (delete del reves?)
 
 	for (size_t i = 0; i < mComponents.size(); ++i)
 	{

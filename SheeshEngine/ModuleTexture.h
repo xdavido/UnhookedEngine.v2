@@ -29,10 +29,11 @@ public:
 
 	bool Start();
 	bool CreateTexture(GLuint* imgData, GLuint width, GLuint height);
-	uint LoadTexture(std::string path);
+	uint LoadTexture(const char* path);
 	bool CleanTexture();
 	bool CleanTexture(GLuint id);
 	void DestroyTexture(uint textureID);
+	void NewTexture(uint imgID);
 	
 
 public:

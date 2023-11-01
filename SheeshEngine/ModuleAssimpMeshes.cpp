@@ -67,7 +67,7 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
 {
     Mesh* ourMesh = new Mesh();
 
-    // Log the mesh name
+
     std::string assimpMeshName = "Importing Assimp Mesh: " + std::string(aiMesh->mName.C_Str());
     LOG(assimpMeshName.c_str());
 
@@ -87,11 +87,11 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
         ourMesh->vertex[v * VERTEX + 4] = aiMesh->mTextureCoords[0][v].y;
     }
 
-    // Load faces
+
     if (aiMesh->HasFaces())     
     {
         ourMesh->indexCount = aiMesh->mNumFaces * 3;
-        // assume each face is a triangle
+       
         ourMesh->index = new uint[ourMesh->indexCount]; 
 
         for (uint i = 0; i < aiMesh->mNumFaces; ++i)
@@ -121,6 +121,12 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
         //Add mesh to meshes vector
         meshes.push_back(ourMesh);
 
+
+        ourMesh->id_texture = App->textures->checkersID;
+        ourMesh->texture_height = App->textures->textureWidth;
+        ourMesh->texture_width = App->textures->textureWidth;
+        meshComp->type = ComponentType::MESH;
+
         //Has a texture
         if (scene->HasMaterials()) {
             if (scene->mMaterials[scene->mMeshes[index]->mMaterialIndex]->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
@@ -139,10 +145,6 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
             }
         }
 
-        ourMesh->id_texture = App->textures->textureID;
-        ourMesh->texture_height = App->textures->textureWidth;
-        ourMesh->texture_width = App->textures->textureWidth;
-        meshComp->type = ComponentType::MESH;
 
     }
     else
@@ -305,17 +307,17 @@ void ModuleAssimpMeshes::BufferMesh(Mesh* mesh)
     //Fill buffers with vertex
     // glEnableClientState(GL_VERTEX_ARRAY);
 
-    // Dos buffers, vertex i index
+
     glGenBuffers(1, (GLuint*)&(mesh->VBO));
     glGenBuffers(1, (GLuint*)&(mesh->EBO));
 
-    // Bind and fill buffers
+
     glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->vertexCount * VERTEX, mesh->vertex, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
 
-    //Fill buffers with indices
+
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->indexCount, mesh->index, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -326,12 +328,12 @@ void ModuleAssimpMeshes::BufferMesh(Mesh* mesh)
 
 void ModuleAssimpMeshes::RenderScene()
 {
-    //Render the scene
+  
     for (int i = 0; i < meshes.size(); i++) {
         glColor3f(1.0f, 1.0f, 1.0f);
         meshes[i]->Render();
         glColor3f(0.0f, 0.6f, 0.7f);
-        if (MeshDebug == true) { 
+        if (meshes[i]->owner->GetMeshComponent()->faceNormals) { 
             meshes[i]->RenderFaceNormals(); 
         }
        /* glColor3f(1, 0, 0);
@@ -342,7 +344,7 @@ void ModuleAssimpMeshes::RenderScene()
 
 void ModuleAssimpMeshes::DeleteMesh(Mesh* mesh) {
     
-    //minimini: comprobar que esto funcione, sino hacerlo de la manera clásica
+    
 
     auto it = std::find(meshes.begin(), meshes.end(), mesh);
 
@@ -360,7 +362,7 @@ void ModuleAssimpMeshes::DeleteMesh(Mesh* mesh) {
 bool ModuleAssimpMeshes::CleanUp()
 {
 
-    // detach log stream
+   
     aiDetachAllLogStreams();
     return true;
 }

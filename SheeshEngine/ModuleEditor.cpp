@@ -307,11 +307,10 @@ void ModuleEditor::DrawEditor()
     if (App->hierarchy->objSelected) {
 
         if (ImGui::Begin("Inspector")) {
-            ;
+            
             App->hierarchy->objSelected->PrintInspector();
         }
         ImGui::End();
-      
     }
 
   

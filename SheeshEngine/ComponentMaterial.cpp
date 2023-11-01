@@ -16,17 +16,23 @@ ComponentMaterial::~ComponentMaterial()
 {
 }
 
-void ComponentMaterial::SetTexture(std::string path)
+void ComponentMaterial::SetTexture(const char* path)
 {
 	/*ResetTexture();*/
-	//if (textureID != 0)
-	//{
-	//	App->textures->CleanTexture(textureID);
-	//	textureID = 0;
+	if (textureID != 0)
+	{
+		App->textures->CleanTexture(textureID);
+		textureID = 0;
+	}
+	//if (mOwner->GetParent()->mChildren[0]->GetComponentTexture() != nullptr) {
+	//	int a = mOwner->GetParent()->mChildren[0]->GetComponentTexture()->textureID;
+	//	int b = mOwner->GetParent()->mChildren[1]->GetComponentTexture()->textureID;
 	//}
 
 	textureID = App->textures->LoadTexture(path);
-	
+
+	//int c = mOwner->GetParent()->mChildren[0]->GetComponentTexture()->textureID;
+	//int x = mOwner->GetParent()->mChildren[1]->GetComponentTexture()->textureID;
 	UpdateMeshTexture();
 }
 

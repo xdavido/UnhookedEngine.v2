@@ -14,7 +14,7 @@ public:
 	ComponentMaterial(GameObject* owner);
 	~ComponentMaterial();
 
-	void SetTexture(std::string path);
+	void SetTexture(const char* path);
 	void ResetTexture();
 	void UpdateMeshTexture();
 
