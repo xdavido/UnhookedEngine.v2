@@ -42,6 +42,8 @@ GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
     if (scene != nullptr&& scene->HasMeshes())
     {
         GameObject* OBJ = new GameObject(App->scene->root);
+        OBJ->name = std::string(file_path).substr(std::string(file_path).find_last_of(char(92)) + 1);
+        OBJ->name = OBJ->name.substr(std::string(file_path).find_last_of("/") + 1);
         for (int i = 0; i < scene->mNumMeshes; i++)
         {
             GameObject* obj = new GameObject();
