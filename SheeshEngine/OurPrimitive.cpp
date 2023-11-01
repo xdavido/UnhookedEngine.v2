@@ -3,67 +3,88 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 
-GameObject* OurPrimitive::CreatePrimitive(ShapeType type)
+GameObject* PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType type)
 {
-	GameObject* gameObject = new GameObject();
-	// Empty
-	if (type == ShapeType::EMPTY)
+	
+	if (type == GeometryType::EMPTY)
 	{
+        GameObject* gameObject = new GameObject(App->scene->root);
 		gameObject->name = "Empty Object";
+        gameObject->Stype = GeometryType::EMPTY;
 		return gameObject;
 	}
+    else
+    {
+        const char* aux = " ";
+        GameObject* gameObject = new GameObject();
+        switch (type)
+        {
+        case GeometryType::P_PLANE:
+            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/plane.fbx");
+            aux = "Plane";
+            gameObject->name = aux;
+            gameObject->Stype = GeometryType::P_PLANE;
+            return gameObject;
+            break;
+        case GeometryType::P_CUBE:
+            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/cube.fbx");
+            aux = "Cube";
+            gameObject->name = aux;
+            gameObject->Stype = GeometryType::P_CUBE;
+            return gameObject;
 
-	// Not Empty
-	switch (type)
-	{
-    case ShapeType::P_PLANE:
-		gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/plane.fbx");
+            break;
+        case GeometryType::P_CYLINDER:
+            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/cylinder.fbx");
+            aux = "Cylinder";
+            gameObject->name = aux;
+            gameObject->Stype = GeometryType::P_CYLINDER;
+            return gameObject;
+            break;
+        case GeometryType::P_SPHERE:
+            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/sphere.fbx");
+            aux = "Sphere";
+            gameObject->name = aux;
+            gameObject->Stype = GeometryType::P_SPHERE;
+            return gameObject;
+            break;
 
-		gameObject->name = "Plane";
-		return gameObject;
-		break;
-	case ShapeType::P_CUBE:
-		gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/cube.fbx");
+        case GeometryType::ICOSHPERE:
+            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/icosphere.fbx");
+            aux = "Icosphere";
+            gameObject->name = aux;
+            gameObject->Stype = GeometryType::ICOSHPERE;
+            return gameObject;
+            break;
 
-		gameObject->name = "Cube";
-		return gameObject;
+        case GeometryType::CONE:
+            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/cone.fbx");
+            aux = "Cone";
+            gameObject->name = aux;
+            gameObject->Stype = GeometryType::CONE;
+            return gameObject;
+            break;
 
-		break;
-    case ShapeType::P_SPHERE:
-        gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/sphere.fbx");
-        gameObject->name = "Sphere";
-        return gameObject;
+        case GeometryType::P_TORUS:
+            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/torus.fbx");
+            aux = "Torus";
+            gameObject->name = aux;
+            gameObject->Stype = GeometryType::P_TORUS;
+            return gameObject;
+            break;
+        case GeometryType::SUZANNE:
+            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/suzanne.fbx");
+            aux = "Monkey";
+            gameObject->name = aux;
+            gameObject->Stype = GeometryType::SUZANNE;
+            return gameObject;
+            break;
 
-    case ShapeType::P_CYLINDER:
-        gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/cylinder.fbx");
-        gameObject->name = "Cylinder";
-        return gameObject;
+        default:
 
-    case ShapeType::MONKEY:
-        gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/monkey.fbx");
-        gameObject->name = "Monkey";
-        return gameObject;
+            return nullptr;
 
-    case ShapeType::ICOSHPERE:
-        gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/icosphere.fbx");
-        gameObject->name = "Icosphere";
-        return gameObject;
-
-    case ShapeType::CONE:
-        gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/cone.fbx");
-        gameObject->name = "Cone";
-        return gameObject;
-
-    case ShapeType::P_TORUS:
-        gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/torus.fbx");
-        gameObject->name = "Torus";
-        return gameObject;
-
-    default:
-        // Handle the case when an unsupported shape type is provided.
-        // You can throw an exception, log an error, or return a default object.
-        // Here, we'll return nullptr to indicate an error.
-        return nullptr;
-
-	}
+        }
+    }
+   
 }

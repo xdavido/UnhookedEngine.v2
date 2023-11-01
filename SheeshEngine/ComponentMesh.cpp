@@ -2,11 +2,12 @@
 
 ComponentMesh::ComponentMesh() : Component(nullptr)
 {
-
+	type = ComponentType::MESH;
+	mesh = nullptr;
 }
 ComponentMesh::ComponentMesh(GameObject* owner) : Component(owner)
 {
-	/*type = ComponentType::MESH;*/
+	type = ComponentType::MESH;
 	mOwner = owner;
 	mesh = nullptr;
 }
@@ -25,9 +26,6 @@ void ComponentMesh::PrintInspector()
 		ImGui::LabelText("##%f", "Number of vertex:");
 		ImGui::SameLine();
 		ImGui::Text("%d", mesh->vertexCount);
-		ImGui::LabelText("##%f", "Number of index:");
-		ImGui::SameLine();
-		ImGui::Text("%d", mesh->indexCount);
 		ImGui::Checkbox("Face Normals", &faceNormals);
 	}
 }

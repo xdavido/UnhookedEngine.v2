@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
+#include "OurPrimitive.h"
 
 
 GameObject::GameObject()
@@ -10,7 +11,7 @@ GameObject::GameObject()
 	mParent = nullptr;
 	transform = new ComponentTransform();
 	isTimetoDelete = false;
-
+	Stype = GeometryType::NONE;
 	mComponents.push_back(transform);
 }
 
@@ -57,6 +58,7 @@ GameObject::GameObject(GameObject* parent)
 	name = "GameObject";
 	this->mParent = parent;
 	isTimetoDelete = false;
+	Stype = GeometryType::NONE;
 
 	if (parent != nullptr)
 	{
@@ -110,8 +112,12 @@ ComponentMaterial* GameObject::GetComponentTexture()
 {
 	for (size_t i = 0; i < mComponents.size(); i++)
 	{
-		if (mComponents[i]->type == ComponentType::MATERIAL) return (ComponentMaterial*)mComponents[i];
+		if (mComponents[i]->type == ComponentType::MATERIAL) {
+
+			return (ComponentMaterial*)mComponents[i];
+		}
 	}
+
 	return nullptr;
 }
 

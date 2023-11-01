@@ -71,9 +71,9 @@ enum update_status
 
 //Render
 #define VSYNC true
-#define DEPTH_TEST_ATTRIBUTE true
+#define DEPTH_TEST_ATTRIBUTE false
 #define CULL_FACE_ATTRIBUTE true
-#define LIGHTING_ATTRIBUTE true
+#define LIGHTING_ATTRIBUTE false
 #define COLOR_MATERIAL_ATTRIBUTE true
 #define TEXTURE_2D_ATTRIBUTE false
 #define BLEND_ATTRIBUTE false

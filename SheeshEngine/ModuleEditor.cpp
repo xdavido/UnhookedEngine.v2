@@ -179,47 +179,47 @@ void ModuleEditor::DrawEditor()
 
             if (ImGui::MenuItem(" EMPTY  ")) {
 
-                OurPrimitive::CreatePrimitive(ShapeType::EMPTY);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::EMPTY);
             }
 
             if (ImGui::MenuItem(" CUBE  ")) {
                 
-                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::P_CUBE);
             }
 
             if (ImGui::MenuItem(" PLANE "))
             {
-                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::P_PLANE);
             }
 
             if (ImGui::MenuItem(" SPHERE  "))
             {
-                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::P_SPHERE);
             }
 
             if (ImGui::MenuItem(" ICOSPHERE  "))
             {
-                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::ICOSHPERE);
             }
 
-            if (ImGui::MenuItem(" PYRAMID  "))
+            if (ImGui::MenuItem(" CONE  "))
             {
-                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::CONE);
             }
 
             if (ImGui::MenuItem(" CYLINDER  "))
             {
-                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::P_CYLINDER);
             }
 
             if (ImGui::MenuItem(" TORUS  "))
             {
-                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::P_TORUS);
             }
 
-            if (ImGui::MenuItem(" SUZZANE  "))
+            if (ImGui::MenuItem(" SUZANNE  "))
             {
-                OurPrimitive::CreatePrimitive(ShapeType::P_CUBE);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::SUZANNE);
             }
 
 
@@ -583,6 +583,15 @@ void ModuleEditor::CreateAboutWindow(bool& showAboutWindow)
     }
     ImGui::SameLine();
     ImGui::Text(assimpVersion.c_str());
+
+    
+    //Devil
+    if (ImGui::Button("DevIL"))
+    {
+        URLButton("http://openil.sourceforge.net/");
+    }
+    ImGui::SameLine();
+    ImGui::Text("v1.8.0");
 
     ImGui::Separator();
     ImGui::Spacing();

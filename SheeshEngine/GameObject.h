@@ -5,6 +5,7 @@
 
 
 enum class ComponentType;
+enum class GeometryType;
 class Component;
 class ComponentTransform;
 class ComponentMesh;
@@ -39,5 +40,6 @@ public:
 	std::vector<Component*> mComponents;
 
 	ComponentTransform* transform;
+	GeometryType Stype;
 
 };

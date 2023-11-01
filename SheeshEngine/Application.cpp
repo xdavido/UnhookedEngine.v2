@@ -43,7 +43,7 @@ bool Application::Init()
 {
 	bool ret = true;
 
-	maxFrameRate = 60;
+	maxFrameRate = 300;
 
 	// Call Init() in all modules
 	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret; ++it)

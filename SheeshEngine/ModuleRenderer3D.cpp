@@ -188,7 +188,6 @@ bool ModuleRenderer3D::Init()
 		SetLightingAttribute(lightingAttribute);
 		SetColorMaterialAttribute(colorMaterialAttribute);
 		SetCullFaceAttribute(cullFaceAttribute);
-		SetLightingAttribute(lightingAttribute);
 		SetTexture2DAttribute(texture2DAttribute);
 		SetBlendAttribute(blendAttribute);
 		SetAlphaTestAttribute(alphaTestAttribute);
@@ -462,15 +461,15 @@ void ModuleRenderer3D::OnResize(int width, int height)
 void ModuleRenderer3D::SetDepthTestAttribute(bool enable) {
 	depthTestAttribute = enable;
 
-	depthTestAttribute ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+	depthTestAttribute ? glDisable(GL_DEPTH_TEST) : glEnable(GL_DEPTH_TEST);
 
-	std::string aux = "Renderer depthTestAttribute updated to: " + std::string(enable ? "true" : "false");
+	std::string aux = "Renderer depthTestAttribute updated to: " + std::string(enable ? "false" : "true" );
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetCullFaceAttribute(bool enable) {
 	cullFaceAttribute = enable;
-
+		
 	cullFaceAttribute ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
 
 	std::string aux = "Renderer cullFaceAttribute updated to: " + std::string(enable ? "true" : "false");
@@ -480,9 +479,9 @@ void ModuleRenderer3D::SetCullFaceAttribute(bool enable) {
 void ModuleRenderer3D::SetLightingAttribute(bool enable) {
 	lightingAttribute = enable;
 
-	lightingAttribute ? glEnable(GL_LIGHTING) : glDisable(GL_LIGHTING);
+	lightingAttribute ? glDisable(GL_LIGHTING) : glEnable(GL_LIGHTING);
 
-	std::string aux = "Renderer lightingAttribute updated to: " + std::string(enable ? "true" : "false");
+	std::string aux = "Renderer lightingAttribute updated to: " + std::string(enable ? "false" : "true" );
 	LOG(aux.c_str());
 }
 

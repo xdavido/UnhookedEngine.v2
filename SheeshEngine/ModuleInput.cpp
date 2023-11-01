@@ -3,7 +3,7 @@
 #include "ModuleInput.h"
 #include"ComponentMaterial.h"
 #include "ImGui/backends/imgui_impl_sdl2.h"
-
+#include "OurPrimitive.h"
 #define MAX_KEYS 300
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -121,7 +121,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				else if (extension == "png" || extension == "dds" || extension == "PNG" || extension == "DDS")
 				{
 					/*App->textures->LoadTexture(dropped_filedir);*/
-					if (App->hierarchy->objSelected != nullptr)
+					if (App->hierarchy->objSelected != nullptr && App->hierarchy->objSelected->Stype != GeometryType::EMPTY)
 					{
 						App->hierarchy->objSelected->GetComponentTexture()->SetTexture(dropped_filedir);
 					}

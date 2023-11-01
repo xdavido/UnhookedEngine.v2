@@ -3,22 +3,23 @@
 class Mesh;
 class GameObject;
 
-enum class ShapeType {
+enum class GeometryType {
 	EMPTY,
 	P_PLANE,
 	P_CUBE,
 	P_SPHERE,
 	P_CYLINDER,
-	MONKEY,
+	SUZANNE,
 	ICOSHPERE,
 	CONE,
 	P_TORUS,
+	NONE
 };
 
-class OurPrimitive
+class PrimitivesGeomtriesLibrary
 {
 public:
-	static GameObject* CreatePrimitive(ShapeType type);
+	static GameObject* InstanciatePrimitiveGeometry(GeometryType type);
 
 private:
 

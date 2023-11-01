@@ -35,7 +35,7 @@ bool ModuleTexture::Start()
 
 	//Generate and bind a texture buffer
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(0, &checkersID);
+	glGenTextures(1, &checkersID);
 	glBindTexture(GL_TEXTURE_2D, checkersID);
 
 	//Pick your texture settings with glTexParameter()
@@ -81,7 +81,7 @@ bool ModuleTexture::CreateTexture(GLuint* imgData, GLuint width, GLuint height)
 uint ModuleTexture::LoadTexture(const char* path)
 {
 	//Generate DevIL buffers
-		uint devilImageId;
+	uint devilImageId;
 	ilGenImages(1, &devilImageId);
 	ilBindImage(devilImageId);
 
@@ -105,6 +105,8 @@ uint ModuleTexture::LoadTexture(const char* path)
 	ILuint imgWidth, imgHeight;
 	imgWidth = ilGetInteger(IL_IMAGE_WIDTH);
 	imgHeight = ilGetInteger(IL_IMAGE_HEIGHT);
+	textureHeight = imgHeight;
+	textureWidth = imgWidth;
 	int const type = ilGetInteger(IL_IMAGE_TYPE);
 	int const format = ilGetInteger(IL_IMAGE_FORMAT);
 

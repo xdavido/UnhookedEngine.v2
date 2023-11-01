@@ -113,19 +113,18 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
 
         BufferMesh(ourMesh);
 
+        //Add mesh to meshes vector
+        meshes.push_back(ourMesh);
+
         ComponentMesh* meshComp = new ComponentMesh(CgameObject);
         ourMesh->owner = CgameObject;
         meshComp->mesh = ourMesh;
         CgameObject->AddComponent(meshComp);
 
-        //Add mesh to meshes vector
-        meshes.push_back(ourMesh);
-
-
         ourMesh->id_texture = App->textures->checkersID;
         ourMesh->texture_height = App->textures->textureWidth;
         ourMesh->texture_width = App->textures->textureWidth;
-        meshComp->type = ComponentType::MESH;
+        /*meshComp->type = ComponentType::MESH;*/
 
         //Has a texture
         if (scene->HasMaterials()) {
@@ -142,6 +141,12 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
                 matComp->mOwner = CgameObject;
                 matComp->SetTexture(new_path.C_Str());
                 CgameObject->AddComponent(matComp);
+            }
+            else
+            {
+                ComponentMaterial* mat = new ComponentMaterial();
+                mat->mOwner = CgameObject;
+                CgameObject->AddComponent(mat);
             }
         }
 
