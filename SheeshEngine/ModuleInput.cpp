@@ -123,7 +123,9 @@ update_status ModuleInput::PreUpdate(float dt)
 					/*App->textures->LoadTexture(dropped_filedir);*/
 					if (App->hierarchy->objSelected != nullptr && App->hierarchy->objSelected->Stype != GeometryType::EMPTY)
 					{
-						App->hierarchy->objSelected->GetComponentTexture()->SetTexture(dropped_filedir);
+						if (App->hierarchy->objSelected->GetComponentTexture()) {
+							App->hierarchy->objSelected->GetComponentTexture()->SetTexture(dropped_filedir);
+						}
 					}
 					else
 					{
