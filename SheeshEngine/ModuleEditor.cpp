@@ -110,7 +110,6 @@ bool ModuleEditor::Init()
     SSE42 = SDL_HasSSE42();
 
     //About Window
-    //license = ReadFileIO("C:/Users/oriol/OneDrive/Documentos/GitHub/CITM/SheeshEngine/SheeshEngine/License.txt");
     license = ReadFileIO("../../License.txt");
 
     return true;
@@ -177,6 +176,11 @@ void ModuleEditor::DrawEditor()
         }
         if (ImGui::BeginMenu("Game Objects"))
         {
+
+            if (ImGui::MenuItem(" EMPTY  ")) {
+
+                OurPrimitive::CreatePrimitive(ShapeType::EMPTY);
+            }
 
             if (ImGui::MenuItem(" CUBE  ")) {
                 

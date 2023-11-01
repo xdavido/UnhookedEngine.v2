@@ -39,9 +39,6 @@ GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
 {
     const aiScene* scene = aiImportFile(file_path, aiProcess_Triangulate|aiProcess_FlipUVs);
 
-
-
-    
     if (scene != nullptr&& scene->HasMeshes())
     {
         GameObject* OBJ = new GameObject(App->scene->root);
@@ -52,7 +49,7 @@ GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
             GameObject* obj = new GameObject();
             OBJ->SetAsChildOf(obj);
             obj->name = "Mesh_" + std::to_string(i);
-            ImportAssimpMesh(scene->mMeshes[i],OBJ, obj,           scene,i);
+            ImportAssimpMesh(scene->mMeshes[i],OBJ, obj, scene,i);
         }
         
         aiReleaseImport(scene);
@@ -75,7 +72,6 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
     LOG(assimpMeshName.c_str());
 
 
-      
     ourMesh->vertexCount = aiMesh->mNumVertices;
     ourMesh->vertex = new float[ourMesh->vertexCount * VERTEX];
 
@@ -204,9 +200,9 @@ void Mesh::RenderFaceNormals()
         size_t index3 = index[i + 2];
 
         // Calcular el punto medio de la cara del triángulo
-        double xMedio = (vertexNormalFaces[index1 * 3] + vertexNormalFaces[index2 * 3] + vertexNormalFaces[index3 * 3]) / 3.0;
-        double yMedio = (vertexNormalFaces[index1 * 3 + 1] + vertexNormalFaces[index2 * 3 + 1] + vertexNormalFaces[index3 * 3 + 1]) / 3.0;
-        double zMedio = (vertexNormalFaces[index1 * 3 + 2] + vertexNormalFaces[index2 * 3 + 2] + vertexNormalFaces[index3 * 3 + 2]) / 3.0;
+        double xMidpoint = (vertexNormalFaces[index1 * 3] + vertexNormalFaces[index2 * 3] + vertexNormalFaces[index3 * 3]) / 3.0;
+        double yMidPoint = (vertexNormalFaces[index1 * 3 + 1] + vertexNormalFaces[index2 * 3 + 1] + vertexNormalFaces[index3 * 3 + 1]) / 3.0;
+        double zMidPoint = (vertexNormalFaces[index1 * 3 + 2] + vertexNormalFaces[index2 * 3 + 2] + vertexNormalFaces[index3 * 3 + 2]) / 3.0;
 
         // Calcular la normal de la cara del triángulo usando el producto cruz
         double edge1x = vertexNormalFaces[index2 * 3] - vertexNormalFaces[index1 * 3];
@@ -228,18 +224,18 @@ void Mesh::RenderFaceNormals()
         normalz /= length;
 
         // Define la longitud de la línea en la dirección de la normal
-        double lineaLongitud = 0.3;
+        double lineLength = 0.3;
 
         // Calcula el punto final de la línea
-        double xFinal = xMedio + normalx * lineaLongitud;
-        double yFinal = yMedio + normaly * lineaLongitud;
-        double zFinal = zMedio + normalz * lineaLongitud;
+        double xFinal = xMidpoint + normalx * lineLength;
+        double yFinal = yMidPoint + normaly * lineLength;
+        double zFinal = zMidPoint + normalz * lineLength;
 
 
         // Dibujar la normal como una línea roja desde el punto medio de la cara
         glLineWidth(0.8f);
         glBegin(GL_LINES);
-        glVertex3d(xMedio, yMedio, zMedio);
+        glVertex3d(xMidpoint, yMidPoint, zMidPoint);
         glVertex3d(xFinal, yFinal, zFinal);
         glEnd();
         glLineWidth(1.0f);
