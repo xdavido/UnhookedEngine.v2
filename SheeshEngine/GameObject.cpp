@@ -16,8 +16,13 @@ GameObject::GameObject()
 GameObject::~GameObject()
 {
 	name = "";
-	mParent = nullptr;
 	transform = nullptr;
+
+	//Unbind with parent
+	if (mParent != nullptr) {
+		//Unbind with parent
+		mParent->DeleteChild(this);
+	}
 
 	// pilota (delete del reves?)
 
@@ -45,6 +50,7 @@ GameObject::~GameObject()
 	}*/
 
 	mComponents.clear();
+
 }
 
 GameObject::GameObject(GameObject* parent)
@@ -187,6 +193,13 @@ void GameObject::PrintInspector()
 
 		if (ImGui::IsKeyDown(ImGuiKey_Enter))
 			name = aux;
+
+
+		if (ImGui::Button("Delete")) {
+			
+			delete App->hierarchy->objSelected;
+			App->hierarchy->objSelected = nullptr;
+		}
 
 		for (size_t i = 0; i < mComponents.size(); i++)
 		{
