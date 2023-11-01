@@ -38,9 +38,6 @@ bool ModuleAssimpMeshes::Start()
 GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
 {
     const aiScene* scene = aiImportFile(file_path, aiProcess_Triangulate|aiProcess_FlipUVs);
-
-
-
     
     if (scene != nullptr&& scene->HasMeshes())
     {
@@ -50,7 +47,7 @@ GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
             GameObject* obj = new GameObject();
             OBJ->SetAsChildOf(obj);
             obj->name = "Mesh_" + std::to_string(i);
-            ImportAssimpMesh(scene->mMeshes[i],OBJ, obj,           scene,i);
+            ImportAssimpMesh(scene->mMeshes[i],OBJ, obj, scene,i);
         }
         
         aiReleaseImport(scene);
@@ -71,8 +68,6 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
     // Log the mesh name
     std::string assimpMeshName = "Importing Assimp Mesh: " + std::string(aiMesh->mName.C_Str());
     LOG(assimpMeshName.c_str());
-
-
       
     ourMesh->vertexCount = aiMesh->mNumVertices;
     ourMesh->vertex = new float[ourMesh->vertexCount * VERTEX];

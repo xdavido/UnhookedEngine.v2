@@ -153,7 +153,7 @@ void ModuleCamera3D::OrbitSelectedObject(float dt)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
-		float Sensitivity = 1.35f * dt;
+		float Sensitivity = 0.5f * dt;
 
 		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 		{
@@ -209,7 +209,7 @@ void ModuleCamera3D::RotationAroundCamera(float dt)
 	int dx = -App->input->GetMouseXMotion();
 	int dy = -App->input->GetMouseYMotion();
 
-	float Sensitivity = 1.35f * dt;
+	float Sensitivity = 0.5f * dt;
 
 	Position -= Reference;
 
