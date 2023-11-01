@@ -34,8 +34,8 @@ bool ModuleTexture::Start()
 
 	//Generate and bind a texture buffer
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	glGenTextures(0, &checkersID);
+	glBindTexture(GL_TEXTURE_2D, checkersID);
 
 	//Pick your texture settings with glTexParameter()
 

@@ -109,16 +109,13 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
         ourMesh->VBO = 0;
         ourMesh->EBO = 0;
         
-        ourMesh->id_texture = App->textures->textureID;
-        ourMesh->texture_height = App->textures->textureWidth;
-        ourMesh->texture_width = App->textures->textureWidth;
+
 
         BufferMesh(ourMesh);
 
         ComponentMesh* meshComp = new ComponentMesh(CgameObject);
         ourMesh->owner = CgameObject;
         meshComp->mesh = ourMesh;
-        meshComp->type = ComponentType::MESH;
         CgameObject->AddComponent(meshComp);
 
         //Add mesh to meshes vector
@@ -141,6 +138,11 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
                 CgameObject->AddComponent(matComp);
             }
         }
+
+        ourMesh->id_texture = App->textures->textureID;
+        ourMesh->texture_height = App->textures->textureWidth;
+        ourMesh->texture_width = App->textures->textureWidth;
+        meshComp->type = ComponentType::MESH;
 
     }
     else

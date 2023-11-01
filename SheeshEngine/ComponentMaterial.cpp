@@ -18,22 +18,23 @@ ComponentMaterial::~ComponentMaterial()
 
 void ComponentMaterial::SetTexture(std::string path)
 {
-	if (textureID != 0)
-	{
-		App->textures->CleanTexture(textureID);
-		textureID = 0;
-	}
+	/*ResetTexture();*/
+	//if (textureID != 0)
+	//{
+	//	App->textures->CleanTexture(textureID);
+	//	textureID = 0;
+	//}
 
 	textureID = App->textures->LoadTexture(path);
 	
-	ResetTexture();
+	UpdateMeshTexture();
 }
 
 void ComponentMaterial::ResetTexture()
 {
-	if (textureID = 0)
+	if (textureID !=0)
 	{
-		App->textures->DestroyTexture(textureID);
+		App->textures->CleanTexture(textureID);
 		textureID = 0;
 	}
 
@@ -50,16 +51,17 @@ void ComponentMaterial::UpdateMeshTexture()
 	if (textureSelected == 0)
 	{
 		componentMesh->mesh->id_texture = textureID;
+		
 		return;
 	}
 
-	if (textureSelected == 1)
+	if (textureSelected == 2)
 	{
 		componentMesh->mesh->id_texture = App->textures->checkersID;
 		return;
 	}
 	
-	componentMesh->mesh->id_texture = 0;
+	componentMesh->mesh->id_texture = -1;
 
 }
 
