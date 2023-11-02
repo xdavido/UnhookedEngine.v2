@@ -14,14 +14,13 @@ public:
 
 
 
-	//Get transform matrix
 	float4x4 getGlobalMatrix();
 	float4x4 getLocalMatrix();
 
-	//Put everything to 0
+	
 	void resetMatrix();
 
-	//Getters / Setters
+	
 	float3 getPosition(bool globalPosition = false);
 	void setPosition(float3 pos);
 	float3 getRotation();

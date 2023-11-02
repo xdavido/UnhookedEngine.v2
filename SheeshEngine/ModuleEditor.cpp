@@ -114,7 +114,7 @@ bool ModuleEditor::Init()
 
     isActiveHierarchy = true;
     isActiveConsole = true;
-    isActiveInspector = false;
+    isActiveInspector = true;
 
     return true;
 }
@@ -176,11 +176,6 @@ update_status ModuleEditor::DrawEditor()
             ImGui::EndMenu();
             
         }
-        if (ImGui::BeginMenu("Assets"))
-        {
-            ImGui::Text("Hello world!");
-            ImGui::EndMenu();
-        }
         if (ImGui::BeginMenu("Game Objects"))
         {
 
@@ -206,12 +201,12 @@ update_status ModuleEditor::DrawEditor()
 
             if (ImGui::MenuItem(" ICOSPHERE  "))
             {
-                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::ICOSHPERE);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::P_ICOSHPERE);
             }
 
             if (ImGui::MenuItem(" CONE  "))
             {
-                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::CONE);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::P_CONE);
             }
 
             if (ImGui::MenuItem(" CYLINDER  "))
@@ -226,7 +221,7 @@ update_status ModuleEditor::DrawEditor()
 
             if (ImGui::MenuItem(" SUZANNE  "))
             {
-                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::SUZANNE);
+                PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::P_SUZANNE);
             }
 
 
@@ -290,7 +285,7 @@ update_status ModuleEditor::DrawEditor()
         {
             if (ImGui::MenuItem("About..."))
             {
-                showAboutWindow = true; // Cuando se hace clic en "About...", se muestra la ventana modal About
+                showAboutWindow = true; 
             }
 
             ImGui::EndMenu();
@@ -790,13 +785,13 @@ void ModuleEditor::LOGToConsole(const char* text) {
 
     if (logs == nullptr) return;
 
-    // Obtener el tiempo actual
+    
     std::time_t tiempoActual = std::time(nullptr);
 
-    // Convertir el tiempo a una estructura tm para obtener la hora y la fecha
+    
     struct std::tm* tiempoDescompuesto = std::localtime(&tiempoActual);
 
-    // Obtener la hora, los minutos y los segundos
+    
     int horas = tiempoDescompuesto->tm_hour;
     int minutos = tiempoDescompuesto->tm_min;
     int segundos = tiempoDescompuesto->tm_sec;

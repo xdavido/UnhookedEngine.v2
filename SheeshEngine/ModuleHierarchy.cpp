@@ -22,7 +22,7 @@ ModuleHierarchy::~ModuleHierarchy()
 //-----------------------------------------------------------------
 bool ModuleHierarchy::Start()
 {
-	//LOG("Setting up the hierarchy");
+	
 	bool ret = true;
 
 
@@ -134,9 +134,9 @@ void ModuleHierarchy::GameObjectTree(GameObject* obj, int index)
 	{
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GameObject")) {
 
-			/*if (!TargetDropped->fixed || !objHovered->fixed) {*/
+			
 				TargetDropped->SetNewParent(objHovered);
-			/*}*/
+			
 		}
 		ImGui::EndDragDropTarget();
 	}

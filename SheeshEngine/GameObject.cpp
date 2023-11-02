@@ -20,7 +20,6 @@ GameObject::~GameObject()
 	name = "";
 	transform = nullptr;
 
-	//Unbind with parent
 	if (isTimetoDelete && mParent != nullptr) {
 		mParent->DeleteChild(this);
 	}
@@ -37,17 +36,6 @@ GameObject::~GameObject()
 		delete mChildren[i];
 		mChildren[i] = nullptr;
 	}
-	/*for (size_t i = mComponents.size(); i >= 0; --i)
-	{
-		delete mComponents[i];
-		mComponents[i] = nullptr;
-	}
-
-	for (size_t i = mChildren.size(); i >= 0; --i)
-	{
-		delete mChildren[i];
-		mChildren[i] = nullptr;
-	}*/
 
 	mComponents.clear();
 
@@ -187,14 +175,11 @@ void GameObject::PrintInspector()
 	{
 		strcpy(aux, this->name.c_str());
 
-		//name i enable
-		//ImGui::Text(name.c_str());
-		
 
 		ImGui::BulletText("Name:");
 		ImGui::SameLine();
 
-		//input the name of the Game Object
+		
 		ImGui::InputText("##Name", aux, 255, ImGuiInputTextFlags_EnterReturnsTrue);
 
 		if (ImGui::IsKeyDown(ImGuiKey_Enter))
@@ -213,8 +198,6 @@ void GameObject::PrintInspector()
 			ImGui::Separator();
 
 			mComponents[i]->PrintInspector();
-
-			//strcpy(*listComponenets, components[i]->nameComponent.c_str());
 		}
 
 		ImGui::Separator();
@@ -224,36 +207,7 @@ void GameObject::PrintInspector()
 
 		ImGui::Text("");
 		ImGui::SameLine(ImGui::GetWindowWidth() / 6);
-		//if (ImGui::Combo("##AddComponent", &componentNum, listComponenets, 3)) //number of total components u can give to a GO
-		//{
-		//	switch (componentNum) {
-		//	case 1:
-		//	{
-		//		//Mesh component
-		//		if (GetMeshComponent() == nullptr) {
-		//			ComponentMesh* cm = new ComponentMesh();
-		//			AddComponent(cm);
-		//		}
-		//		else {
-		//			LOG("Mesh Component already added, can't duplicate.")
-		//		}
-		//	}
-		//	break;
-		//	case 2:
-		//	{
-		//		//Texture component
-		//		if (GetTextureComponent() == nullptr) {
-		//			ComponentTexture* ct = new ComponentTexture();
-		//			AddComponent(ct);
-		//		}
-		//		else {
-		//			LOG("Texture Component already added, can't duplicate.")
-		//		}
-		//	}
-		//	break;
-		//	}
-		//	componentNum = 0;
-		//}
+
 
 	}
 

@@ -49,19 +49,19 @@ GameObject* PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryTyp
             return gameObject;
             break;
 
-        case GeometryType::ICOSHPERE:
+        case GeometryType::P_ICOSHPERE:
             gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/icosphere.fbx");
             aux = "Icosphere";
             gameObject->name = aux;
-            gameObject->Stype = GeometryType::ICOSHPERE;
+            gameObject->Stype = GeometryType::P_ICOSHPERE;
             return gameObject;
             break;
 
-        case GeometryType::CONE:
+        case GeometryType::P_CONE:
             gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/cone.fbx");
             aux = "Cone";
             gameObject->name = aux;
-            gameObject->Stype = GeometryType::CONE;
+            gameObject->Stype = GeometryType::P_CONE;
             return gameObject;
             break;
 
@@ -72,11 +72,11 @@ GameObject* PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryTyp
             gameObject->Stype = GeometryType::P_TORUS;
             return gameObject;
             break;
-        case GeometryType::SUZANNE:
+        case GeometryType::P_SUZANNE:
             gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/suzanne.fbx");
-            aux = "Monkey";
+            aux = "Suzanne";
             gameObject->name = aux;
-            gameObject->Stype = GeometryType::SUZANNE;
+            gameObject->Stype = GeometryType::P_SUZANNE;
             return gameObject;
             break;
 

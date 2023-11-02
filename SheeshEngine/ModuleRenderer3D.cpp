@@ -198,19 +198,18 @@ bool ModuleRenderer3D::Init()
 		glewInit();
 	}
 
-	// Projection matrix for
+	
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	Grid.axis = true;
 
-	//(2)--- CUBO CON VERTEX ARRAYS Y glDrawElements() ---
+	
 	
 	glGenBuffers(1, &test);
 	glBindBuffer(GL_ARRAY_BUFFER, test);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	
-	//(3)--- CUBO CON VERTEX ARRAYS Y INDICES ---
 	VBO = 0;
 	EBO = 0;
 	VAO = 0;
@@ -230,22 +229,20 @@ bool ModuleRenderer3D::Init()
 	glEnableVertexAttribArray(0);
 	glBindVertexArray(0);
 	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); //el unbind de EBO, tiene que ser siempre despues del de VAO
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); 
 
-	//(4)--- EJEMPLO PARA PRÁCTICAR ---
-	//Creamos el ID
+
 	VAORect = 0;
 	VBORect = 0;
 	EBORect = 0;
 	
-	//Creamos el objeto y le pasamos nuestro ID
+	
 	glGenBuffers(1, &VBORect);
 	glGenBuffers(1, &EBORect);
 	glGenVertexArrays(1, &VAORect);
 
 	
-	//Especificamos el tipo de objeto y se lo bindeamos
-	//Creamos el objeto en la GPU, configuramos como OpenGL debe interpretar los datos y especificamos como van a ser mandados a la tarjeta gráfica
+
 
 	glBindVertexArray(VAORect);
 	glBindBuffer(GL_ARRAY_BUFFER, VBORect);
@@ -257,7 +254,7 @@ bool ModuleRenderer3D::Init()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	//Hacemos unbind
+	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -268,9 +265,7 @@ bool ModuleRenderer3D::Init()
 
 bool ModuleRenderer3D::Start()
 {
-	//App->assimpMeshes->	("Assets/Models/BakerHouse.fbx");
-	/*App->assimpMeshes->LoadMeshFromFile(ICOSPHERE);	*/
-	//App->textures->LoadTexture("Assets/Baker_house.png");
+	
 	
 			
 	return true;

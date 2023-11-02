@@ -50,7 +50,7 @@ GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
             OBJ->SetAsChildOf(obj);
             obj->name = "Mesh_" + std::to_string(i);
             ImportAssimpMesh(scene->mMeshes[i],OBJ, obj, scene,i);
-            obj->GetComponentTexture()->path = file_path;
+           
         }
        
 
@@ -118,7 +118,7 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
 
         BufferMesh(ourMesh);
 
-        //Add mesh to meshes vector
+        
         meshes.push_back(ourMesh);
 
         ComponentMesh* meshComp = new ComponentMesh(CgameObject);
@@ -130,17 +130,17 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
 
         /*meshComp->type = ComponentType::MESH;*/
 
-        //Has a texture
+        
         if (scene->HasMaterials()) {
             if (scene->mMaterials[scene->mMeshes[index]->mMaterialIndex]->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
-                //Get texture path
+                
                 aiString texture_path;
                 scene->mMaterials[scene->mMeshes[index]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &texture_path);
                 aiString new_path;
                 new_path.Set("Assets/Textures/");
                 new_path.Append(texture_path.C_Str());
-
-                //Build component
+               
+               
                 ComponentMaterial* matComp = new ComponentMaterial(CgameObject);
                 matComp->mOwner = CgameObject;
                 matComp->SetTexture(new_path.C_Str());
@@ -174,20 +174,14 @@ void Mesh::Render()
     glEnable(GL_TEXTURE_2D);
     glEnableClientState(GL_VERTEX_ARRAY);
     glBindTexture(GL_TEXTURE_2D, id_texture);
-        
-    // Binding buffers
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); 
 
-    // Draw
     glVertexPointer(3, GL_FLOAT, sizeof(float) * VERTEX, NULL);
     glTexCoordPointer(2, GL_FLOAT, sizeof(float) * VERTEX, (void*)(sizeof(float) * 3));
     glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, NULL);
-
-    // Unbind buffers
     glDisableClientState(GL_VERTEX_ARRAY);
 
-    //cleaning texture
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_TEXTURE_2D);
 }
