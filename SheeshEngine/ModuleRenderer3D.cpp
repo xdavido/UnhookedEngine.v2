@@ -386,7 +386,12 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//glEnd();
 	//glLineWidth(1.0f);
 	
-	App->editor->DrawEditor();
+	
+
+	if (App->editor->DrawEditor() == UPDATE_STOP)
+	{
+		return UPDATE_STOP;
+	}
 
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;

@@ -50,7 +50,12 @@ GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
             OBJ->SetAsChildOf(obj);
             obj->name = "Mesh_" + std::to_string(i);
             ImportAssimpMesh(scene->mMeshes[i],OBJ, obj, scene,i);
+            obj->GetComponentTexture()->path = file_path;
         }
+       
+
+           
+        
         
         aiReleaseImport(scene);
 
@@ -122,8 +127,7 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
         CgameObject->AddComponent(meshComp);
 
         ourMesh->id_texture = App->textures->checkersID;
-        ourMesh->texture_height = App->textures->textureWidth;
-        ourMesh->texture_width = App->textures->textureWidth;
+
         /*meshComp->type = ComponentType::MESH;*/
 
         //Has a texture
@@ -149,6 +153,11 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
                 CgameObject->AddComponent(mat);
             }
         }
+
+        ourMesh->texture_height = App->textures->textureWidth;
+        ourMesh->texture_width = App->textures->textureWidth;
+
+    
 
 
     }
@@ -344,7 +353,7 @@ void ModuleAssimpMeshes::RenderScene()
        /* glColor3f(1, 0, 0);
         meshes[i]->RenderVertexNormals();*/
     }
-    glColor3f(1.0f, 1.0f, 1.0f);
+    glColor3f(1.0f, 1.0f, 1.0f);    
 }
 
 void ModuleAssimpMeshes::DeleteMesh(Mesh* mesh) {

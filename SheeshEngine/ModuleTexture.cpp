@@ -126,6 +126,20 @@ uint ModuleTexture::LoadTexture(const char* path)
 	glTexImage2D(GL_TEXTURE_2D, 0, format, imgWidth, imgHeight, 0, format, type, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
+	if (App->hierarchy->objSelected != nullptr ) {
+		if (App->hierarchy->objSelected->GetMeshComponent() != nullptr) {
+
+			App->hierarchy->objSelected->GetMeshComponent()->mesh->texture_width = imgWidth;
+			App->hierarchy->objSelected->GetMeshComponent()->mesh->texture_height = imgHeight;
+		}
+		if (App->hierarchy->objSelected->GetComponentTexture() != nullptr) {
+
+			App->hierarchy->objSelected->GetComponentTexture()->path = path;
+		}
+	}
+
+
+
 	//CLEANUP
 
 	//Delete DevIL image buffer

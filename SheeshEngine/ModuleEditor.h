@@ -19,7 +19,9 @@ public:
     bool Init();
     
 
-    void DrawEditor();
+    update_status DrawEditor();
+
+    void ViewCollapsingHeader();
 
     void HardwareCollapsingHeader();
 
@@ -98,6 +100,11 @@ private:
     bool SSE42;
 
     std::vector<std::string> screens;
+
+
+    bool isActiveInspector;
+    bool isActiveConsole;
+    bool isActiveHierarchy;
 
     //About Window
     std::string license;

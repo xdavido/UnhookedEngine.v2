@@ -79,7 +79,8 @@ void ComponentMaterial::PrintInspector()
 	//Texture component inspector
 	if (ImGui::CollapsingHeader("Texture", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth))
 	{
-		
+		std::string pathaux = "Path: " + std::string(path);
+		ImGui::Text(pathaux.c_str());
 		int width = mOwner->GetMeshComponent()->mesh->texture_width;
 		std::string aux = "Texture Width: " + std::to_string(width);
 		ImGui::Text(aux.c_str() );

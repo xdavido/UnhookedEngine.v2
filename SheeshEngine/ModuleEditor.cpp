@@ -112,6 +112,10 @@ bool ModuleEditor::Init()
     //About Window
     license = ReadFileIO("../../License.txt");
 
+    isActiveHierarchy = true;
+    isActiveConsole = true;
+    isActiveInspector = false;
+
     return true;
 }
 
@@ -129,9 +133,9 @@ bool ModuleEditor::CleanUp()
 }
 
 
-void ModuleEditor::DrawEditor()
+update_status ModuleEditor::DrawEditor()
 {
-
+    update_status ret = update_status::UPDATE_CONTINUE;
     // Start the Dear ImGui frame
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
@@ -166,8 +170,11 @@ void ModuleEditor::DrawEditor()
     {
         if (ImGui::BeginMenu("File"))
         {
-            ImGui::Text("Hello world!");
+            if (ImGui::MenuItem("Quit Application", "ESC")) {
+                ret = UPDATE_STOP;
+            }
             ImGui::EndMenu();
+            
         }
         if (ImGui::BeginMenu("Assets"))
         {
@@ -225,6 +232,7 @@ void ModuleEditor::DrawEditor()
 
             ImGui::EndMenu();
         }
+     
 
         if (ImGui::BeginMenu("Configuration"))
         {
@@ -269,6 +277,7 @@ void ModuleEditor::DrawEditor()
 
             HardwareCollapsingHeader();
 
+            
 
             if (ImGui::Button("Close", ImVec2(60, 0)))
             {
@@ -287,24 +296,19 @@ void ModuleEditor::DrawEditor()
             ImGui::EndMenu();
         }
 
-        if (ImGui::BeginMenu("Console"))
-        {
-            if (ImGui::MenuItem("Open"))
-            {
-                showConsoleWindow = true; 
-            }
-
-            ImGui::EndMenu();
-        }
 
         //CreateAboutModalPopup(showModalAbout);
         CreateAboutWindow(showAboutWindow);
-        CreateConsoleWindow(showConsoleWindow);
+        CreateConsoleWindow(isActiveConsole);
+
+        ViewCollapsingHeader();
 
         ImGui::EndMainMenuBar();
     }
 
-    if (App->hierarchy->objSelected) {
+
+
+    if (App->hierarchy->objSelected && isActiveInspector) {
 
         if (ImGui::Begin("Inspector")) {
             
@@ -315,19 +319,43 @@ void ModuleEditor::DrawEditor()
 
   
 
+    if (isActiveHierarchy) {
+        if (ImGui::Begin("GameObjects Hierarchy")) {
 
-    if (ImGui::Begin("GameObjects Hierarchy")) {
-
-        App->hierarchy->GameObjectTree(App->scene->root, 0);
+            App->hierarchy->GameObjectTree(App->scene->root, 0);
 
 
+        }
+        ImGui::End();
     }
-    ImGui::End();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+    return ret;
+
     
+}
+
+void ModuleEditor::ViewCollapsingHeader() {
+
+    if (ImGui::BeginMenu("View")) {
+
+        if (ImGui::Checkbox("Hierarchy", &isActiveHierarchy))
+        {
+            isActiveHierarchy != isActiveHierarchy;
+        }
+        if (ImGui::Checkbox("Inspector", &isActiveInspector))
+        {
+            isActiveInspector != isActiveInspector;
+        }
+        if (ImGui::Checkbox("Console", &isActiveConsole))
+        {
+            isActiveConsole != isActiveConsole;
+        }
+
+        ImGui::EndMenu();
+    }
 }
 
 void ModuleEditor::HardwareCollapsingHeader()
@@ -537,7 +565,7 @@ void ModuleEditor::CreateAboutWindow(bool& showAboutWindow)
     ImGui::Spacing();
     if (ImGui::Button("Autors: Oriol Martin Corella & Xiao Shan Costajussa Bellver"))
     {
-        URLButton("https://github.com/xaita/SheeshEngine");
+        URLButton("https://github.com/Urii98/SheeeshEngine");
     }
 
     ImGui::Spacing();

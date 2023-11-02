@@ -20,7 +20,7 @@ public:
 
 	void PrintInspector();
 
-
+	std::string path = " ";
 	GLuint textureID = 0;
 	int textureSelected = 0;
 

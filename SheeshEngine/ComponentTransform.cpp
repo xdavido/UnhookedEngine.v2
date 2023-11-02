@@ -4,8 +4,6 @@
 
 ComponentTransform::ComponentTransform(bool enabled) : Component(mOwner) {
 	type = ComponentType::TRANSFORM;
-
-	//Put everything to 0
 	
 	resetMatrix();
 }
@@ -37,7 +35,7 @@ void ComponentTransform::resetMatrix()
 
 	position = { 0, 0, 0 };
 	rotation = { 0, 0, 0 };
-	scale = { 0, 0, 0 };
+	scale = { 1, 1, 1 };
 }
 
 float3 ComponentTransform::getPosition(bool globalPosition)
