@@ -30,7 +30,10 @@ public:
 
 	ComponentMesh* GetMeshComponent();
 
+	ComponentTransform* GetTransformComponent();
+
 	ComponentMaterial* GetComponentTexture();
+
 
 	bool isTimetoDelete;
 	std::string name;

@@ -28,7 +28,7 @@ struct Mesh {
 
     aiVector3D* vertexNormals = nullptr; 
 
-    GameObject* owner;
+    GameObject* owner = nullptr;
 
 
     uint VAO;

@@ -9,7 +9,7 @@ GameObject::GameObject()
 {
 	name = "GameObject";
 	mParent = nullptr;
-	transform = new ComponentTransform();
+	transform = new ComponentTransform(this);
 	isTimetoDelete = false;
 	Stype = GeometryType::NONE;
 	mComponents.push_back(transform);
@@ -53,7 +53,8 @@ GameObject::GameObject(GameObject* parent)
 		parent->mChildren.push_back(this);
 	}
 
-	transform = new ComponentTransform();
+	transform = new ComponentTransform(this);
+	
 
 	mComponents.push_back(transform);
 }
@@ -91,6 +92,18 @@ ComponentMesh* GameObject::GetMeshComponent()
 		if (mComponents[i]->type == ComponentType::MESH)
 		{
 			return (ComponentMesh*)mComponents[i];
+		}
+	}
+	return nullptr;
+}
+
+ComponentTransform* GameObject::GetTransformComponent()
+{
+	for (size_t i = 0; i < mComponents.size(); i++)
+	{
+		if (mComponents[i]->type == ComponentType::TRANSFORM)
+		{
+			return (ComponentTransform*)mComponents[i];
 		}
 	}
 	return nullptr;

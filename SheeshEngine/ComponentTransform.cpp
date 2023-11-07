@@ -2,14 +2,17 @@
 #include "Globals.h"
 #include "GameObject.h"
 
-ComponentTransform::ComponentTransform(bool enabled) : Component(mOwner) {
+ComponentTransform::ComponentTransform(GameObject* owner) : Component(owner) {
 	type = ComponentType::TRANSFORM;
-	
+	mOwner = owner;
 	resetMatrix();
 }
 
 ComponentTransform::~ComponentTransform()
 {
+
+	type = ComponentType::TRANSFORM;
+	resetMatrix();
 }
 
 
