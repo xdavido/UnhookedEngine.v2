@@ -11,7 +11,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	Y = float3(0.0f, 1.0f, 0.0f);
 	Z = float3(0.0f, 0.0f, 1.0f);
 
-	Position = float3(0.0f, 10.0f, 5.0f);
+	Position = float3(0.0f, 1.0f, 10.0f);
 	Reference = float3(0.0f, 0.0f, 0.0f);
 	ViewMatrix = IdentityMatrix;
 
@@ -72,7 +72,23 @@ update_status ModuleCamera3D::Update(float dt)
 
 	OrbitSelectedObject(dt);
 
-	LookAt(Reference);
+	
+
+	if ((App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE) {
+
+		// Center camera to 0,0,0 when pressing Left Alt
+
+		Reference = float3(0.0f, 0.0f, 0.0f);
+		LookAt(Reference);
+
+	}
+	else {
+
+		// Orbital camera FPS when we aren't pressing Left Alt
+
+		Reference = Position;
+
+	}
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
