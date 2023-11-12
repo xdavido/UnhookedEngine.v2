@@ -1,4 +1,5 @@
 #include "ComponentMesh.h"
+#include "Application.h"
 
 ComponentMesh::ComponentMesh() : Component(nullptr)
 {
@@ -16,6 +17,11 @@ ComponentMesh::ComponentMesh::~ComponentMesh()
 {
 	App->assimpMeshes->DeleteMesh(mesh);
 	mesh = nullptr;
+
+	//for (int i = 0; i < meshes.size(); i++) {
+	//	Application::GetInstance()->meshRenderer->DeleteMesh(meshes[i]);
+	//}
+	meshes.clear();
 }
 
 void ComponentMesh::PrintInspector()

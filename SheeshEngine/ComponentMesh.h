@@ -3,6 +3,8 @@
 
 #include "Application.h"
 #include "ImGui/imgui.h"
+#include <vector>
+#include <string>
 
 
 
@@ -18,6 +20,8 @@ public:
 	Mesh* mesh;
 	
 	bool faceNormals;
+
+	vector<Mesh*> meshes; 
 
 	void PrintInspector();
 };

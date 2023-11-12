@@ -30,6 +30,15 @@ Application::Application()
 	AddModule(editor);
 }
 
+Application* Application::GetInstance()
+{
+	if (App == nullptr)
+	{
+		App = new Application();
+	}
+	return App;
+}
+
 Application::~Application()
 {
 	for (std::vector<Module*>::iterator it = list_modules.begin(); it != list_modules.end(); ++it)

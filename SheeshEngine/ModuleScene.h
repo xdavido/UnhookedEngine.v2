@@ -17,6 +17,7 @@ public:
 	bool CleanUp();
 
 	GameObject* CreateGameObject(GameObject* parent);
+	ImVec2 NormMousePos(float x, float y, float w, float h, ImVec2 p);
 	GameObject* root = nullptr;
 	GameObject* prova1;
 	GameObject* prova2;

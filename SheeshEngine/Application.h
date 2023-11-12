@@ -42,6 +42,7 @@ public:
 public:
 
 	Application();
+	Application* GetInstance();
 	~Application();
 
 	bool Init();
