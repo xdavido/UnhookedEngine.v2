@@ -86,8 +86,18 @@ void Application::PrepareUpdate()
 
 // ---------------------------------------------
 void Application::FinishUpdate()
-{
-	 
+{	 
+	if (loadRequested)
+	{
+		LoadConfig();
+	}
+
+	if (saveRequested) 
+	{
+		SaveConfig();
+	}
+
+
 	if (renderer3D->GetVsync())
 	{
 		msLastFrame = ms_timer.Read();

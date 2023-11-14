@@ -16,7 +16,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void Look(const float3& Position, const float3& Reference, bool RotateAroundReference = false);
+	void Look();
 	void LookAt(const float3& Spot);
 	void Move(const float3& Movement);
 	float* GetViewMatrix();
@@ -25,9 +25,12 @@ public:
 	void OrbitSelectedObject(float dt);
 	float3 RotateVector(const float3& u, float angle, const float3& v);
 
+	bool SaveConfig(JsonParser& node) const;
+	bool LoadConfig(JsonParser& node);
 private:
 
 	void CalculateViewMatrix();
+	
 
 public:
 

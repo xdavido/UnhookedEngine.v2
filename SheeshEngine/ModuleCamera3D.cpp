@@ -67,7 +67,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) FocusCameraToSelectedObject();
 
-	newPos -= App->input->GetMouseZ() * Z;
+	//newPos -= App->input->GetMouseZ() * Z;
 
 	Position += newPos;
 	Reference += newPos;
@@ -76,7 +76,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	
 
-	if ((App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT || App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT) && App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_IDLE) {
+	if ((App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)) {
 
 		// Center camera to 0,0,0 when pressing Left Alt
 
@@ -99,22 +99,16 @@ update_status ModuleCamera3D::Update(float dt)
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::Look(const float3& Position, const float3& Reference, bool RotateAroundReference)
+void ModuleCamera3D::Look()
 {
-	this->Position = Position;
-	this->Reference = Reference;
 
 	Z = (Position - Reference).Normalized();
 	X = (float3(0.0f, 1.0f, 0.0f).Cross(Z)).Normalized();
 	Y = Z.Cross(X);
 
-	if (!RotateAroundReference)
-	{
-		this->Reference = this->Position;
-		this->Position += Z * 0.05f;
-	}
+	this->Position += Z * 0.05f;
 
-	CalculateViewMatrix();
+	CalculateViewMatrix();	
 }
 
 // -----------------------------------------------------------------
@@ -122,6 +116,8 @@ void ModuleCamera3D::LookAt(const float3& Spot)
 {
 	Reference = Spot;
 
+	//Cuando se hace un Load, por algun motivo al normalizar los ejes los convierte todos en 0,1,0. Se pierden todos los datos.
+	//Se guarda bien la posicion pero debido a que hace mal la normalizacion (creo), la rotacion no se guarda
 	Z = (Position - Reference).Normalized();
 	X = (float3(0.0f, 1.0f, 0.0f).Cross(Z)).Normalized();
 	Y = Z.Cross(X);
@@ -276,4 +272,58 @@ void ModuleCamera3D::CalculateViewMatrix()
 {
 	//todo: USE MATHGEOLIB here BEFORE 1st delivery! (TIP: Use MathGeoLib/Geometry/Frustum.h, view and projection matrices are managed internally.)
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -(X.Dot(Position)), -(Y.Dot(Position)), -(Z.Dot(Position)), 1.0f);
+	
+}
+
+bool ModuleCamera3D::SaveConfig(JsonParser& node) const
+{
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "X.x", X.x);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "X.y", X.y);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "X.z", X.z);
+
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Y.x", Y.x);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Y.y", Y.y);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Y.z", Y.z);
+
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Z.x", Z.x);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Z.y", Z.y);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Z.z", Z.z);
+
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Reference.x", Reference.x);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Reference.y", Reference.y);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Reference.z", Reference.z);
+
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Position.x", Position.x);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Position.y", Position.y);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "Position.z", Position.z);
+
+	return true;
+}
+
+bool ModuleCamera3D::LoadConfig(JsonParser& node)
+{
+
+	X.x = node.JsonValToNumber("X.x");
+	X.y = node.JsonValToNumber("X.y");
+	X.z = node.JsonValToNumber("X.z");
+
+	Y.x = node.JsonValToNumber("Y.x");
+	Y.y = node.JsonValToNumber("Y.y");
+	Y.z = node.JsonValToNumber("Y.z");
+
+	Z.x = node.JsonValToNumber("Z.x");
+	Z.y = node.JsonValToNumber("Z.y");
+	Z.z = node.JsonValToNumber("Z.z");
+
+	Position.x = node.JsonValToNumber("Position.x");
+	Position.y = node.JsonValToNumber("Position.y");
+	Position.z = node.JsonValToNumber("Position.z");
+
+	Reference.x =node.JsonValToNumber("Reference.x");
+	Reference.y =node.JsonValToNumber("Reference.y");
+	Reference.z =node.JsonValToNumber("Reference.z");
+
+	LookAt(Reference);
+
+	return true;
 }

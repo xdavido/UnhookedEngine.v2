@@ -45,7 +45,7 @@ public:
 	bool loadRequested;
 
 	void SaveConfigRequest() { saveRequested = true; };
-	void LoadConfigRequest() { loadRequested = false; }
+	void LoadConfigRequest() { loadRequested = true; }
 
 
 public:
