@@ -12,6 +12,7 @@
 #include "ModuleTexture.h"
 #include "ModuleScene.h"
 #include"ModuleHierarchy.h"
+#include "JsonParser.h"
 
 #include<vector>
 
@@ -38,6 +39,14 @@ public:
 	uint	maxFrameRate;
 	float	msLastFrame;
 
+	JsonParser jsonFile;
+
+	bool saveRequested;
+	bool loadRequested;
+
+	void SaveConfigRequest() { saveRequested = true; };
+	void LoadConfigRequest() { loadRequested = false; }
+
 
 public:
 
@@ -52,6 +61,9 @@ public:
 
 	float GetDt() const { return dt; }
 	float GetFrameRate() const { return 1.f / dt; }
+
+	void SaveConfig();
+	void LoadConfig();
 
 private:
 

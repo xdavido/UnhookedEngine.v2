@@ -7,6 +7,8 @@
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	name = "Camera3D";
+
 	X = float3(1.0f, 0.0f, 0.0f);
 	Y = float3(0.0f, 1.0f, 0.0f);
 	Z = float3(0.0f, 0.0f, 1.0f);

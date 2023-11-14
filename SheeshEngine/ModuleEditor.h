@@ -60,8 +60,10 @@ private:
     bool resizable;
     bool borderless;
     bool fulldesktop;
+public:
     float brightness;
 
+private:
     //Renderer info
     bool vsync;
     bool depthTest;

@@ -6,6 +6,7 @@ ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, s
 {
 	window = NULL;
 	screen_surface = NULL;
+	name = "Window";
 }
 
 // Destructor
@@ -154,4 +155,47 @@ void ModuleWindow::OnHeightChanged()
 	std::string aux = "Window Height attribute updated to: " + std::to_string(height);
 	LOG(aux.c_str());
 
+}
+
+bool ModuleWindow::SaveConfig(JsonParser& node) const
+{
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "width", width);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "height", height);
+	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "brightness", App->editor->brightness);
+
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "fullscreen", fullscreen);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "fullscreen desktop", fulldesktop);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "borderless", borderless);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "resizable", resizable);
+
+	return true;
+}
+
+bool ModuleWindow::LoadConfig(JsonParser& node)
+{
+	width = (int)node.JsonValToNumber("width") * SCREEN_SIZE;
+	height = (int)node.JsonValToNumber("height") * SCREEN_SIZE;
+	App->editor->brightness = (float)node.JsonValToNumber("brightness");
+
+	fullscreen = node.JsonValToBool("fullscreen");
+	fulldesktop = node.JsonValToBool("fullscreen desktop");
+	borderless = node.JsonValToBool("borderless");
+	resizable = node.JsonValToBool("resizable");
+
+	if (fullscreen) SetFullscreen(fullscreen);
+	else if (fulldesktop) SetFulldesktop(fulldesktop);
+	if (borderless) SetBorderless(borderless);
+
+	SetResizable(resizable);
+	SetSize(width, height);
+
+	return true;
+}
+
+void ModuleWindow::SetSize(int width, int height)
+{
+	this->height = height;
+	this->width = width;
+
+	SDL_SetWindowSize(window, width, height);
 }

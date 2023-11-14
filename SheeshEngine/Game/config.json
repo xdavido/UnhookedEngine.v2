@@ -1,0 +1,19 @@
+{
+  "App": {
+    "FPS": 0
+  },
+  "Window": {
+    "width": 1280,
+    "height": 720,
+    "brightness": 1,
+    "fullscreen": false,
+    "fullscreen desktop": false,
+    "borderless": false,
+    "resizable": true
+  },
+  "Camera3D": {},
+  "Input": {},
+  "Physics3D": {},
+  "Renderer3D": {},
+  "Editor": {}
+}
