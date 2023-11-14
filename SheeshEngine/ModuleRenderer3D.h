@@ -27,6 +27,10 @@ public:
 	void DirectModeTriangleDrawing();
 	bool CleanUp();
 
+	bool SaveConfig(JsonParser& node) const;
+
+	bool LoadConfig(JsonParser& node);
+
 	void OnResize(int width, int height);
 
 	// Setter functions for renderer attributes

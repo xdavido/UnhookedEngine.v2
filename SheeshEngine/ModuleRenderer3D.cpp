@@ -580,3 +580,42 @@ void ModuleRenderer3D::DrawWithWireframe()
 	wireframeMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
+bool ModuleRenderer3D::SaveConfig(JsonParser& node) const
+{
+	//Module::SaveConfig(node);
+
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "vsync", vsync);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "wireframe", wireframeMode);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "depthTest", depthTestAttribute);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "cullFace", cullFaceAttribute);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "lighting", lightingAttribute);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "colorMaterial", colorMaterialAttribute);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "texture2D", texture2DAttribute);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "blend", blendAttribute);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "alphaTest", alphaTestAttribute);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "lineSmooth", lineSmoothAttribute);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "pointSmooth", pointSmoothAttribute);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "polygonSmooth", polygonSmoothAttribute);
+
+	return true;
+}
+
+bool ModuleRenderer3D::LoadConfig(JsonParser& node)
+{
+	//Module::LoadConfig(node);
+
+	vsync = node.JsonValToBool("vsync");
+	wireframeMode = node.JsonValToBool("wireframe");
+	depthTestAttribute = node.JsonValToBool("depthTest");
+	cullFaceAttribute = node.JsonValToBool("cullFace");
+	lightingAttribute = node.JsonValToBool("lighting");
+	colorMaterialAttribute = node.JsonValToBool("colorMaterial");
+	texture2DAttribute = node.JsonValToBool("texture2D");
+	blendAttribute = node.JsonValToBool("blend");
+	alphaTestAttribute = node.JsonValToBool("alphaTest");
+	lineSmoothAttribute = node.JsonValToBool("lineSmooth");
+	pointSmoothAttribute = node.JsonValToBool("pointSmooth");
+	polygonSmoothAttribute = node.JsonValToBool("polygonSmooth");
+
+	return true;
+}
