@@ -88,6 +88,7 @@ void ComponentTransform::calculateMatrix()
 
 	Quat q;
 	q = Quat::FromEulerXYZ(rx, ry, rz);
+	q=q.Normalized();
 	matrix = float4x4::FromTRS(position, q, scale).Transposed();
 
 
@@ -98,13 +99,13 @@ void ComponentTransform:: PrintInspector() {
 	if (ImGui::CollapsingHeader("Transform"))
 	{
 		ImGui::Text("X\t\t Y\t\t Z");
-		ImGui::InputFloat3("Position", position.ptr());
+		ImGui::DragFloat3("Position", position.ptr());
 
 		ImGui::Text("X\t\t Y\t\t Z");
-		ImGui::InputFloat3("Rotation", rotation.ptr());
+		ImGui::DragFloat3("Rotation", rotation.ptr());
 
 		ImGui::Text("X\t\t Y\t\t Z");
-		ImGui::InputFloat3("Scale", scale.ptr());
+		ImGui::DragFloat3("Scale", scale.ptr());
 	}
 
 

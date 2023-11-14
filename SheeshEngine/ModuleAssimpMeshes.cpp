@@ -39,6 +39,7 @@ bool ModuleAssimpMeshes::Start()
 GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
 {
     const aiScene* scene = aiImportFile(file_path, aiProcess_Triangulate|aiProcess_FlipUVs);
+    
 
     if (scene != nullptr&& scene->HasMeshes())
     {
@@ -124,6 +125,7 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
 
         ComponentMesh* meshComp = new ComponentMesh(CgameObject);
         ourMesh->owner = CgameObject;
+        ourMesh->InitAABB();
         meshComp->mesh = ourMesh;
         CgameObject->AddComponent(meshComp);
 
@@ -224,6 +226,43 @@ void Mesh::Render()
     glDisable(GL_TEXTURE_2D);
 }
 
+void Mesh::InitAABB()
+{
+    std::vector<float3> correctVertex;
+    for (size_t i = 0; i < vertexCount * VERTEX; i += VERTEX)
+    {
+        correctVertex.emplace_back(vertex[i], vertex[i + 1], vertex[i + 2]);
+    }
+    _AABB.SetFrom(&correctVertex[0], correctVertex.size());
+}
+
+void Mesh::RenderAABB()
+{
+    float3 corners1[8];
+
+    _OBB.GetCornerPoints(corners1);
+
+    DrawBox(corners1, float3(182, 149, 192));
+
+    float3 corners2[8];
+    GlobalAABB.GetCornerPoints(corners2);
+
+    DrawBox(corners2, float3(182, 149, 192));
+}
+void Mesh::DrawBox(float3* corners, float3 color)
+{
+    int indices[24] = { 0,2,2,6,6,4,4,0,0,1,1,3,3,2,4,5,6,7,5,7,3,7,1,5 };
+    glBegin(GL_LINES);
+    glColor3fv(color.ptr());
+
+    for (size_t i = 0; i < 24; i++)
+    {
+        glVertex3fv(corners[indices[i]].ptr());
+    }
+
+    glColor3f(255.f, 255.f, 255.f);
+    glEnd();
+}
 void Mesh::RenderVertexNormals()
 {
     //Vertex normals
@@ -377,7 +416,12 @@ void ModuleAssimpMeshes::RenderScene()
   
     for (int i = 0; i < meshes.size(); i++) {
         glColor3f(1.0f, 1.0f, 1.0f);
+        meshes[i]->_OBB = meshes[i]->_AABB;
+        meshes[i]->_OBB.Transform(meshes[i]->owner->transform->getGlobalMatrix().Transposed());
+        meshes[i]->GlobalAABB.SetNegativeInfinity();
+        meshes[i]->GlobalAABB.Enclose(meshes[i]->_OBB);
         meshes[i]->Render();
+        meshes[i]->RenderAABB();
         glColor3f(0.0f, 0.6f, 0.7f);
         if (meshes[i]->owner->GetMeshComponent()->faceNormals) { 
             meshes[i]->RenderFaceNormals(); 
