@@ -19,6 +19,8 @@
 ModuleEditor::ModuleEditor(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
     logs = new std::deque<std::string>();
+
+    name = "Editor";
 }
 
 ModuleEditor::~ModuleEditor()
@@ -231,6 +233,10 @@ update_status ModuleEditor::DrawEditor()
 
         if (ImGui::BeginMenu("Configuration"))
         {
+            if (ImGui::Button("Save"))App->SaveConfigRequest();
+            ImGui::SameLine();
+            if (ImGui::Button("Load"))App->LoadConfigRequest();
+
             if (ImGui::Checkbox("Vsync", &vsync))
             {
                 App->renderer3D->SetVsync(vsync);

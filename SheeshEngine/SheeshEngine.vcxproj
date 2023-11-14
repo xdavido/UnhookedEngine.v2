@@ -97,6 +97,7 @@
     <ClInclude Include="ImGui\imstb_rectpack.h" />
     <ClInclude Include="ImGui\imstb_textedit.h" />
     <ClInclude Include="ImGui\imstb_truetype.h" />
+    <ClInclude Include="JsonParser.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MathGeoLib\include\Algorithm\Random\LCG.h" />
     <ClInclude Include="MathGeoLib\include\Geometry\AABB.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_tables.cpp" />
     <ClCompile Include="ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="JsonParser.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -236,7 +238,6 @@
     <ClCompile Include="OurPrimitive.cpp" />
     <ClCompile Include="parson.c" />
     <ClCompile Include="Primitive.cpp" />
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
   </ItemGroup>

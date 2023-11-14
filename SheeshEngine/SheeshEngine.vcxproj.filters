@@ -339,6 +339,9 @@
     <ClInclude Include="OurPrimitive.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="JsonParser.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="log.cpp">
@@ -500,9 +503,6 @@
     <ClCompile Include="parson.c">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="test.cpp">
-      <Filter>Sources\Modules\Source</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleAssimpMeshes.cpp">
       <Filter>Sources\Modules\Source</Filter>
     </ClCompile>
@@ -532,6 +532,9 @@
     </ClCompile>
     <ClCompile Include="OurPrimitive.cpp">
       <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonParser.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -28,6 +28,9 @@ Application::Application()
 	// Renderer last!
 	AddModule(renderer3D);
 	AddModule(editor);
+
+	loadRequested = true;
+	saveRequested = false;
 }
 
 Application::~Application()
@@ -42,6 +45,18 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
+
+	JSON_Value* root = jsonFile.FileToValue("config.json");
+
+	if (jsonFile.GetRootValue() == NULL)
+	{
+		LOG("Couldn't load config.json");
+		ret = false;
+	}
+
+	JsonParser application = jsonFile.GetChild(root, "App");
+
+	maxFrameRate = application.JsonValToNumber("FPS");
 
 	maxFrameRate = 300;
 
@@ -71,8 +86,18 @@ void Application::PrepareUpdate()
 
 // ---------------------------------------------
 void Application::FinishUpdate()
-{
-	 
+{	 
+	if (loadRequested)
+	{
+		LoadConfig();
+	}
+
+	if (saveRequested) 
+	{
+		SaveConfig();
+	}
+
+
 	if (renderer3D->GetVsync())
 	{
 		msLastFrame = ms_timer.Read();
@@ -139,4 +164,49 @@ void Application::LOGToEditor(const char* text)
 void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
+}
+
+void Application::SaveConfig()
+{
+	LOG("Saving configuration");
+
+	JSON_Value* root = jsonFile.GetRootValue();
+
+	JsonParser application = jsonFile.SetChild(root, "App");
+
+	application.SetNewJsonNumber(application.ValueToObject(application.GetRootValue()), "FPS", maxFrameRate);
+
+
+	// Call SaveConfig() in all modules
+	std::vector<Module*>::iterator item;
+
+	for (item = list_modules.begin(); item != list_modules.end(); ++item)
+	{
+		(*item)->SaveConfig(jsonFile.SetChild(root, (*item)->name));
+	}
+
+	jsonFile.SerializeFile(root, "config.json");
+	saveRequested = false;
+}
+
+
+void Application::LoadConfig()
+{
+	LOG("Loading configurations");
+
+	JSON_Value* root = jsonFile.GetRootValue();
+
+	JsonParser application = jsonFile.GetChild(root, "App");
+
+	maxFrameRate = application.JsonValToNumber("FPS");
+
+
+	std::vector<Module*>::iterator item;
+
+	for (item = list_modules.begin(); item != list_modules.end(); ++item)
+	{
+		(*item)->LoadConfig(jsonFile.GetChild(root, (*item)->name));
+	}
+
+	loadRequested = false;
 }
