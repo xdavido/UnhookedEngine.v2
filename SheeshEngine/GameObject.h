@@ -36,6 +36,7 @@ public:
 
 
 	bool isTimetoDelete;
+	bool isActive;
 	std::string name;
 
 	GameObject* mParent;

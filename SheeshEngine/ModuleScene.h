@@ -25,6 +25,16 @@ public:
 	GameObject* prova5;
 	GameObject* prova6;
 
+	void SaveSceneRequest() { saveSceneRequest = true; }
+
 private:
-	
+	void UpdateGameObjects();
+	bool SaveScene();
+	void SaveGameObjects(GameObject* parent, JsonParser& rootFile);
+	bool LoadScene();
+
+	JsonParser jsonFile;
+	JSON_Value* rootFile;
+
+	bool saveSceneRequest = false;
 };
