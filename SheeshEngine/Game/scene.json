@@ -2,13 +2,41 @@
     "GameObjects": {
         "Scene": {
             "Child": {
-                "BakerHouse.fbx": {}
+                "BakerHouse.fbx": {
+                    "Child": {
+                        "Mesh_0": {
+                            "Child": {},
+                            "active": true,
+                            "name": "Mesh_0",
+                            "pendingToDelete": false,
+                            "components": {
+                                "pendingToDelete": false
+                            }
+                        },
+                        "Mesh_1": {
+                            "Child": {},
+                            "active": true,
+                            "name": "Mesh_1",
+                            "pendingToDelete": false,
+                            "components": {
+                                "pendingToDelete": false
+                            }
+                        }
+                    },
+                    "active": true,
+                    "name": "BakerHouse.fbx",
+                    "pendingToDelete": false,
+                    "components": {
+                        "pendingToDelete": false
+                    }
+                }
             },
             "active": true,
             "name": "Scene",
-            "isTimetoDelete": false,
-            "components": {},
-            "pendingToDelete": false
+            "pendingToDelete": false,
+            "components": {
+                "pendingToDelete": false
+            }
         }
     }
 }
