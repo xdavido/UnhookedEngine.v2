@@ -1,6 +1,7 @@
 #include "ModuleScene.h"
 #include "GameObject.h"
 #include "Application.h"
+#include "ComponentTransform.h"
 
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled) 
@@ -86,6 +87,8 @@ bool ModuleScene::SaveScene()
 void ModuleScene::SaveGameObjects(GameObject* parentGO, JsonParser& node) {
     std::string num;
     JsonParser& child = node;
+    ComponentTransform* transform;
+    float4x4 localTransform; 
 
     node.SetNewJsonString(node.ValueToObject(node.GetRootValue()), "name", parentGO->name.c_str());
     node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "active", parentGO->isActive);
@@ -96,6 +99,51 @@ void ModuleScene::SaveGameObjects(GameObject* parentGO, JsonParser& node) {
     {
         components.SetNewJsonBool(components.ValueToObject(components.GetRootValue()), "pendingToDelete", parentGO->isTimetoDelete);
         
+    }
+
+    JsonParser components = node.SetChild(node.GetRootValue(), "components");
+    JsonParser tmp = node;
+    for (size_t i = 0; i < parentGO->mComponents.size(); i++)
+    {
+        // Create Child of component
+        num = "Component " + std::to_string(i);
+        tmp = components.SetChild(components.GetRootValue(), num.c_str());
+
+        tmp.SetNewJsonNumber(tmp.ValueToObject(tmp.GetRootValue()), "Type", (int)parentGO->mComponents.at(i)->type);
+        tmp.SetNewJsonBool(tmp.ValueToObject(tmp.GetRootValue()), "active", parentGO->mComponents.at(i)->isActive);
+
+        switch ((ComponentType)parentGO->mComponents.at(i)->type)
+        {
+        case ComponentType::TRANSFORM:
+            num = "";
+            transform = (ComponentTransform*)(parentGO->mComponents.at(i));
+            localTransform = transform->getLocalMatrix();
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                {
+                    if (i == 0 && j == 0)num += std::to_string(localTransform.At(i, j));
+                    else num += "," + std::to_string(localTransform.At(i, j));
+                }
+            tmp.SetNewJsonString(tmp.ValueToObject(tmp.GetRootValue()), "LocalTransform", num.c_str());
+
+            break;
+
+        case ComponentType::MESH:
+            tmp.SetNewJsonString(tmp.ValueToObject(tmp.GetRootValue()), "Mesh", parentGO->name.c_str());
+
+            break;
+
+        case ComponentType::MATERIAL:
+            break;
+
+        case ComponentType::CAMERA:
+            break;
+
+        default:
+            break;
+
+        }
+        parentGO->mComponents.at(i)->type;
     }
 
     for (size_t i = 0; i <= parentGO->mChildren.size(); i++)
