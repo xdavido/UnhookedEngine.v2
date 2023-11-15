@@ -21,7 +21,6 @@
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "Renderer3D";
-	ProjectionMatrix.inverse();
 	ProjectionMatrix.SetIdentity();
 	mainGameCamera = nullptr;
 }
@@ -295,7 +294,19 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	return UPDATE_CONTINUE;
 }
+void ModuleRenderer3D::BindCameraBuffer(ComponentCamera* cc)
+{
+	//Bind game camera framebuffer
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(cc->GetProjetionMatrix());
 
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(cc->GetViewMatrix());
+
+	glBindFramebuffer(GL_FRAMEBUFFER, cc->frameBuffer);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+}
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
@@ -336,6 +347,19 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	//(4)--- DRAW BAKE HOUSE ---
 	App->assimpMeshes->RenderScene();
+
+
+	//Render GAME CAMERA
+	if (mainGameCamera != nullptr) {
+		//Only polygon fill
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		//Bind buffer
+		BindCameraBuffer(mainGameCamera);
+
+		//Render Game Camera
+		App->assimpMeshes->RenderGameWindow();
+	}
 	
 
 	//(5)--- DRAW TRIANDLE AND ITS NORMAL IN DIRECT MODE
@@ -470,11 +494,16 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadIdentity();
 
 	//todo: USE MATHGEOLIB here BEFORE 1st delivery! (TIP: Use MathGeoLib/Geometry/Frustum.h, view and projection matrices are managed internally.)
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	glLoadMatrixf(ProjectionMatrix.M);
+	//ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
+	//glLoadMatrixf(ProjectionMatrix.M);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+ComponentCamera* ModuleRenderer3D::GetMainCamera()
+{
+	return mainGameCamera;
 }
 
 // Setter functions for renderer attributes with logging

@@ -1,7 +1,7 @@
 #include "ComponentCamera.h"
 #include "GameObject.h"
 #include "ComponentTransform.h"
-#include "imgui.h"
+#include "Imgui/imgui.h"
 #include "Application.h"
 #include "ModuleAssimpMeshes.h"
 

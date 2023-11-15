@@ -70,6 +70,7 @@ public:
     bool CleanUp() override;
     GameObject* LoadMeshFromFile(const char* file_path);
     void ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObject, GameObject* CgameObject, const aiScene* scene, int index);
+    void RenderGameWindow();
     void BufferMesh(Mesh* mesh);
     void RenderScene();
 
@@ -80,5 +81,9 @@ public:
     std::vector<Mesh*> meshes;
     const char* file_path;
     bool MeshDebug;
+
+    int renderedSceneMeshes;
+    int renderedGameMeshes;
+
 };
 

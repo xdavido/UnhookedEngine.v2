@@ -24,6 +24,7 @@ public:
 	bool Init();
 	bool Start() override;
 	update_status PreUpdate(float dt);
+	void BindCameraBuffer(ComponentCamera* cc);
 	update_status PostUpdate(float dt);
 	void SetMainCamera(ComponentCamera* cam);
 	void DirectModeTriangleDrawing();
@@ -34,6 +35,8 @@ public:
 	bool LoadConfig(JsonParser& node);
 
 	void OnResize(int width, int height);
+
+	ComponentCamera* GetMainCamera();
 
 	// Setter functions for renderer attributes
 	void SetDepthTestAttribute(bool enable);
@@ -75,7 +78,7 @@ public:
 	CPlane Grid;
 	
 	//You won't need this after using Frustum
-	mat4x4 ProjectionMatrix;
+	float4x4 ProjectionMatrix;
 
 	GLuint test;
 	GLuint VBO;
@@ -105,5 +108,5 @@ private:
 	//renderer mode
 	bool wireframeMode;
 
-	CameraComponent* mainGameCamera;
+	ComponentCamera* mainGameCamera;
 };

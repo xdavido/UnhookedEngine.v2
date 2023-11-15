@@ -174,6 +174,20 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
     }
 }
 
+void ModuleAssimpMeshes::RenderGameWindow()
+{
+    renderedGameMeshes = 0;
+
+    //Render Game Window
+    for (int i = 0; i < meshes.size(); i++) {
+        if (!App->renderer3D->GetMainCamera()->IsInsideFrustum(meshes[i])) continue;
+
+        meshes[i]->Render();
+        renderedGameMeshes++;
+    }
+
+}
+
 mat4x4 ConvertFloat4x4ToMat4(const float4x4& floatMatrix) {
 
     mat4x4 mat;

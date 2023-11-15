@@ -3,8 +3,16 @@
 #include "Globals.h"
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
+#include"ComponentCamera.h"
 
 #include "glmath.h"
+
+enum class CamStates {
+	NORMAL,	//Nothing clicked, default camera movement
+	FLYING,	//WASD and mouse "fps like" movement
+	FOCUSED,//ALT clicked, mouse movement and rotation
+};
+
 
 class ModuleCamera3D : public Module
 {
@@ -26,6 +34,8 @@ public:
 	float3 RotateVector(const float3& u, float angle, const float3& v);
 
 	bool SaveConfig(JsonParser& node) const;
+	void MouseRotation(float dx, float dy, float sensitivity);
+	float3 SelectedObjectPos();
 	bool LoadConfig(JsonParser& node);
 private:
 
@@ -36,6 +46,8 @@ public:
 
 	
 	float3 X, Y, Z, Position, Reference;
+	ComponentCamera* cam;
+	CamStates camState;
 
 private:
 
