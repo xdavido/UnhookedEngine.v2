@@ -2,8 +2,12 @@
     "GameObjects": {
         "Scene": {
             "Child": {
-                "Mesh_1": {}
-            }
+                "BakerHouse.fbx": {}
+            },
+            "active": true,
+            "name": "Scene",
+            "pendingToDelete": false,
+            "components": {}
         }
     }
 }

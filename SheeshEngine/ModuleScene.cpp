@@ -84,22 +84,28 @@ bool ModuleScene::SaveScene()
 
 
 void ModuleScene::SaveGameObjects(GameObject* parentGO, JsonParser& node) {
-    for (auto child : parentGO->mChildren) {
-        JsonParser& childNode = node.SetChild(node.SetChild(node.GetRootValue(), "Child").GetRootValue(), child->name.c_str());
 
-        node.SetNewJsonBool(node.ValueToObject(childNode.GetRootValue()), "isActive", child->isActive);
+    for (size_t i = 0; i < parentGO->mChildren.size(); i++)
+    {
+        SaveGameObjects(parentGO->mChildren[i], node.SetChild(node.SetChild(node.GetRootValue(), "Child").GetRootValue(), parentGO->mChildren[i]->name.c_str()));
 
-        node.SetNewJsonString(node.ValueToObject(childNode.GetRootValue()), "name", child->name.c_str());
 
-        node.SetNewJsonBool(node.ValueToObject(childNode.GetRootValue()), "pendingToDelete", child->isTimetoDelete);
+        node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "active", parentGO->isActive);
+       
 
-        JsonParser& components = node.SetChild(childNode.GetRootValue(), "components");
+        node.SetNewJsonString(node.ValueToObject(node.GetRootValue()), "name", parentGO->name.c_str());
 
-        for (auto component : child->mComponents) {
-            components.SetNewJsonBool(node.ValueToObject(components.GetRootValue()), "isActive", child->isActive); 
+        
+        node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "isTimetoDelete", parentGO->isTimetoDelete);
+
+        JsonParser& components = node.SetChild(node.GetRootValue(), "components");
+
+        for (size_t i = 0; i < parentGO->mComponents.size(); i++)
+        {
+            components.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "pendingToDelete", parentGO->isTimetoDelete);
+            
         }
 
-        SaveGameObjects(child, node); 
     }
 }
 
