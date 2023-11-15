@@ -7,6 +7,7 @@
 #include "MathGeoLib/include/Math/float4x4.h"
 #include "Primitive.h"
 #include "Glew/include/glew.h"
+#include"ComponentCamera.h"
 
 
 //todo: REMOVE this before 1st delivery!!
@@ -24,6 +25,7 @@ public:
 	bool Start() override;
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
+	void SetMainCamera(ComponentCamera* cam);
 	void DirectModeTriangleDrawing();
 	bool CleanUp();
 
@@ -102,4 +104,6 @@ private:
 
 	//renderer mode
 	bool wireframeMode;
+
+	CameraComponent* mainGameCamera;
 };

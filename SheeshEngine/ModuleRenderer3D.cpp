@@ -21,6 +21,9 @@
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	name = "Renderer3D";
+	ProjectionMatrix.inverse();
+	ProjectionMatrix.SetIdentity();
+	mainGameCamera = nullptr;
 }
 
 // Destructor
@@ -392,7 +395,23 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
+void ModuleRenderer3D::SetMainCamera(ComponentCamera* cam)
+{
+	//No main camera
+	if (cam == nullptr) {
+		mainGameCamera = nullptr;
+		LOG( "No existing GAME camera");
+		return;
+	}
 
+	//Switch main cameras
+	if (mainGameCamera != nullptr)
+		mainGameCamera->isMainCamera = false;
+
+	cam->isMainCamera = true;
+
+	mainGameCamera = cam;
+}
 void ModuleRenderer3D::DirectModeTriangleDrawing()
 {
 	//Draw test here
