@@ -1,41 +1,35 @@
 {
     "GameObjects": {
         "Scene": {
-            "Child": {
-                "BakerHouse.fbx": {
-                    "Child": {
-                        "Mesh_0": {
-                            "Child": {},
-                            "active": true,
-                            "name": "Mesh_0",
-                            "pendingToDelete": false,
-                            "components": {
-                                "pendingToDelete": false
-                            }
-                        },
-                        "Mesh_1": {
-                            "Child": {},
-                            "active": true,
-                            "name": "Mesh_1",
-                            "pendingToDelete": false,
-                            "components": {
-                                "pendingToDelete": false
-                            }
-                        }
-                    },
+            "name": "Scene",
+            "active": true,
+            "pendingToDelete": false,
+            "components": {
+                "pendingToDelete": false
+            },
+            "Child 0": {
+                "name": "BakerHouse.fbx",
+                "active": true,
+                "pendingToDelete": false,
+                "components": {
+                    "pendingToDelete": false
+                },
+                "Child 0": {
+                    "name": "Mesh_0",
                     "active": true,
-                    "name": "BakerHouse.fbx",
+                    "pendingToDelete": false,
+                    "components": {
+                        "pendingToDelete": false
+                    }
+                },
+                "Child 1": {
+                    "name": "Mesh_1",
+                    "active": true,
                     "pendingToDelete": false,
                     "components": {
                         "pendingToDelete": false
                     }
                 }
-            },
-            "active": true,
-            "name": "Scene",
-            "pendingToDelete": false,
-            "components": {
-                "pendingToDelete": false
             }
         }
     }
