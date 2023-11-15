@@ -94,13 +94,6 @@ void ModuleScene::SaveGameObjects(GameObject* parentGO, JsonParser& node) {
     node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "active", parentGO->isActive);
     node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "pendingToDelete", parentGO->isTimetoDelete);
 
-    JsonParser& components = node.SetChild(node.GetRootValue(), "components");
-    for (size_t i = 0; i < parentGO->mComponents.size(); i++)
-    {
-        components.SetNewJsonBool(components.ValueToObject(components.GetRootValue()), "pendingToDelete", parentGO->isTimetoDelete);
-        
-    }
-
     JsonParser components = node.SetChild(node.GetRootValue(), "components");
     JsonParser tmp = node;
     for (size_t i = 0; i < parentGO->mComponents.size(); i++)
@@ -134,9 +127,6 @@ void ModuleScene::SaveGameObjects(GameObject* parentGO, JsonParser& node) {
             break;
 
         case ComponentType::MATERIAL:
-            break;
-
-        case ComponentType::CAMERA:
             break;
 
         default:
