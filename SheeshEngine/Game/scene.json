@@ -6,8 +6,9 @@
             },
             "active": true,
             "name": "Scene",
-            "pendingToDelete": false,
-            "components": {}
+            "isTimetoDelete": false,
+            "components": {},
+            "pendingToDelete": false
         }
     }
 }

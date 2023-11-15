@@ -183,6 +183,12 @@ update_status ModuleEditor::DrawEditor()
             if (ImGui::MenuItem("Quit Application", "ESC")) {
                 ret = UPDATE_STOP;
             }
+
+            if (ImGui::MenuItem("Save Scene", "Ctrl+S"))
+            {
+                App->scene->SaveSceneRequest();
+            }
+
             ImGui::EndMenu();
             
         }
