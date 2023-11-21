@@ -35,6 +35,8 @@ public:
 	ComponentMaterial* GetComponentTexture();
 
 
+	void SetPendingToDelete(bool deleteGO) { isTimetoDelete = deleteGO; };
+
 	bool isTimetoDelete;
 	bool isActive;
 	std::string name;

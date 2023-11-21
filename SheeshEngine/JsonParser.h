@@ -22,6 +22,8 @@ public:
 
 	JsonParser GetChild(JSON_Value* parent, const char* name);
 
+	bool ExistChild(JSON_Value* parent, const char* name);
+
 	JSON_Status SerializeFile(JSON_Value* value, const char* fileName) const;
 
 	JSON_Value* GetRootValue() const;

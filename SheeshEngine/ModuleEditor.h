@@ -21,6 +21,8 @@ public:
 
     update_status DrawEditor();
 
+    void EditorShortcuts();
+
     void ViewCollapsingHeader();
 
     void HardwareCollapsingHeader();

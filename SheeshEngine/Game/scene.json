@@ -5,21 +5,43 @@
             "active": true,
             "pendingToDelete": false,
             "components": {
-                "pendingToDelete": false
+                "0Component Transform": {
+                    "Type": 1,
+                    "active": false,
+                    "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000"
+                }
             },
             "Child 0": {
                 "name": "BakerHouse.fbx",
                 "active": true,
                 "pendingToDelete": false,
                 "components": {
-                    "pendingToDelete": false
+                    "0Component Transform": {
+                        "Type": 1,
+                        "active": false,
+                        "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000"
+                    }
                 },
                 "Child 0": {
                     "name": "Mesh_0",
                     "active": true,
                     "pendingToDelete": false,
                     "components": {
-                        "pendingToDelete": false
+                        "0Component Transform": {
+                            "Type": 1,
+                            "active": false,
+                            "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000"
+                        },
+                        "1Component Mesh": {
+                            "Type": 2,
+                            "active": false,
+                            "Mesh": "Mesh_0"
+                        },
+                        "2Component Material": {
+                            "Type": 3,
+                            "active": false,
+                            "Material": "Assets\/Textures\/Baker_house.png"
+                        }
                     }
                 },
                 "Child 1": {
@@ -27,7 +49,21 @@
                     "active": true,
                     "pendingToDelete": false,
                     "components": {
-                        "pendingToDelete": false
+                        "0Component Transform": {
+                            "Type": 1,
+                            "active": false,
+                            "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000"
+                        },
+                        "1Component Mesh": {
+                            "Type": 2,
+                            "active": false,
+                            "Mesh": "Mesh_1"
+                        },
+                        "2Component Material": {
+                            "Type": 3,
+                            "active": false,
+                            "Material": "Assets\/Textures\/Baker_house.png"
+                        }
                     }
                 }
             }

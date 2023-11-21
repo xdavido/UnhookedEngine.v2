@@ -143,12 +143,7 @@ update_status ModuleEditor::DrawEditor()
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
-    if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
-    {
-        App->scene->SaveSceneRequest();
-    }
-
-
+    EditorShortcuts();
 
     
     ImGuiWindowFlags flags = ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoMove |
@@ -187,6 +182,11 @@ update_status ModuleEditor::DrawEditor()
             if (ImGui::MenuItem("Save Scene", "Ctrl+S"))
             {
                 App->scene->SaveSceneRequest();
+            }
+
+            if (ImGui::MenuItem("Load Scene"))
+            {
+                App->scene->LoadSceneRequest();
             }
 
             ImGui::EndMenu();
@@ -350,6 +350,14 @@ update_status ModuleEditor::DrawEditor()
     return ret;
 
     
+}
+
+void ModuleEditor::EditorShortcuts()
+{
+    if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetKey(SDL_SCANCODE_S) == KEY_UP)
+    {
+        App->scene->SaveSceneRequest();
+    }
 }
 
 void ModuleEditor::ViewCollapsingHeader() {

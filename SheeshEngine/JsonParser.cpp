@@ -67,10 +67,20 @@ JsonParser JsonParser::GetChild(JSON_Value* parent, const char* name)
 {
 	JsonParser child;
 
-	child.rootValue = json_object_get_value(ValueToObject(rootValue), name);
+	child.rootValue = json_object_get_value(ValueToObject(parent), name);
 
 	return child;
 }
+
+bool JsonParser::ExistChild(JSON_Value* parent, const char* name)
+{
+	bool ret = true;
+
+	ret = json_object_get_value(ValueToObject(parent), name);
+
+	return ret;
+}
+
 JSON_Status JsonParser::SerializeFile(JSON_Value* value, const char* fileName) const
 {
 	return json_serialize_to_file_pretty(value, fileName);

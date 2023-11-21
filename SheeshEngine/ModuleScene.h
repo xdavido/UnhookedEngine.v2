@@ -26,15 +26,21 @@ public:
 	GameObject* prova6;
 
 	void SaveSceneRequest() { saveSceneRequest = true; }
+	void LoadSceneRequest() { loadSceneRequest = true; }
 
 private:
 	void UpdateGameObjects();
 	bool SaveScene();
 	void SaveGameObjects(GameObject* parent, JsonParser& rootFile);
+	GameObject* LoadGameObject(JsonParser root);
+	
+	const char* FormatComponentType(GameObject* parentGO, const size_t& i);
 	bool LoadScene();
 
 	JsonParser jsonFile;
 	JSON_Value* rootFile;
+	JsonParser rootGO;
 
 	bool saveSceneRequest = false;
+	bool loadSceneRequest = false;
 };

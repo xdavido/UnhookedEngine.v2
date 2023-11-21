@@ -199,7 +199,7 @@ void GameObject::PrintInspector()
 			name = aux;
 
 
-		if (ImGui::Button("Delete")) {
+		if (ImGui::Button("Delete") || isTimetoDelete) {
 			
 			isTimetoDelete = true;
 			delete App->hierarchy->objSelected;
