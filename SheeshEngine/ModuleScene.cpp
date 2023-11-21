@@ -165,6 +165,132 @@ void ModuleScene::SaveGameObjects(GameObject* parentGO, JsonParser& node) {
     }
 }
 
+
+
+bool ModuleScene::LoadScene()
+{
+    LOG("Loading configurations");
+
+    rootFile = jsonFile.GetRootValue();
+
+    rootGO = jsonFile.GetChild(rootFile, "GameObjects");
+    
+    LoadGameObject(rootGO.GetChild(rootGO.GetRootValue(), "Root"));
+
+    loadSceneRequest = false;
+
+    return false;
+}
+
+
+
+
+void ModuleScene::LoadComponents(JsonParser& parent, std::string num, GameObject* gamObj)
+{
+
+    ComponentTransform* transform;
+    ComponentMesh* meshRender;
+    Mesh* mesh;
+    ComponentMaterial* material;
+    float3 size = float3::one;
+    LOG("Loading Components \n");
+    std::string debugPath;
+    std::string debugUID;
+
+    JsonParser components = parent.GetChild(parent.GetRootValue(), "components");
+    JsonParser tmp = components;
+
+    for (int i = 0; i < 4; i++)
+    {
+        num = "Component " + std::to_string(i);
+        LOG((std::string("Loading ") + num).c_str());
+
+        if (components.ExistChild(components.GetRootValue(), num.c_str()))
+        {
+            tmp = components.GetChild(components.GetRootValue(), num.c_str());
+            switch ((ComponentType)(int)tmp.JsonValToNumber("Type"))
+            {
+            case ComponentType::TRANSFORM:
+                gamObj->transform->SetLocalMatrix(strMatrixToF4x4(tmp.ValueToString("LocalTransform")));
+
+                //gamObj->transform = transform;
+
+                break;
+            case ComponentType::MESH:
+                /*gamObj->AddComponent(ComponentType::MESHRENDERER);
+                meshRender = static_cast<MeshRenderer*>(gamObj->GetComponent(ComponentType::MESHRENDERER));
+
+                if (meshRender != NULL && tmp.JsonValToNumber("PrimType") == -1)
+                {
+                    mesh = new Mesh();
+                    debugPath = tmp.JsonValToString("LibraryPath");
+                    mesh->SetAssetsPath(tmp.JsonValToString("Mesh"));
+                    mesh->SetLibraryPath(debugPath.c_str());
+                    mesh->LoadFromFME(debugPath.c_str());
+
+                    meshRender->SetMesh(mesh);
+                    meshRender->SetBoundingBoxes(mesh);
+                }
+                else
+                {
+                    size = float3(tmp.JsonValToNumber("SizeX"), tmp.JsonValToNumber("SizeY"), tmp.JsonValToNumber("SizeZ"));
+                    mesh = app->editor->LoadPrimitive(tmp.JsonValToNumber("PrimType"), size, tmp.JsonValToNumber("Radius"), size.y);
+                    meshRender->SetMesh(mesh);
+                    meshRender->SetBoundingBoxes(mesh);
+                }
+
+                meshRender->SetOwner(gamObj);*/
+
+                break;
+            case ComponentType::MATERIAL:
+                //gamObj->AddComponent(ComponentType::MATERIAL);
+                //material = static_cast<Material*>(gamObj->GetComponent(ComponentType::MATERIAL));
+                //material->active = tmp.JsonValToBool("active");
+                //material->texture = new Texture(tmp.JsonValToString("Material"), gamObj->name);
+                //material->texture->SetLibraryPath(tmp.JsonValToString("LibraryPath"));
+                //material->texture->path = material->texture->GetLibraryPath();
+                ////material->texture->SetAssetsPath();
+                //material->SetOwner(gamObj);
+                //material->texture->LoadToMemory();
+
+                break;
+
+            }
+
+        }
+        else
+        {
+            break;
+        }
+            
+    }
+
+}
+
+
+GameObject* ModuleScene::LoadGameObject(JsonParser parent)
+{
+    std::string num;
+    std::string convert;
+
+    std::string name = parent.ValueToString("name"); //aqui peta
+    GameObject* gamObj = new GameObject();
+    gamObj->name = name;
+    gamObj->isActive = parent.JsonValToBool("active");
+    gamObj->SetPendingToDelete(parent.JsonValToBool("isTimeToDelete"));
+
+   LoadComponents(parent, num, gamObj);
+
+
+    return gamObj;
+}
+
+void ModuleScene::UpdateGameObjects()
+{
+    if (saveSceneRequest)SaveScene();
+    if (loadSceneRequest)LoadScene();
+}
+
 const char* ModuleScene::FormatComponentType(GameObject* parentGO, const size_t& i)
 {
     switch ((ComponentType)parentGO->mComponents.at(i)->type)
@@ -190,45 +316,28 @@ const char* ModuleScene::FormatComponentType(GameObject* parentGO, const size_t&
     }
 }
 
-bool ModuleScene::LoadScene()
+float4x4 ModuleScene::strMatrixToF4x4(const char* convert)
 {
-    LOG("Loading configurations");
+    std::string text = convert;
+    std::string delimiter = ",";
+    std::vector<float> floatArray{};
 
-    rootFile = jsonFile.GetRootValue();
+    size_t pos = 0;
+    while ((pos = text.find(delimiter)) != std::string::npos) {
+        floatArray.push_back(stof(text.substr(0, pos)));
+        text.erase(0, pos + delimiter.length());
+    }
 
-    rootGO = jsonFile.GetChild(rootFile, "GameObjects");
-    
-    LoadGameObject(rootGO.GetChild(rootGO.GetRootValue(), "Root"));
+    float4x4 matrix;
+    int count = 0;
 
-    loadSceneRequest = false;
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+        {
 
-    return false;
+            matrix.At(i, j) = floatArray.at(count);
+            ++count;
+        }
+
+    return matrix;
 }
-
-
-GameObject* ModuleScene::LoadGameObject(JsonParser parent)
-{
-    std::string num;
-    ComponentTransform* transform;
-    std::string convert;
-
-    std::string name = parent.ValueToString("name");
-    GameObject* gamObj = new GameObject();
-    gamObj->name = name;
-    gamObj->isActive = parent.JsonValToBool("active");
-    gamObj->SetPendingToDelete(parent.JsonValToBool("isTimeToDelete"));
-
-   // LoadComponents(parent, num, gamObj, transform);
-
-
-    return gamObj;
-}
-
-
-
-void ModuleScene::UpdateGameObjects()
-{
-    if (saveSceneRequest)SaveScene();
-    if (loadSceneRequest)LoadScene();
-}
-

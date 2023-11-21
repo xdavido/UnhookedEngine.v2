@@ -16,7 +16,7 @@ public:
 
 	float4x4 getGlobalMatrix();
 	float4x4 getLocalMatrix();
-
+	void SetLocalMatrix(float4x4 localMatrix);
 	
 	void resetMatrix();
 

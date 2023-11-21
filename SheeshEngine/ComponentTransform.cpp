@@ -29,6 +29,11 @@ float4x4 ComponentTransform::getLocalMatrix()
 	return matrix;
 }
 
+void ComponentTransform::SetLocalMatrix(float4x4 localMatrix)
+{
+	matrix = localMatrix;
+}
+
 void ComponentTransform::resetMatrix()
 {
 	matrix = { 1, 0, 0, 0,

@@ -1,6 +1,8 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "MathGeoLib/include/MathGeoLib.h"
+#include <string>
 
 class GameObject;
 class ModuleScene : public Module
@@ -33,6 +35,9 @@ private:
 	bool SaveScene();
 	void SaveGameObjects(GameObject* parent, JsonParser& rootFile);
 	GameObject* LoadGameObject(JsonParser root);
+	void LoadComponents(JsonParser& parent, std::string num, GameObject* gamObj);
+
+	float4x4 strMatrixToF4x4(const char* convert);
 	
 	const char* FormatComponentType(GameObject* parentGO, const size_t& i);
 	bool LoadScene();
