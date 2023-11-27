@@ -291,6 +291,19 @@ update_status ModuleEditor::DrawEditor()
             ImGui::EndMenu();
         }
 
+        if (ImGui::SmallButton("PLAY")) {
+            LOG("PLAYING SCENE");
+            App->viewport->Play();
+           // ImGui::Text("%g", App->viewport->GameTimer);
+        }
+        if (ImGui::SmallButton("STOP")) {
+            LOG("STOP SCENE");
+            App->viewport->Stop();
+        }
+        if (ImGui::SmallButton("PAUSE")) {
+            LOG("PAUSE SCENE");
+            App->viewport->Pause();
+        }
 
         //CreateAboutModalPopup(showModalAbout);
         CreateAboutWindow(showAboutWindow);

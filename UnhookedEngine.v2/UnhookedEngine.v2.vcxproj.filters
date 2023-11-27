@@ -339,6 +339,9 @@
     <ClInclude Include="OurPrimitive.h">
       <Filter>Sources\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleViewport.h">
+      <Filter>Sources\Modules\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="log.cpp">
@@ -532,6 +535,9 @@
     </ClCompile>
     <ClCompile Include="OurPrimitive.cpp">
       <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleViewport.cpp">
+      <Filter>Sources\Modules\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

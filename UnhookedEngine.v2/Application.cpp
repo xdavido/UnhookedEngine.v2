@@ -12,6 +12,8 @@ Application::Application()
 	textures = new ModuleTexture(this);
 	scene = new ModuleScene(this);
 	hierarchy = new ModuleHierarchy(this);
+	viewport = new ModuleViewport(this);
+
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -28,6 +30,7 @@ Application::Application()
 	// Renderer last!
 	AddModule(renderer3D);
 	AddModule(editor);
+	AddModule(viewport);
 }
 
 Application::~Application()
