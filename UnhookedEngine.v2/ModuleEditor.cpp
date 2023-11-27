@@ -552,15 +552,15 @@ void ModuleEditor::CreateAboutWindow(bool& showAboutWindow)
     }
 
     // Basic Info
-    ImGui::Text("Sheesh Engine");
+    ImGui::Text("Unhooked Engine");
     ImGui::Separator();
     ImGui::Spacing();
-    ImGui::Text("Venture into the realm of game development with the legendary Sheesh Engine, \na creation born from the collaborative efforts of two visionary minds at CITM.");
+    ImGui::Text("Venture into the realm of game development with the legendary Unhooked Engine, \na creation born from the collaborative efforts of two visionary minds at CITM.");
     ImGui::Text("Whether you seek to forge epic tales of heroism or weave enchanting mysteries,\nthis engine is your magical wand.");
     ImGui::Spacing();
-    if (ImGui::Button("Autors: Oriol Martin Corella & Xiao Shan Costajussa Bellver"))
+    if (ImGui::Button("Autors: David Ruiz Luengo & Pau Garriga Brotons, in collaboration with Oriol Martin Corella & Xiao Shan Costajussa Bellver"))
     {
-        URLButton("https://github.com/Urii98/SheeeshEngine");
+        URLButton("https://github.com/xdavido/UnhookedEngine.v2");
     }
 
     ImGui::Spacing();

@@ -1,39 +1,64 @@
-# Sheeesh Engine
+unhooked-Engine
+Unhooked Engine is currently under active development as the "Engine Development" subject project for the CITM Bachelor's degree in Video Game Design and Development.
 
-Sheeesh Engine is a 3D game engine made by two students from CITM-UPC Terrassa, Xiao Costajussà Bellver & Oriol Martín Corella.
-
-- Oriol's GitHub account: [Uri](https://github.com/Urii98)
-- Xiao's GitHub account: [Xiao](https://github.com/xaitta)
-- Our GitHub project: [Sheeesh Engine](https://github.com/Urii98/SheeeshEngine)
+Link: https://github.com/xdavido/UnhookedEngine.v2
 
 
-## Engine Description
+Team Members: 
+- David Ruiz Luengo --> GitHub: https://github.com/xdavido
+- Pau Garriga Brotons --> GitHub: https://github.com/DonnoNonno
 
-### Features
+Controls: 
+Camera
+W - Move forward
+A - Move Left
+S - Move backwards
+D - Move Right
+R - Move Up
+F - Move Down
+Ctrl + Mouse Wheel - Zoom in/Zoom out
+Right Click - Free rotation
+Holding Shift + 'WASD' - Duplicates movement speed
+Alt + Left Click - Rotate around object
 
-#### Game Objects
-- Drag and drop game objects and textures in the Hierarchy.
-- Create game objects with Game Objects Menu
-- Delete game objects by pressing Delete at Inspector
-- Delete selected game object at Hierarchy by pressing Delete.
-- Move Game Objects in Hierarchy by drag and drop them.
+Features:
+Drag&Drop
+The engine allows the user to Drag&Drop FBX files from anywhere in the hard drive and later, drag and drop files to put textures for the GameObjects.
 
+Move between windows
+Configuration
+Application
+Frame Information.
+Slider to limitate FPS.
+Show Hardware Information and software versions
+Window
+Window Options:
+Full Screen, resizable, full desk and borderless.
+Change brightness, width and height.
+File System
+Shows base path.
+Input
+Mouse Information (Position and Motion).
+Hardware Information
+SDL Version.
+Memory consumption.
 
-### Controls
+Inspector
+Move, rotate and scale the GameObject selected. And also GameObject's name.
+Console
+Shows the user geometry loading process from ASSIMP and the external libraries initialization process.
 
-#### Camera
-- While Right clicking:
-	- WASD: move forward, left, backward and right
-	- QE: move up and down
-	- Look around
-- F: look at target
-- Hold Alt:
-	- Mouse Hold Left to orbit the game object selected.
-- Mouse wheel to zoom in and zoom out.
-- Holding SHIFT duplicates movement speed.
+External libraries
+Externals libraries used in our engine:
+SDL
+ImGui
+Assimp
+Glew
+MathGeoLib
+DevIL
+PhysFS
 
-### Additional funcionality
-An image of the texture is displayed in the Inspector Window.
-
-### Additional Comments
-We have managed to carry out all the assignments, the only one that we have not been able to do was the display of the vertex normals, the display of the face normals it is done.
+In process: 
+Hierarchy
+Shows a list of all GameObjects and create and move them.
+GameObject Creation
