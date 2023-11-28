@@ -106,6 +106,7 @@ private:
     bool isActiveConsole;
     bool isActiveHierarchy;
     bool isActiveViewport;
+    bool isActiveAssets;
 
     //About Window
     std::string license;

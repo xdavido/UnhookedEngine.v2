@@ -696,6 +696,12 @@ void ModuleEditor::CreateConsoleWindow(bool& showConsoleWindow)
     }    
 
     ImGui::End();
+
+
+    ImGui::Begin("Assets");
+   
+
+    ImGui::End();
 }
 
 
