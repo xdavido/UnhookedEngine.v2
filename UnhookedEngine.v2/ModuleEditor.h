@@ -105,6 +105,7 @@ private:
     bool isActiveInspector;
     bool isActiveConsole;
     bool isActiveHierarchy;
+    bool isActiveViewport;
 
     //About Window
     std::string license;

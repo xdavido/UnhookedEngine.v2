@@ -53,6 +53,23 @@ bool ModuleScene::CleanUp() {
     return true;
 }
 
+
+void ModuleScene::SceneWindow()
+{
+	ImGui::Begin("Scene");
+	
+
+	ImGui::End();
+}
+
+void ModuleScene::GameWindow()
+{
+	
+	ImGui::Begin("Game");
+	
+	ImGui::End();
+}
+
 GameObject* ModuleScene::CreateGameObject(GameObject* parent)
 {
     GameObject* newGameObject = new GameObject(parent);

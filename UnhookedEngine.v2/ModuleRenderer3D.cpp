@@ -26,76 +26,76 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 ModuleRenderer3D::~ModuleRenderer3D()
 {}
 
-static const GLfloat g_vertex_buffer_data[] = {
-	// Cara frontal
-	-7.0f, -7.0f,  7.0f,  // Vértice 1
-	 7.0f, -7.0f,  7.0f,  // Vértice 2
-	 7.0f,  7.0f,  7.0f,  // Vértice 3
-	-7.0f,  7.0f,  7.0f,  // Vértice 4
-
-	// Cara trasera
-	-7.0f, -7.0f, -7.0f,  // Vértice 5
-	 7.0f, -7.0f, -7.0f,  // Vértice 6
-	 7.0f,  7.0f, -7.0f,  // Vértice 7
-	-7.0f,  7.0f, -7.0f,  // Vértice 8
-
-	// Caras laterales
-	-7.0f, -7.0f, -7.0f,  // Vértice 9
-	-7.0f, -7.0f,  7.0f,  // Vértice 10
-	-7.0f,  7.0f,  7.0f,  // Vértice 11
-	-7.0f,  7.0f, -7.0f,  // Vértice 12
-
-	 7.0f, -7.0f, -7.0f,  // Vértice 13
-	 7.0f, -7.0f,  7.0f,  // Vértice 14
-	 7.0f,  7.0f,  7.0f,  // Vértice 15
-	 7.0f,  7.0f, -7.0f,  // Vértice 16
-
-	 // Cara superior
-	 -7.0f,  7.0f,  7.0f,  // Vértice 17
-	  7.0f,  7.0f,  7.0f,  // Vértice 18
-	  7.0f,  7.0f, -7.0f,  // Vértice 19
-	 -7.0f,  7.0f, -7.0f,  // Vértice 20
-
-	 // Cara inferior
-	 -7.0f, -7.0f, -7.0f,  // Vértice 21
-	  7.0f, -7.0f, -7.0f,  // Vértice 22
-	  7.0f, -7.0f,  7.0f,  // Vértice 23
-	 -7.0f, -7.0f,  7.0f   // Vértice 24
-};
+//static const GLfloat g_vertex_buffer_data[] = {
+//	// Cara frontal
+//	-7.0f, -7.0f,  7.0f,  // Vértice 1
+//	 7.0f, -7.0f,  7.0f,  // Vértice 2
+//	 7.0f,  7.0f,  7.0f,  // Vértice 3
+//	-7.0f,  7.0f,  7.0f,  // Vértice 4
+//
+//	// Cara trasera
+//	-7.0f, -7.0f, -7.0f,  // Vértice 5
+//	 7.0f, -7.0f, -7.0f,  // Vértice 6
+//	 7.0f,  7.0f, -7.0f,  // Vértice 7
+//	-7.0f,  7.0f, -7.0f,  // Vértice 8
+//
+//	// Caras laterales
+//	-7.0f, -7.0f, -7.0f,  // Vértice 9
+//	-7.0f, -7.0f,  7.0f,  // Vértice 10
+//	-7.0f,  7.0f,  7.0f,  // Vértice 11
+//	-7.0f,  7.0f, -7.0f,  // Vértice 12
+//
+//	 7.0f, -7.0f, -7.0f,  // Vértice 13
+//	 7.0f, -7.0f,  7.0f,  // Vértice 14
+//	 7.0f,  7.0f,  7.0f,  // Vértice 15
+//	 7.0f,  7.0f, -7.0f,  // Vértice 16
+//
+//	 // Cara superior
+//	 -7.0f,  7.0f,  7.0f,  // Vértice 17
+//	  7.0f,  7.0f,  7.0f,  // Vértice 18
+//	  7.0f,  7.0f, -7.0f,  // Vértice 19
+//	 -7.0f,  7.0f, -7.0f,  // Vértice 20
+//
+//	 // Cara inferior
+//	 -7.0f, -7.0f, -7.0f,  // Vértice 21
+//	  7.0f, -7.0f, -7.0f,  // Vértice 22
+//	  7.0f, -7.0f,  7.0f,  // Vértice 23
+//	 -7.0f, -7.0f,  7.0f   // Vértice 24
+//};
 
 // Called before render is available
-static const GLfloat CubeVertices[] = {
-	-1, -1, -1,
-	1, -1, -1,
-	1, 1, -1,
-	-1, 1, -1,
-	-1, -1, 1,
-	1, -1, 1,
-	1, 1, 1,
-	-1, 1, 1
-};
-static const GLuint CubeIndices[] = {
-	0, 1, 3, 3, 1, 2,
-	1, 5, 2, 2, 5, 6,
-	5, 4, 6, 6, 4, 7,
-	4, 0, 7, 7, 0, 3,
-	3, 2, 7, 7, 2, 6,
-	4, 5, 0, 0, 5, 1
-};
+//static const GLfloat CubeVertices[] = {
+//	-1, -1, -1,
+//	1, -1, -1,
+//	1, 1, -1,
+//	-1, 1, -1,
+//	-1, -1, 1,
+//	1, -1, 1,
+//	1, 1, 1,
+//	-1, 1, 1
+//};
+//static const GLuint CubeIndices[] = {
+//	0, 1, 3, 3, 1, 2,
+//	1, 5, 2, 2, 5, 6,
+//	5, 4, 6, 6, 4, 7,
+//	4, 0, 7, 7, 0, 3,
+//	3, 2, 7, 7, 2, 6,
+//	4, 5, 0, 0, 5, 1
+//};
 
 // Array de vertices para rectangulo
-float vertices[] = {
-	-3.0f, -3.0f, -6.0f,
-	3.0f, -3.0f, -6.0f,
-	3.0f, 3.0f, -6.0f,
-	-3.0f, 3.0f, -6.0f,
-};
-
-// Array de indices para rectangulo
-unsigned int indices[] = {
-  0, 1, 2,
-  2, 3, 0,
-};
+//float vertices[] = {
+//	-3.0f, -3.0f, -6.0f,
+//	3.0f, -3.0f, -6.0f,
+//	3.0f, 3.0f, -6.0f,
+//	-3.0f, 3.0f, -6.0f,
+//};
+//
+//// Array de indices para rectangulo
+//unsigned int indices[] = {
+//  0, 1, 2,
+//  2, 3, 0,
+//};
 
 // Called before render is available
 bool ModuleRenderer3D::Init()
@@ -204,7 +204,7 @@ bool ModuleRenderer3D::Init()
 	Grid.axis = true;
 
 	
-	
+	/*
 	glGenBuffers(1, &test);
 	glBindBuffer(GL_ARRAY_BUFFER, test);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
@@ -257,7 +257,7 @@ bool ModuleRenderer3D::Init()
 	
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);*/
 
 
 	return ret;
@@ -298,90 +298,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	Grid.Render();
 	DrawWithWireframe();
 
-	//(1)--- CUBO CON VÉRTICES [DIRECT MODE] ---
-	//DirectModeTriangleDrawing();
-
-	//(2)--- CUBO CON VERTEX ARRAYS Y glDrawElements() ---
-	//glEnableClientState(GL_VERTEX_ARRAY);
-	//glBindBuffer(GL_ARRAY_BUFFER, test);
-	//glVertexPointer(3, GL_FLOAT, 0, NULL);
-	//
-	//glDrawArrays(GL_TRIANGLES, 0, (sizeof(g_vertex_buffer_data) / sizeof(float)) / 3);
-	//glDisableClientState(GL_VERTEX_ARRAY);
-
-
-	//(3)--- CUBO CON INDICES (EBO) ---
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	//glEnableClientState(GL_VERTEX_ARRAY);
-	//glVertexPointer(3, GL_FLOAT, 0, NULL);
-	//glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 	
-	
-	//(4)--- EJEMPLO PARA PRÁCTICAR ---
-	/*glBindBuffer(GL_ARRAY_BUFFER, VBORect);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBORect);
-
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);*/
-
-	// la linea de abajo es lo que usariamos si quisieramos pintar los vertices, pero queremos con indices, por tanto
-	//glDrawArrays(GL_TRIANGLES, 0, sizeof(vertices) / sizeof(float) / 3);
-	/*glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
-	glDisableClientState(GL_VERTEX_ARRAY);*/
-
-	//(4)--- DRAW BAKE HOUSE ---
 	App->assimpMeshes->RenderScene();
 	
 
-	//(5)--- DRAW TRIANDLE AND ITS NORMAL IN DIRECT MODE
-	//glLineWidth(2.0f);
-	//glBegin(GL_TRIANGLES);
-	//glVertex3d(3, 3, 3); 
-	//glVertex3d(4, 4, 3); 
-	//glVertex3d(4, 3, 3);
-	//glEnd();
-	//glLineWidth(1.0f);
-
-	////Calcular el punto medio de la cara del triangulo
-	//double xMedio = (3 + 4 + 4) / 3.0; 
-	//double yMedio = (3 + 4 + 3) / 3.0;
-	//double zMedio = (3 + 3 + 3) / 3.0;
-
-	//// Calcula la normal de la cara del triángulo usando el producto cruz
-	//double edge1x = 4 - 3;
-	//double edge1y = 4 - 3;
-	//double edge1z = 3 - 3;
-	//double edge2x = 4 - 3;
-	//double edge2y = 3 - 3;
-	//double edge2z = 3 - 3;
-
-	//double normalx = edge1y * edge2z - edge1z * edge2y;
-	//double normaly = edge1z * edge2x - edge1x * edge2z;
-	//double normalz = edge1x * edge2y - edge1y * edge2x;
-
-	//// Normaliza la normal
-	//double length = sqrt(normalx * normalx + normaly * normaly + normalz * normalz);
-	//normalx /= length;
-	//normaly /= length;
-	//normalz /= length;
-
-	//// Define la longitud de la línea en la dirección de la normal
-	//double lineaLongitud = 3.0;
-
-	//// Calcula el punto final de la línea
-	//double xFinal = xMedio + normalx * lineaLongitud;
-	//double yFinal = yMedio + normaly * lineaLongitud;
-	//double zFinal = zMedio + normalz * lineaLongitud;
-
-	//glLineWidth(2.0f);
-	//glBegin(GL_LINES);
-	//glVertex3d(xMedio, yMedio, zMedio);
-	//glVertex3d(xFinal, yFinal, zFinal);
-	//glEnd();
-	//glLineWidth(1.0f);
-	
-	
 
 	if (App->editor->DrawEditor() == UPDATE_STOP)
 	{
@@ -430,11 +350,11 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 
-	if (VBO != 0)
+	/*if (VBO != 0)
 	{
 		glDeleteBuffers(1, &VBO);
 		VBO = 0;
-	}
+	}*/
 
 	SDL_GL_DeleteContext(context);
 

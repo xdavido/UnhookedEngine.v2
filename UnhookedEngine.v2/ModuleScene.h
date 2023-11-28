@@ -16,6 +16,9 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void SceneWindow();
+	void GameWindow();
+
 	GameObject* CreateGameObject(GameObject* parent);
 	GameObject* root = nullptr;
 	GameObject* prova1;
@@ -25,6 +28,8 @@ public:
 	GameObject* prova5;
 	GameObject* prova6;
 
+
 private:
+
 	
 };

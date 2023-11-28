@@ -115,6 +115,7 @@ bool ModuleEditor::Init()
     isActiveHierarchy = true;
     isActiveConsole = true;
     isActiveInspector = true;
+    isActiveViewport = true;
 
     return true;
 }
@@ -295,10 +296,16 @@ update_status ModuleEditor::DrawEditor()
             LOG("PLAYING SCENE");
             App->viewport->Play();
            // ImGui::Text("%g", App->viewport->GameTimer);
+
+            ImGui::SetWindowFocus("Game");
+
         }
         if (ImGui::SmallButton("STOP")) {
             LOG("STOP SCENE");
             App->viewport->Stop();
+
+            ImGui::SetWindowFocus("Scene");
+
         }
         if (ImGui::SmallButton("PAUSE")) {
             LOG("PAUSE SCENE");
@@ -308,7 +315,8 @@ update_status ModuleEditor::DrawEditor()
         //CreateAboutModalPopup(showModalAbout);
         CreateAboutWindow(showAboutWindow);
         CreateConsoleWindow(isActiveConsole);
-
+        App->scene->SceneWindow();
+        App->scene->GameWindow();
         ViewCollapsingHeader();
 
         ImGui::EndMainMenuBar();
@@ -360,6 +368,10 @@ void ModuleEditor::ViewCollapsingHeader() {
         if (ImGui::Checkbox("Console", &isActiveConsole))
         {
             isActiveConsole != isActiveConsole;
+        }
+        if (ImGui::Checkbox("Viewports", &isActiveViewport))
+        {
+            isActiveViewport != isActiveViewport;
         }
 
         ImGui::EndMenu();
@@ -646,6 +658,8 @@ void ModuleEditor::CreateAboutWindow(bool& showAboutWindow)
 
 
 }
+
+
 
 void ModuleEditor::CreateConsoleWindow(bool& showConsoleWindow)
 {

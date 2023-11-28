@@ -71,15 +71,15 @@ public:
 	//You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;
 
-	GLuint test;
-	GLuint VBO;
-	GLuint EBO;
-	GLuint VAO;
+	//GLuint test;
+	//GLuint VBO;
+	//GLuint EBO;
+	//GLuint VAO;
 
 	//test rectangulo
-	GLuint VAORect;
-	GLuint VBORect;
-	GLuint EBORect;
+	//GLuint VAORect;
+	//GLuint VBORect;
+	//GLuint EBORect;
 	
 	
 private:
