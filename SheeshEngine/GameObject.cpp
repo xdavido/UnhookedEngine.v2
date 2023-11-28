@@ -175,6 +175,15 @@ bool GameObject::SetAsChildOf(GameObject* gameObject)
 	return true;
 }
 
+void GameObject::AttachChild(GameObject* child)
+{
+	child->mParent = this;
+	mChildren.push_back(child);
+	//child->transform
+	//child->transform
+}
+
+
 
 void GameObject::PrintInspector()
 {

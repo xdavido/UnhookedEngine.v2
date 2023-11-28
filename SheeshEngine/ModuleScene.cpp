@@ -101,9 +101,8 @@ void ModuleScene::SaveGameObjects(GameObject* parentGO, JsonParser& node) {
     for (size_t i = 0; i < parentGO->mComponents.size(); i++)
     {
         // Create Child of component
-        num = std::to_string(i);
-        num += ".Component";
-        num += FormatComponentType(parentGO, i);
+        num = "Component " + std::to_string(i);
+        //num += FormatComponentType(parentGO, i);
 
         
 
@@ -122,8 +121,11 @@ void ModuleScene::SaveGameObjects(GameObject* parentGO, JsonParser& node) {
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    if (i == 0 && j == 0)num += std::to_string(localTransform.At(i, j));
-                    else num += "," + std::to_string(localTransform.At(i, j));
+                   /* if (i == 0 && j == 0)num += std::to_string(localTransform.At(i, j));
+                    else num += "," + std::to_string(localTransform.At(i, j));*/
+
+                    num += std::to_string(localTransform.At(i, j));
+                    num += ",";
                 }
             }
                 
@@ -171,13 +173,17 @@ bool ModuleScene::LoadScene()
 {
     LOG("Loading configurations");
 
+   
     rootFile = jsonFile.GetRootValue();
 
     rootGO = jsonFile.GetChild(rootFile, "GameObjects");
     
-    LoadGameObject(rootGO.GetChild(rootGO.GetRootValue(), "Root"));
+    LoadGameObject(rootGO.GetChild(rootGO.GetRootValue(), "Scene"));
 
     loadSceneRequest = false;
+
+
+
 
     return false;
 }
@@ -200,6 +206,8 @@ void ModuleScene::LoadComponents(JsonParser& parent, std::string num, GameObject
     JsonParser components = parent.GetChild(parent.GetRootValue(), "components");
     JsonParser tmp = components;
 
+    std::string pos;
+
     for (int i = 0; i < 4; i++)
     {
         num = "Component " + std::to_string(i);
@@ -212,6 +220,8 @@ void ModuleScene::LoadComponents(JsonParser& parent, std::string num, GameObject
             {
             case ComponentType::TRANSFORM:
                 gamObj->transform->SetLocalMatrix(strMatrixToF4x4(tmp.ValueToString("LocalTransform")));
+
+                LOG(gamObj->transform->getLocalMatrix().ToString().c_str());
 
                 //gamObj->transform = transform;
 
@@ -268,18 +278,28 @@ void ModuleScene::LoadComponents(JsonParser& parent, std::string num, GameObject
 }
 
 
-GameObject* ModuleScene::LoadGameObject(JsonParser parent)
+GameObject* ModuleScene::LoadGameObject(JsonParser parent, GameObject* father)
 {
     std::string num;
     std::string convert;
 
-    std::string name = parent.ValueToString("name"); //aqui peta
+    std::string name = parent.ValueToString("name");
     GameObject* gamObj = new GameObject();
     gamObj->name = name;
     gamObj->isActive = parent.JsonValToBool("active");
     gamObj->SetPendingToDelete(parent.JsonValToBool("isTimeToDelete"));
 
-   LoadComponents(parent, num, gamObj);
+    LoadComponents(parent, num, gamObj);
+    int count = 0;
+    num = "Child " + std::to_string(count);
+    while (parent.ExistChild(parent.GetRootValue(), num.c_str()))
+    {
+        
+
+        gamObj->AttachChild(LoadGameObject(parent.GetChild(parent.GetRootValue(), num.c_str()), gamObj));
+        ++count;
+        num = "Child " + std::to_string(count);
+    }
 
 
     return gamObj;
@@ -327,6 +347,7 @@ float4x4 ModuleScene::strMatrixToF4x4(const char* convert)
         floatArray.push_back(stof(text.substr(0, pos)));
         text.erase(0, pos + delimiter.length());
     }
+
 
     float4x4 matrix;
     int count = 0;

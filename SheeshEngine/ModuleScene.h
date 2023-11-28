@@ -34,7 +34,7 @@ private:
 	void UpdateGameObjects();
 	bool SaveScene();
 	void SaveGameObjects(GameObject* parent, JsonParser& rootFile);
-	GameObject* LoadGameObject(JsonParser root);
+	GameObject* LoadGameObject(JsonParser parent, GameObject* father = nullptr);
 	void LoadComponents(JsonParser& parent, std::string num, GameObject* gamObj);
 
 	float4x4 strMatrixToF4x4(const char* convert);

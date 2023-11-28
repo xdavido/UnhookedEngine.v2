@@ -23,6 +23,7 @@ public:
 	GameObject* GetParent();
 	bool SetNewParent(GameObject* newParent);
 	bool GameObject::SetAsChildOf(GameObject* gameObject);
+	void AttachChild(GameObject* child);
 	void PrintInspector();
 	bool CheckChildOf(GameObject* parent);
 	void DeleteChild(GameObject* child);
