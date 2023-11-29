@@ -312,7 +312,7 @@ update_status ModuleEditor::DrawEditor()
             App->viewport->Pause();
         }
 
-        ImGui::Text("Time: %.1f", App->viewport->deltaT); //%g precision
+        ImGui::Text("Time: %u", App->viewport->GameTimer.Read()); //%g precision... TimeManager::gameTimer.ReadSec()
            
 
         //CreateAboutModalPopup(showModalAbout);
