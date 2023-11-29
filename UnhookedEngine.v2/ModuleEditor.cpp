@@ -317,15 +317,33 @@ update_status ModuleEditor::DrawEditor()
 
         //CreateAboutModalPopup(showModalAbout);
         CreateAboutWindow(showAboutWindow);
+
         CreateConsoleWindow(isActiveConsole);
-        App->scene->SceneWindow();
-        App->scene->GameWindow();
+
         ViewCollapsingHeader();
 
         ImGui::EndMainMenuBar();
     }
 
 
+    if (isActiveViewport) {
+
+        App->scene->SceneWindow();
+
+        App->scene->GameWindow();
+
+    }
+
+
+    if (isActiveAssets) {
+
+        if (ImGui::Begin("Assets")) {
+
+            
+        }
+        ImGui::End();
+         
+    }
 
     if (App->hierarchy->objSelected && isActiveInspector) {
 
@@ -375,6 +393,10 @@ void ModuleEditor::ViewCollapsingHeader() {
         if (ImGui::Checkbox("Viewports", &isActiveViewport))
         {
             isActiveViewport != isActiveViewport;
+        }
+        if (ImGui::Checkbox("Assets", &isActiveAssets))
+        {
+            isActiveAssets != isActiveAssets;
         }
 
         ImGui::EndMenu();
@@ -700,12 +722,8 @@ void ModuleEditor::CreateConsoleWindow(bool& showConsoleWindow)
 
     ImGui::End();
 
-
-    ImGui::Begin("Assets");
-   
-
-    ImGui::End();
 }
+
 
 
 void ModuleEditor::URLButton(const char* url)
