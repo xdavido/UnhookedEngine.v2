@@ -295,7 +295,7 @@ update_status ModuleEditor::DrawEditor()
         if (ImGui::SmallButton("PLAY")) {
             LOG("PLAYING SCENE");
             App->viewport->Play();
-           // ImGui::Text("%g", App->viewport->GameTimer);
+          
 
             ImGui::SetWindowFocus("Game");
 
@@ -311,6 +311,9 @@ update_status ModuleEditor::DrawEditor()
             LOG("PAUSE SCENE");
             App->viewport->Pause();
         }
+
+        ImGui::Text("Time: %.1f", App->viewport->deltaT); //%g precision
+           
 
         //CreateAboutModalPopup(showModalAbout);
         CreateAboutWindow(showAboutWindow);
