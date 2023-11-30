@@ -15,7 +15,7 @@ ComponentCamera::ComponentCamera():Component(nullptr)
 	frustum.front = float3::unitZ;
 	frustum.up = float3::unitY;
 	frustum.verticalFov = 60.0f * DEGTORAD;
-	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.7f); // 16:9 ~= 1,77777...
+	frustum.horizontalFov = 2.0f * atanf(tanf(frustum.verticalFov / 2.0f) * 1.7f); 
 	frustum.pos = float3(0, 0, 0);
 }
 

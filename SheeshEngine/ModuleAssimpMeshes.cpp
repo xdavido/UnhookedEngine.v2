@@ -184,7 +184,7 @@ mat4x4 ConvertFloat4x4ToMat4(const float4x4& floatMatrix) {
     mat[4] = floatMatrix.At(1, 0);
     mat[5] = floatMatrix.At(1, 1);
     mat[6] = floatMatrix.At(1, 2);
-    mat[7] = floatMatrix.At(1, 0);
+    mat[7] = floatMatrix.At(1, 3);
 
     mat[8] = floatMatrix.At(2, 0);
     mat[9] = floatMatrix.At(2, 1);
