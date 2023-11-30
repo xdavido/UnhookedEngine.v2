@@ -49,7 +49,7 @@ float3 ComponentTransform::getPosition(bool globalPosition)
 void ComponentTransform::setPosition(float3 pos)
 {
 	position = pos;
-	calculateMatrix();
+	UpdateMatrixFromInspector();
 }
 
 float3 ComponentTransform::getRotation()
@@ -60,7 +60,7 @@ float3 ComponentTransform::getRotation()
 void ComponentTransform::setRotation(float3 rot)
 {
 	rotation = rot;
-	calculateMatrix();
+	UpdateMatrixFromInspector();
 }
 
 float3 ComponentTransform::getScale()
@@ -71,14 +71,13 @@ float3 ComponentTransform::getScale()
 void ComponentTransform::setScale(float3 sca)
 {
 	scale = sca;
-	calculateMatrix();
+	UpdateMatrixFromInspector();
 }
 
 
 
-void ComponentTransform::calculateMatrix()
+void ComponentTransform::UpdateMatrixFromInspector()
 {
-
 	float rx = rotation.x * DEGTORAD;
 	float ry = rotation.y * DEGTORAD;
 	float rz = rotation.z * DEGTORAD;
@@ -86,26 +85,48 @@ void ComponentTransform::calculateMatrix()
 	Quat q;
 	q = Quat::FromEulerXYZ(rx, ry, rz);
 	matrix = float4x4::FromTRS(position, q, scale).Transposed();
-
-
+	ApplyTransformToGameObject();
 }
 
-void ComponentTransform:: PrintInspector() {
+void ComponentTransform::ApplyTransformToGameObject()
+{
+	// Ensure the owner (GameObject) exists
+	if (mOwner != nullptr)
+	{
+		// Apply the matrix to the GameObject's transform
+		mOwner->transform->matrix = getGlobalMatrix();
+	}
+}
 
+void ComponentTransform::PrintInspector()
+{
 	if (ImGui::CollapsingHeader("Transform"))
 	{
 		ImGui::Text("X\t\t Y\t\t Z");
-		ImGui::InputFloat3("Position", position.ptr());
+		if (ImGui::InputFloat3("Position", position.ptr()))
+		{
+			// Position changed, trigger matrix update
+			UpdateMatrixFromInspector();
+		}
 
 		ImGui::Text("X\t\t Y\t\t Z");
-		ImGui::InputFloat3("Rotation", rotation.ptr());
+		if (ImGui::InputFloat3("Rotation", rotation.ptr()))
+		{
+			// Rotation changed, trigger matrix update
+			UpdateMatrixFromInspector();
+		}
 
 		ImGui::Text("X\t\t Y\t\t Z");
-		ImGui::InputFloat3("Scale", scale.ptr());
+		if (ImGui::InputFloat3("Scale", scale.ptr()))
+		{
+			// Scale changed, trigger matrix update
+			UpdateMatrixFromInspector();
+		}
+
+		if (ImGui::Button("Update Matrix"))
+		{
+			// Manual button to update the matrix
+			UpdateMatrixFromInspector();
+		}
 	}
-
-
-	calculateMatrix();
-
-
 }

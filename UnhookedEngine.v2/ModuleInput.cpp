@@ -153,6 +153,42 @@ update_status ModuleInput::PreUpdate(float dt)
 	if(quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
 		return UPDATE_STOP;
 
+	//if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN)
+	//{
+	//	int mouse_x = App->input->GetMouseX();
+	//	int mouse_y = App->input->GetMouseY();
+	//	LineSegment ray = App->camera->GetRayFromScreenCoords(mouse_x, mouse_y);
+	//	GameObject* selectedObject = nullptr;
+	//	float closestHit = FLT_MAX;
+
+	//	for (auto& gameObject : App->scene->GetGameObjects())
+	//	{
+	//		// Skip objects that are not pickable
+	//		if (gameObject->IsPickable())
+	//		{
+	//			float hitDistance;
+	//			if (ray.Intersects(gameObject->GetBoundingBox(), hitDistance))
+	//			{
+	//				// Check if this hit is closer than the current closest hit
+	//				if (hitDistance < closestHit)
+	//				{
+	//					closestHit = hitDistance;
+	//					selectedObject = gameObject;
+	//				}
+	//			}
+	//		}
+	//	}
+	//	if (selectedObject != nullptr)
+	//	{
+	//		App->hierarchy->objSelected = selectedObject;
+	//		LOG("Selected object: %s", selectedObject->GetName().c_str());
+	//	}
+	//	else
+	//	{
+	//		App->hierarchy->objSelected = nullptr;
+	//	}
+	//}
+
 	return UPDATE_CONTINUE;
 }
 

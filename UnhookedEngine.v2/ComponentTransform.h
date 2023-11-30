@@ -29,12 +29,13 @@ public:
 	void setScale(float3 sca);
 
 	void PrintInspector();
-
+	void ApplyTransformToGameObject();
+	void UpdateMatrixFromInspector();
 
 	
 
 private:
-	void calculateMatrix();
+
 
 	float4x4 matrix;
 	float3 position;
