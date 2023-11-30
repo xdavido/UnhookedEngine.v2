@@ -4,7 +4,8 @@ enum class ComponentType
 	NONE, 
 	TRANSFORM,
 	MESH,
-	MATERIAL
+	MATERIAL,
+	CAMERA,
 
 };
 

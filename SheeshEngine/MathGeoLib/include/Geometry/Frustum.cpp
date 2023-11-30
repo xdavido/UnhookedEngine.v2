@@ -144,7 +144,7 @@ float4x4 Frustum::ViewProjMatrix() const
 }
 
 float4x4 Frustum::ProjectionMatrix() const
-{
+	{
 	assume(type == PerspectiveFrustum || type == OrthographicFrustum);
 	if (type == PerspectiveFrustum)
 	{

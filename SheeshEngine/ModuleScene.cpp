@@ -43,6 +43,7 @@ update_status ModuleScene::PreUpdate(float dt) {
 
 update_status ModuleScene::Update(float dt) {
 
+    root->Update();
     UpdateGameObjects();
     return UPDATE_CONTINUE;
 }

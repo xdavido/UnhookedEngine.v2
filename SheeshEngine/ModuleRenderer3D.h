@@ -72,8 +72,14 @@ public:
 	SDL_GLContext context;
 	CPlane Grid;
 	
-	//You won't need this after using Frustum
-	mat4x4 ProjectionMatrix;
+	float3x3 NormalMatrix;
+	float4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+
+	unsigned int cameraBuffer;
+	unsigned int inGameBuffer;
+	unsigned int frameBuffer;
+	unsigned int renderObjBuffer;
 
 	GLuint test;
 	GLuint VBO;
