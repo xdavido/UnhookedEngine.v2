@@ -339,7 +339,9 @@ update_status ModuleEditor::DrawEditor()
 
         if (ImGui::Begin("Assets")) {
 
-            
+            App->hierarchy->GameObjectTree(App->scene->root_Assets, 0);
+
+
         }
         ImGui::End();
          

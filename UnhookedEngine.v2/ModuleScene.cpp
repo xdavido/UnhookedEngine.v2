@@ -21,6 +21,9 @@ bool ModuleScene::Start() {
     root = new GameObject(nullptr);
     root->name = ("Scene");
 
+    root_Assets = new GameObject(nullptr);
+    root_Assets->name = ("Assets");
+
 
 
     //Load Street House
