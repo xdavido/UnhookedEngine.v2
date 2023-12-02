@@ -3,7 +3,6 @@
 #include "Globals.h"
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
-#include "MathGeoLib/include/Geometry/Frustum.h"
 
 #include "glmath.h"
 
@@ -12,8 +11,6 @@ class ModuleCamera3D : public Module
 public:
 	ModuleCamera3D(Application* app, bool start_enabled = true);
 	~ModuleCamera3D();
-
-
 
 	bool Start();
 	update_status Update(float dt);
@@ -41,5 +38,4 @@ private:
 
 	mat4x4 ViewMatrix;
 	
-	Frustum frustum;
 };
