@@ -31,5 +31,6 @@ public:
 
 private:
 
-	
+	GameObject* objdebug;
+
 };

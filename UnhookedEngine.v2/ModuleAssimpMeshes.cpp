@@ -88,9 +88,13 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
         ourMesh->vertex[v * VERTEX + 1] = aiMesh->mVertices[v].y;
         ourMesh->vertex[v * VERTEX + 2] = aiMesh->mVertices[v].z;
 
+
+        if (aiMesh->mTextureCoords[0] == nullptr) continue;
         ourMesh->vertex[v * VERTEX + 3] = aiMesh->mTextureCoords[0][v].x;
         ourMesh->vertex[v * VERTEX + 4] = aiMesh->mTextureCoords[0][v].y;
     }
+
+    LOG("New mesh with %d vertices", ourMesh->vertexCount);
 
 
     if (aiMesh->HasFaces())     

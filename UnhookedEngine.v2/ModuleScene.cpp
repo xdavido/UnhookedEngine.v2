@@ -1,7 +1,7 @@
 #include "ModuleScene.h"
 #include "GameObject.h"
 #include "Application.h"
-
+#include "ComponentTransform.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled) : Module(app, start_enabled) 
 {
@@ -23,9 +23,11 @@ bool ModuleScene::Start() {
 
 
 
-    //Load Baker House
-    App->assimpMeshes->LoadMeshFromFile("Assets/Models/BakerHouse.fbx");
-   
+    //Load Street House
+    objdebug = App->assimpMeshes->LoadMeshFromFile("Assets/Scenes/scene.DAE");
+    //objdebug->transform->setRotation({ -90, 0, 0 });
+    root->transform->setRotation({ 0, 0, -90 });
+
 
     return true;
 }
@@ -50,6 +52,7 @@ bool ModuleScene::CleanUp() {
     
     LOG("Scene Cleanup")
     delete root;
+    delete objdebug;
     return true;
 }
 
