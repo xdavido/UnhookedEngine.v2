@@ -8,6 +8,7 @@ class GameWindows
 {
 public:
 	static void PrintCamera(Application* app);
+	GameObject* mainCamera;
 
 private:
 

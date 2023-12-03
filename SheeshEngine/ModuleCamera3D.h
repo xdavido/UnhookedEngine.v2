@@ -42,6 +42,7 @@ public:
 	ComponentCamera* camera;
 	CamStates camState;
 	GameObject* mainCamera;
+	GameObject* gameCamera;
 
 	
 };

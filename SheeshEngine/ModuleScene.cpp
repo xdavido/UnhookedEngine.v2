@@ -16,15 +16,15 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Init()
 {
-
+    root = new GameObject(nullptr);
+    root->name = ("Scene");
     jsonFile.FileToValue("scene.json");
     return false;
 }
 
 bool ModuleScene::Start() {
 
-    root = new GameObject(nullptr);
-    root->name = ("Scene");
+
 
 
 
