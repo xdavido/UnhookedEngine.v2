@@ -13,6 +13,16 @@ GameObject* PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryTyp
         gameObject->Stype = GeometryType::EMPTY;
 		return gameObject;
 	}
+
+
+    if (type == GeometryType::CAMERA)
+    {
+        GameObject* gameObject = new GameObject(App->scene->root);
+        gameObject->name = "Camera";
+        ComponentCamera* cc = new ComponentCamera();
+        gameObject->AddComponent(cc);
+        return gameObject;
+    }
     else
     {
         const char* aux = " ";

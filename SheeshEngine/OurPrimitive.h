@@ -13,6 +13,7 @@ enum class GeometryType {
 	P_ICOSHPERE,
 	P_CONE,
 	P_TORUS,
+	CAMERA,
 	NONE
 };
 

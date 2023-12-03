@@ -33,6 +33,10 @@ bool ModuleCamera3D::Start()
 	camera = new ComponentCamera();
 	camera->frustum.pos = float3(-1, 2, -10);
 
+	mainCamera = new GameObject(App->scene->root);
+	mainCamera->name = "MainCamera";
+	ComponentCamera* cc = new ComponentCamera();
+	mainCamera->AddComponent(cc);
 	return ret;
 }
 
