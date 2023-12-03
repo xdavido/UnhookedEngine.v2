@@ -87,6 +87,7 @@
     <ClInclude Include="ComponentMaterial.h" />
     <ClInclude Include="ComponentMesh.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameWindow.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="ImGui\backends\imgui_impl_opengl3.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="OurPrimitive.h" />
     <ClInclude Include="parson.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="SceneWindow.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="ComponentTransform.h" />
   </ItemGroup>
@@ -184,6 +186,7 @@
     <ClCompile Include="ComponentMaterial.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="ImGui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="ImGui\backends\imgui_impl_sdl2.cpp" />
@@ -240,6 +243,7 @@
     <ClCompile Include="OurPrimitive.cpp" />
     <ClCompile Include="parson.c" />
     <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="SceneWindow.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
   </ItemGroup>

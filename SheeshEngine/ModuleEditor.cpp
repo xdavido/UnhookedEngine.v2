@@ -14,6 +14,8 @@
 #include "OurPrimitive.h"
 #include "ModuleCamera3D.h"
 #include "ComponentCamera.h"
+#include "SceneWindow.h"
+#include"GameWindow.h"
 
 #include "Assimp/include/ai_assert.h"
 #include "Assimp/include/version.h"
@@ -409,6 +411,9 @@ update_status ModuleEditor::DrawEditor()
         }
         ImGui::End();
     }
+
+    GameWindows::PrintCamera(App);
+    SceneWindows::PrintScene(App);
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

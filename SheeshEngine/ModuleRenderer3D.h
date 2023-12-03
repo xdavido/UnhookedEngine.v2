@@ -6,6 +6,7 @@
 #include "MathGeoLib/include/Math/float3x3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
 #include "Primitive.h"
+#include "ComponentCamera.h"
 #include "Glew/include/glew.h"
 
 
@@ -26,6 +27,12 @@ public:
 	update_status PostUpdate(float dt);
 	void DirectModeTriangleDrawing();
 	bool CleanUp();
+
+	void SetMainCamera(ComponentCamera* cam);
+
+	ComponentCamera* GetMainCamera();
+
+	void BindCameraBuffer(ComponentCamera* cc);
 
 	bool SaveConfig(JsonParser& node) const;
 
@@ -108,4 +115,6 @@ private:
 
 	//renderer mode
 	bool wireframeMode;
+
+	ComponentCamera* mainGameCamera;
 };

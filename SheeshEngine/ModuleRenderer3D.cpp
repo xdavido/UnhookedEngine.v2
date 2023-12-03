@@ -23,6 +23,7 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 {
 	name = "Renderer3D";
 
+	mainGameCamera = nullptr;
 	ProjectionMatrix.SetIdentity();
 }
 
@@ -280,8 +281,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->camera->GetViewMatrix());
+	BindCameraBuffer(App->camera->camera);
 
 	// light 0 on cam pos
 	/*lights[0].SetPos(App->camera->camera->frustum.pos.x, App->camera->camera->frustum.pos.y, App->camera->camera->frustum.pos.z);*/
@@ -336,7 +336,19 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	//(4)--- DRAW BAKE HOUSE ---
 	App->assimpMeshes->RenderScene();
+
+	if (mainGameCamera != nullptr) {
+		//Only polygon fill
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		//Bind buffer
+		BindCameraBuffer(mainGameCamera);
+
+		//Render Game Camera
+		App->assimpMeshes->RenderScene();
+	}
 	
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//(5)--- DRAW TRIANDLE AND ITS NORMAL IN DIRECT MODE
 	//glLineWidth(2.0f);
@@ -445,6 +457,42 @@ bool ModuleRenderer3D::CleanUp()
 	return true;
 }
 
+void ModuleRenderer3D::SetMainCamera(ComponentCamera* cam)
+{
+	//No main camera
+	if (cam == nullptr) {
+		mainGameCamera = nullptr;
+		LOG("No existing GAME camera");
+		return;
+	}
+
+	//Switch main cameras
+	if (mainGameCamera != nullptr)
+		mainGameCamera->isMainCamera = false;
+
+	cam->isMainCamera = true;
+
+	mainGameCamera = cam;
+}
+
+ComponentCamera* ModuleRenderer3D::GetMainCamera()
+{
+	return mainGameCamera;
+}
+
+void ModuleRenderer3D::BindCameraBuffer(ComponentCamera* cc)
+{
+	//Bind game camera framebuffer
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(cc->GetProjetionMatrix());
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixf(cc->GetViewMatrix());
+
+	glBindFramebuffer(GL_FRAMEBUFFER, cc->frameBuffer);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+}
 
 void ModuleRenderer3D::OnResize(int width, int height)
 {

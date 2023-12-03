@@ -58,6 +58,9 @@
     <Filter Include="Sources\GameObject\Source">
       <UniqueIdentifier>{4569a79c-c447-4a26-9eaf-f24f4a052de4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Windows">
+      <UniqueIdentifier>{96be65c8-6243-4f35-92a5-a1fca3fca30a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -345,6 +348,12 @@
     <ClInclude Include="ComponentCamera.h">
       <Filter>Sources\GameObject\Header</Filter>
     </ClInclude>
+    <ClInclude Include="GameWindow.h">
+      <Filter>Sources\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneWindow.h">
+      <Filter>Sources\Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="log.cpp">
@@ -541,6 +550,12 @@
     </ClCompile>
     <ClCompile Include="ComponentCamera.cpp">
       <Filter>Sources\GameObject\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Sources\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneWindow.cpp">
+      <Filter>Sources\Windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
