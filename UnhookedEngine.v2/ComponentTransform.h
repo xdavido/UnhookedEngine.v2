@@ -32,13 +32,13 @@ public:
 	void ApplyTransformToGameObject();
 	void UpdateMatrixFromInspector();
 
-	
-
-private:
-
-
 	float4x4 matrix;
 	float3 position;
 	float3 rotation;
 	float3 scale;
+
+private:
+
+
+	
 };

@@ -12,8 +12,6 @@ ComponentTransform::~ComponentTransform()
 {
 }
 
-
-
 float4x4 ComponentTransform::getGlobalMatrix()
 {
 	if (mOwner->GetParent() == nullptr) return getLocalMatrix();
@@ -73,8 +71,6 @@ void ComponentTransform::setScale(float3 sca)
 	scale = sca;
 	UpdateMatrixFromInspector();
 }
-
-
 
 void ComponentTransform::UpdateMatrixFromInspector()
 {
