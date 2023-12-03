@@ -85,7 +85,7 @@ void ComponentTransform::UpdateMatrixFromInspector()
 	Quat q;
 	q = Quat::FromEulerXYZ(rx, ry, rz);
 	matrix = float4x4::FromTRS(position, q, scale).Transposed();
-	ApplyTransformToGameObject();
+	//ApplyTransformToGameObject();
 }
 
 void ComponentTransform::ApplyTransformToGameObject()
