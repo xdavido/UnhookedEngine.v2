@@ -345,7 +345,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		BindCameraBuffer(mainGameCamera);
 
 		//Render Game Camera
-		App->assimpMeshes->RenderScene();
+		App->assimpMeshes->RenderGameWindow();
 	}
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

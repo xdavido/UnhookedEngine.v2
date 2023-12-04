@@ -263,6 +263,10 @@ update_status ModuleEditor::DrawEditor()
             {
                 const char* listType[]{ "Perspective", "Orthographic" };
 
+                ImGui::LabelText("##Scene mesh", "Rendering Meshes:");
+                ImGui::SameLine();
+                ImGui::Text("%d", App->assimpMeshes->renderedSceneMeshes);
+
                 ImGui::Text(" Camera type: ");
                 ImGui::SameLine();
                 if (ImGui::Combo("##CameraType", &App->camera->camera->typeCameraSelected, listType, IM_ARRAYSIZE(listType)))

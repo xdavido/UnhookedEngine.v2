@@ -25,9 +25,6 @@ bool ModuleScene::Init()
 bool ModuleScene::Start() {
 
 
-
-
-
     //Load Baker House
     App->assimpMeshes->LoadMeshFromFile("Assets/Models/BakerHouse.fbx");
 

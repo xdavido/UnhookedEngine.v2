@@ -43,6 +43,9 @@ void ComponentCamera::PrintInspector()
 			ImGui::SameLine();
 			ImGui::Text(" ( Main Camera )");
 		}
+		ImGui::LabelText("##Game mesh", "Rendering Meshes:");
+		ImGui::SameLine();
+		ImGui::Text("%d", App->assimpMeshes->renderedGameMeshes);
 
 		ImGui::Text("");
 
@@ -141,7 +144,35 @@ void ComponentCamera::CreateFrameBuffer()
 	
 	App->renderer3D->SetMainCamera(this);
 }
+bool ComponentCamera::FrustumCulling(Mesh* mesh)
+{
+	float3 boxPoints[8];
+	Plane frustumPlanes[6];
 
+	mesh->GlobalAABB.GetCornerPoints(boxPoints);
+	frustum.GetPlanes(frustumPlanes);
+
+	for (size_t i = 0; i < 6; i++)
+	{
+		int p = 0;
+
+		
+		for (size_t j = 0; j < 8; j++)
+		{
+			if (frustumPlanes[i].IsOnPositiveSide(boxPoints[j]))
+				p++;
+		}
+
+		
+		if (p == 8) {
+			
+			return false;
+		}
+	}
+
+	
+	return true;
+}
 void ComponentCamera::Look(const float3& Position, const float3& Reference)
 {
 	frustum.pos = Position;

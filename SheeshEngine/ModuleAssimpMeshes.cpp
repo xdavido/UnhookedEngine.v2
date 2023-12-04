@@ -414,23 +414,40 @@ void ModuleAssimpMeshes::BufferMesh(Mesh* mesh)
 
 void ModuleAssimpMeshes::RenderScene()
 {
-  
+    renderedSceneMeshes = 0;
     for (int i = 0; i < meshes.size(); i++) {
-        glColor3f(1.0f, 1.0f, 1.0f);
-        meshes[i]->_OBB = meshes[i]->_AABB;
-        meshes[i]->_OBB.Transform(meshes[i]->owner->transform->getGlobalMatrix().Transposed());
-        meshes[i]->GlobalAABB.SetNegativeInfinity();
-        meshes[i]->GlobalAABB.Enclose(meshes[i]->_OBB);
-        meshes[i]->Render();
-        meshes[i]->RenderAABB();
-        glColor3f(0.0f, 0.6f, 0.7f);
-        if (meshes[i]->owner->GetMeshComponent()->faceNormals) { 
-            meshes[i]->RenderFaceNormals(); 
+        if (App->camera->camera->FrustumCulling(meshes[i])) {
+            glColor3f(1.0f, 1.0f, 1.0f);
+            meshes[i]->_OBB = meshes[i]->_AABB;
+            meshes[i]->_OBB.Transform(meshes[i]->owner->transform->getGlobalMatrix().Transposed());
+            meshes[i]->GlobalAABB.SetNegativeInfinity();
+            meshes[i]->GlobalAABB.Enclose(meshes[i]->_OBB);
+            meshes[i]->Render();
+            meshes[i]->RenderAABB();
+            renderedSceneMeshes++;
+            glColor3f(0.0f, 0.6f, 0.7f);
+            if (meshes[i]->owner->GetMeshComponent()->faceNormals) {
+                meshes[i]->RenderFaceNormals();
+            }
+            /* glColor3f(1, 0, 0);
+                meshes[i]->RenderVertexNormals();*/
         }
-       /* glColor3f(1, 0, 0);
-        meshes[i]->RenderVertexNormals();*/
     }
-    glColor3f(1.0f, 1.0f, 1.0f);    
+    glColor3f(1.0f, 1.0f, 1.0f);
+
+}
+
+void ModuleAssimpMeshes::RenderGameWindow()
+{
+    renderedGameMeshes = 0;
+
+    //Render Game Window
+    for (int i = 0; i < meshes.size(); i++) {
+        if (!App->renderer3D->GetMainCamera()->FrustumCulling(meshes[i])) continue;
+
+        meshes[i]->Render();
+        renderedGameMeshes++;
+    }
 }
 
 void ModuleAssimpMeshes::DeleteMesh(Mesh* mesh) {

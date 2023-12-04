@@ -2,6 +2,8 @@
 #include "Component.h"
 #include "MathGeoLib/include/MathGeoLib.h"
 
+struct Mesh;
+
 class ComponentCamera : public Component
 {
 public:
@@ -20,6 +22,7 @@ public:
 	void SetAspectRatio(float aspectRatio = 1.7);
 	float* GetViewMatrix();
 	float* GetProjetionMatrix();
+	bool FrustumCulling(Mesh* mesh);
 
 	Frustum frustum;
 	float3 reference;

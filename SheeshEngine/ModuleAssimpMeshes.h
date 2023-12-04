@@ -72,7 +72,7 @@ public:
     void ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObject, GameObject* CgameObject, const aiScene* scene, int index);
     void BufferMesh(Mesh* mesh);
     void RenderScene();
-
+    void RenderGameWindow();
     void DeleteMesh(Mesh* mesh);
     
     
@@ -80,5 +80,7 @@ public:
     std::vector<Mesh*> meshes;
     const char* file_path;
     bool MeshDebug;
+    int renderedGameMeshes;
+    int renderedSceneMeshes;
 };
 
