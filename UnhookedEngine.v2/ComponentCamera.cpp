@@ -4,7 +4,8 @@
 #include "GameObject.h"
 
 
-CameraComp::CameraComp() : Component(nullptr)
+
+ComponentCamera::ComponentCamera() : Component(nullptr)
 {
 	type = ComponentType::CAMERA;
 	mOwner = nullptr;
@@ -13,7 +14,7 @@ CameraComp::CameraComp() : Component(nullptr)
 	GenBuffer();
 }
 
-CameraComp::CameraComp(GameObject* owner) : Component(owner)
+ComponentCamera::ComponentCamera(GameObject* owner) : Component(owner)
 {
 	type = ComponentType::CAMERA;
 	this->mOwner = owner;
@@ -22,7 +23,7 @@ CameraComp::CameraComp(GameObject* owner) : Component(owner)
 	GenBuffer();
 }
 
-CameraComp::~CameraComp()
+ComponentCamera::~ComponentCamera()
 {
 	glDeleteFramebuffers(1, &cameraBuffer);
 	glDeleteFramebuffers(1, &frameBuffer);
@@ -30,7 +31,7 @@ CameraComp::~CameraComp()
 }
 
 
-void CameraComp::SetCam()
+void ComponentCamera::SetCam()
 {
 	FrustumCam.type = FrustumType::PerspectiveFrustum;
 	FrustumCam.nearPlaneDistance = 0.1f;
@@ -44,7 +45,7 @@ void CameraComp::SetCam()
 	FrustumCam.pos = float3(0, 0, 0);
 }
 
-void CameraComp::GenBuffer()
+void ComponentCamera::GenBuffer()
 {
 	glGenFramebuffers(1, &frameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
@@ -76,7 +77,7 @@ void CameraComp::GenBuffer()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-float* CameraComp::GetViewMatrix()
+float* ComponentCamera::GetViewMatrix()
 {
 
 	viewMatrix = FrustumCam.ViewMatrix();
@@ -86,7 +87,7 @@ float* CameraComp::GetViewMatrix()
 	return viewMatrix.ptr();
 }
 
-float* CameraComp::GetProjectionMatrix()
+float* ComponentCamera::GetProjectionMatrix()
 {
 
 	projectionMatrix = FrustumCam.ProjectionMatrix();
@@ -96,14 +97,14 @@ float* CameraComp::GetProjectionMatrix()
 	return projectionMatrix.ptr();
 }
 
-void CameraComp::LookAt(const float3& target)
+void ComponentCamera::LookAt(const float3& target)
 {
 	FrustumCam.front = (target - FrustumCam.pos).Normalized();
 	float3 X = float3(0, 1, 0).Cross(FrustumCam.front).Normalized();
 	FrustumCam.up = FrustumCam.front.Cross(X);
 }
 
-void CameraComp::TransformCam()
+void ComponentCamera::TransformCam()
 {
 	//if is the scene cam it will move with input controls (ModuleCamera3D)
 	if (mOwner == nullptr) return;
@@ -119,7 +120,7 @@ void CameraComp::TransformCam()
 	FrustumCam.front = matrix.RotatePart().Col(2).Normalized();
 }
 
-void CameraComp::Inspector()
+void ComponentCamera::Inspector()
 {
 	if (ImGui::CollapsingHeader("Camera"))
 	{
@@ -156,7 +157,7 @@ void CameraComp::Inspector()
 }
 
 // tests if a AaBox is within the frustrum
-//bool CameraComp::ContainsAaBox(Mesh* refBox)
+//bool ComponentCamera::ContainsAaBox(Mesh* refBox)
 //{
 //	float3 vCorner[8];
 //	int iTotalIn = 0;

@@ -7,13 +7,13 @@
 class GameObject;
 class Component;
 
-class CameraComp : public Component
+class ComponentCamera : public Component
 {
 public:
 
-	CameraComp();
-	CameraComp(GameObject* owner);
-	~CameraComp();
+	ComponentCamera();
+	ComponentCamera(GameObject* owner);
+	~ComponentCamera();
 
 	void SetCam();
 	void GenBuffer();

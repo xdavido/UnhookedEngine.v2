@@ -21,6 +21,7 @@ public:
 
 	GameObject* CreateGameObject(GameObject* parent);
 	GameObject* root = nullptr;
+	GameObject* root_Assets = nullptr;
 	GameObject* prova1;
 	GameObject* prova2;
 	GameObject* prova3;
