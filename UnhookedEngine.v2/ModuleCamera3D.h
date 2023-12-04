@@ -7,13 +7,15 @@
 
 #include "glmath.h"
 
+class ComponentCamera;
+
 class ModuleCamera3D : public Module
 {
 public:
 	ModuleCamera3D(Application* app, bool start_enabled = true);
 	~ModuleCamera3D();
 
-
+	ComponentCamera* sceneCam;
 
 	bool Start();
 	update_status Update(float dt);

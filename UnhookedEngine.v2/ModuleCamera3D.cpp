@@ -5,6 +5,7 @@
 #include "MathGeoLib/include/Math/float3.h"
 #include "ComponentTransform.h"
 #include "MathGeoLib/include/Geometry/Frustum.h"
+#include "ComponentCamera.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -28,6 +29,9 @@ bool ModuleCamera3D::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 
+	sceneCam = new ComponentCamera();
+	sceneCam->FrustumCam.pos = float3(0, 2, -10);
+
 	return ret;
 }
 
@@ -36,6 +40,7 @@ bool ModuleCamera3D::CleanUp()
 {
 	LOG("Cleaning camera");
 
+	delete sceneCam;
 	return true;
 }
 
