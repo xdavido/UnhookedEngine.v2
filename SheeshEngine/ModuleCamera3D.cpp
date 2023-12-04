@@ -6,6 +6,7 @@
 #include "ComponentTransform.h"
 #include "ComponentCamera.h"
 #include"GameWindow.h"
+#include "SceneWindow.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -38,6 +39,8 @@ bool ModuleCamera3D::Start()
 	gameCamera->name = "MainCamera";
 	ComponentCamera* cc = new ComponentCamera();
 	gameCamera->AddComponent(cc);
+	
+	gameCamera->transform->setPosition(float3(-1, 2, -10));
 
 
 	return ret;

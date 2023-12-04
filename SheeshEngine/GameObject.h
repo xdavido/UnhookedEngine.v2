@@ -36,6 +36,8 @@ public:
 
 	ComponentMaterial* GetComponentTexture();
 
+	ComponentCamera* GetComponentCamera();
+
 
 	void SetPendingToDelete(bool deleteGO) { isTimetoDelete = deleteGO; };
 
