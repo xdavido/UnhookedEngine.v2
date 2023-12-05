@@ -213,3 +213,13 @@ void GameObject::PrintInspector()
 
 
 }
+
+void GameObject::UpdateRecu()
+{
+	if (GetMeshComponent() != nullptr)
+		GetMeshComponent()->UpdateAABB();
+	for (int i = 0; i < mChildren.size(); i++) {
+		mChildren[i]->UpdateRecu();
+	}
+
+}

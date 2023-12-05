@@ -33,6 +33,8 @@ public:
 
 	ComponentMaterial* GetComponentTexture();
 
+	void UpdateRecu();
+
 	bool isTimetoDelete;
 	std::string name;
 

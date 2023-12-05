@@ -58,7 +58,7 @@ update_status ModuleHierarchy::Update(float dt)
 		objSelected = nullptr;
 	}
 
-
+	//App->scene->root->UpdateRecu();
 
 
 	return UPDATE_CONTINUE;

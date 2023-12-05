@@ -39,7 +39,6 @@ struct Mesh {
     uint VAO;
     uint VBO;
     uint EBO;
-    OBB obb;
 
     GLuint id_texture;
     GLuint texture_width = 0;
