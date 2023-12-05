@@ -1,4 +1,5 @@
 #include "ComponentMesh.h"
+#include "ModuleAssimpMeshes.h"
 
 ComponentMesh::ComponentMesh() : Component(nullptr)
 {
@@ -16,6 +17,19 @@ ComponentMesh::ComponentMesh::~ComponentMesh()
 {
 	App->assimpMeshes->DeleteMesh(mesh);
 	mesh = nullptr;
+}
+
+void ComponentMesh::UpdateAABB()
+{
+	for (int i = 0; i < App->assimpMeshes->meshes.size(); i++) {
+		if (App->assimpMeshes->meshes[i] == nullptr)return;
+
+		App->assimpMeshes->meshes[i]->obb = App->assimpMeshes->meshes[i]->localAABB;
+		//App->assimpMeshes->meshes[i]->obb.Transform(mOwner->transform->GetTransformMatrix().Transposed());
+
+		App->assimpMeshes->meshes[i]->aabb.SetNegativeInfinity();
+		App->assimpMeshes->meshes[i]->aabb.Enclose(App->assimpMeshes->meshes[i]->obb);
+	}
 }
 
 void ComponentMesh::PrintInspector()

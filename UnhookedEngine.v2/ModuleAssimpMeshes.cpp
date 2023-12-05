@@ -28,6 +28,7 @@ bool ModuleAssimpMeshes::Start()
     aiAttachLogStream(&stream);
 
     MeshDebug = true;
+
     
                 
     return ret;
@@ -379,4 +380,18 @@ bool ModuleAssimpMeshes::CleanUp()
    
     aiDetachAllLogStreams();
     return true;
+}
+
+void Mesh::InnitAABB() {
+    float* vertices_positions = new float[vertexCount * 3];
+    for (size_t i = 0; i < vertexCount; i++)
+    {
+        vertices_positions[i * 3] = vertex[i * VERTEX];
+        vertices_positions[i * 3 + 1] = vertex[i * VERTEX + 1];
+        vertices_positions[i * 3 + 2] = vertex[i * VERTEX + 2];
+    }
+
+    localAABB.SetNegativeInfinity();
+    localAABB.Enclose((float3*)vertices_positions, vertexCount);
+    delete[] vertices_positions;
 }

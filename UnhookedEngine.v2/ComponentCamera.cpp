@@ -157,35 +157,35 @@ void ComponentCamera::Inspector()
 }
 
 // tests if a AaBox is within the frustrum
-//bool ComponentCamera::ContainsAaBox(Mesh* refBox)
-//{
-//	float3 vCorner[8];
-//	int iTotalIn = 0;
-//	refBox->aabb.GetCornerPoints(vCorner); // get the corners of the box into the vCorner array
-//
-//	Plane m_plane[6];
-//	FrustumCam.GetPlanes(m_plane);
-//
-//	// test all 8 corners against the 6 sides
-//	// if all points are behind 1 specific plane, we are out
-//	// if we are in with all points, then we are fully in
-//	for (int p = 0; p < 6; ++p) {
-//		int iInCount = 8;
-//		int iPtIn = 1;
-//		for (int i = 0; i < 8; ++i) {
-//			// test this point against the planes
-//			if (m_plane[p].IsOnPositiveSide(vCorner[i])) { //<-- “IsOnPositiveSide” from MathGeoLib
-//				iPtIn = 0;
-//				--iInCount;
-//			}
-//		}
-//		// were all the points outside of plane p?
-//		if (iInCount == 0)
-//			return false;
-//		// check if they were all on the right side of the plane
-//		iTotalIn += iPtIn;
-//	}
-//	// so if iTotalIn is 6, then all are inside the view
-//	if (iTotalIn == 6)
-//		return true;
-//}
+bool ComponentCamera::ContainsAaBox(Mesh* refBox)
+{
+	float3 vCorner[8];
+	int iTotalIn = 0;
+	refBox->aabb.GetCornerPoints(vCorner); // get the corners of the box into the vCorner array
+
+	Plane m_plane[6];
+	FrustumCam.GetPlanes(m_plane);
+
+	// test all 8 corners against the 6 sides
+	// if all points are behind 1 specific plane, we are out
+	// if we are in with all points, then we are fully in
+	for (int p = 0; p < 6; ++p) {
+		int iInCount = 8;
+		int iPtIn = 1;
+		for (int i = 0; i < 8; ++i) {
+			// test this point against the planes
+			if (m_plane[p].IsOnPositiveSide(vCorner[i])) { //<-- “IsOnPositiveSide” from MathGeoLib
+				iPtIn = 0;
+				--iInCount;
+			}
+		}
+		// were all the points outside of plane p?
+		if (iInCount == 0)
+			return false;
+		// check if they were all on the right side of the plane
+		iTotalIn += iPtIn;
+	}
+	// so if iTotalIn is 6, then all are inside the view
+	if (iTotalIn == 6)
+		return true;
+}

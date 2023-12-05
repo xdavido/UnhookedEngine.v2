@@ -36,6 +36,8 @@ public:
 	bool isTimetoDelete;
 	std::string name;
 
+
+
 	GameObject* mParent;
 	std::vector<GameObject*> mChildren;
 	std::vector<Component*> mComponents;

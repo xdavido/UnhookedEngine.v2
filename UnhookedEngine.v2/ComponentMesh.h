@@ -1,6 +1,5 @@
 #pragma once
 #include "Component.h"
-
 #include "Application.h"
 #include "ImGui/imgui.h"
 
@@ -21,5 +20,7 @@ public:
 
 	bool faceNormals;
 
+
 	void PrintInspector();
+	void UpdateAABB();
 };
