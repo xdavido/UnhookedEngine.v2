@@ -5,14 +5,20 @@
 
 #include "MathGeoLib/include/Math/float3x3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
-#include "Primitive.h"
-#include "Glew/include/glew.h"
 
+#include "Primitive.h"
+
+#include "Glew/include/glew.h"
+#include "Imgui/backends/imgui_impl_sdl2.h"
+#include "Imgui/backends/imgui_impl_opengl3.h"
 
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
 
 #define MAX_LIGHTS 8
+
+class GameObject;
+class ComponentCamera;
 
 class ModuleRenderer3D : public Module
 {
@@ -81,6 +87,8 @@ public:
 	//GLuint VBORect;
 	//GLuint EBORect;
 	
+	GameObject* GameCamera;
+	ComponentCamera* mainCam;
 	
 private:
 	//renderer attributes

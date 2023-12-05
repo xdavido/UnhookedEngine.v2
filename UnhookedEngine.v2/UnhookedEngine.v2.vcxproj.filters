@@ -342,6 +342,9 @@
     <ClInclude Include="ModuleViewport.h">
       <Filter>Sources\Modules\Header</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Sources\GameObject\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="log.cpp">
@@ -538,6 +541,9 @@
     </ClCompile>
     <ClCompile Include="ModuleViewport.cpp">
       <Filter>Sources\Modules\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Sources\GameObject\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

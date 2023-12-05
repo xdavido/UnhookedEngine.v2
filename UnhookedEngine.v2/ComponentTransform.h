@@ -16,6 +16,7 @@ public:
 
 	float4x4 getGlobalMatrix();
 	float4x4 getLocalMatrix();
+	// GetTransformMatrix();
 
 	
 	void resetMatrix();
@@ -31,6 +32,7 @@ public:
 	void PrintInspector();
 	void ApplyTransformToGameObject();
 	void UpdateMatrixFromInspector();
+
 
 	float4x4 matrix;
 	float3 position;

@@ -12,7 +12,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleHierarchy.h"
 #include "OurPrimitive.h"
-
+#include "Glew/include/glew.h"
 #include "Assimp/include/ai_assert.h"
 #include "Assimp/include/version.h"
 
@@ -328,9 +328,9 @@ update_status ModuleEditor::DrawEditor()
 
     if (isActiveViewport) {
 
-        App->scene->SceneWindow();
+       /* App->scene->SceneWindow();
 
-        App->scene->GameWindow();
+        App->scene->GameWindow();*/
 
     }
 

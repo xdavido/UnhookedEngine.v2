@@ -4,11 +4,20 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include "ComponentCamera.h"
+#include "ComponentTransform.h"
+#include "Primitive.h"
+#include "ModuleAssimpMeshes.h"
+#include "ModuleEditor.h
+#include "Glew/include/glew.h"
 
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "Glew/libx86/glew32.lib")
 
+#include <stdio.h>      /* printf, scanf, puts, NULL */
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>  
 
 
 #ifdef _DEBUG
@@ -114,19 +123,21 @@ bool ModuleRenderer3D::Init()
 	pointSmoothAttribute = POINT_SMOOTH_ATTRIBUTE;
 	polygonSmoothAttribute = POLYGON_SMOOTH_ATTRIBUTE;
 	wireframeMode = WIREFRAME_MODE;
-	
+
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
-	if(context == NULL)
+
+	if (context == NULL)
 	{
 		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
-	
-	if(ret == true)
+
+
+	if (ret == true)
 	{
 		//Use Vsync
-		if(VSYNC && SDL_GL_SetSwapInterval(1) < 0)
+		if (VSYNC && SDL_GL_SetSwapInterval(1) < 0)
 			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
 		//Initialize Projection Matrix
@@ -135,7 +146,7 @@ bool ModuleRenderer3D::Init()
 
 		//Check for error
 		GLenum error = glGetError();
-		if(error != GL_NO_ERROR)
+		if (error != GL_NO_ERROR)
 		{
 			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
@@ -147,41 +158,41 @@ bool ModuleRenderer3D::Init()
 
 		//Check for error
 		error = glGetError();
-		if(error != GL_NO_ERROR)
+		if (error != GL_NO_ERROR)
 		{
 			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
-		
+
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 		glClearDepth(1.0f);
-		
+
 		//Initialize clear color
 		glClearColor(0.f, 0.f, 0.f, 1.f);
 
 		//Check for error
 		error = glGetError();
-		if(error != GL_NO_ERROR)
+		if (error != GL_NO_ERROR)
 		{
 			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
-		
-		GLfloat LightModelAmbient[] = {0.0f, 0.0f, 0.0f, 1.0f};
+
+		GLfloat LightModelAmbient[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
-		
+
 		lights[0].ref = GL_LIGHT0;
 		lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
 		lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
 		lights[0].SetPos(0.0f, 0.0f, 2.5f);
 		lights[0].Init();
-		
-		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
+
+		GLfloat MaterialAmbient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
 
-		GLfloat MaterialDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
+		GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
-		
+
 		SetDepthTestAttribute(depthTestAttribute);
 		SetCullFaceAttribute(cullFaceAttribute);
 		lights[0].Active(true);
@@ -194,22 +205,21 @@ bool ModuleRenderer3D::Init()
 		SetLineSmoothAttribute(lineSmoothAttribute);
 		SetPointSmoothAttribute(pointSmoothAttribute);
 		SetPolygonSmoothAttribute(polygonSmoothAttribute);
-		
+
 		glewInit();
 	}
 
-	
+
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	Grid.axis = true;
 
-	
 	/*
 	glGenBuffers(1, &test);
 	glBindBuffer(GL_ARRAY_BUFFER, test);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	
+
 	VBO = 0;
 	EBO = 0;
 	VAO = 0;
@@ -228,20 +238,20 @@ bool ModuleRenderer3D::Init()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 	glBindVertexArray(0);
-	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); 
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
 	VAORect = 0;
 	VBORect = 0;
 	EBORect = 0;
-	
-	
+
+
 	glGenBuffers(1, &VBORect);
 	glGenBuffers(1, &EBORect);
 	glGenVertexArrays(1, &VAORect);
 
-	
+
 
 
 	glBindVertexArray(VAORect);
@@ -254,7 +264,7 @@ bool ModuleRenderer3D::Init()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	
+
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);*/
@@ -265,9 +275,21 @@ bool ModuleRenderer3D::Init()
 
 bool ModuleRenderer3D::Start()
 {
-	
-	
-			
+	LOG("Render Start");
+	bool ret = true;
+
+	GameCamera = new GameObject(App->scene->root);
+
+	GameCamera->name = "Main Camera";
+
+	ComponentCamera* cam = new ComponentCamera(GameCamera);
+	mainCam = cam;
+
+	GameCamera->mComponents.push_back(cam);
+	GameCamera->transform->position = float3(0, 2, -10);
+	GameCamera->transform->UpdateMatrixFromInspector();
+
+
 	return true;
 }
 
@@ -278,15 +300,21 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(App->camera->sceneCam->GetProjectionMatrix());
+
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
+	glLoadMatrixf(App->camera->sceneCam->GetViewMatrix());
+
+	glBindFramebuffer(GL_FRAMEBUFFER, App->camera->sceneCam->frameBuffer);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	// light 0 on cam pos
-	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	lights[0].SetPos(App->camera->sceneCam->FrustumCam.pos.x, App->camera->sceneCam->FrustumCam.pos.y, App->camera->sceneCam->FrustumCam.pos.z);
 
-	for(uint i = 0; i < MAX_LIGHTS; ++i)
+	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
-
 
 
 	return UPDATE_CONTINUE;
@@ -296,17 +324,44 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	Grid.Render();
-	DrawWithWireframe();
+	//SethWireframe();
 
-	
+
 	App->assimpMeshes->RenderScene();
-	
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 
 	if (App->editor->DrawEditor() == UPDATE_STOP)
 	{
 		return UPDATE_STOP;
 	}
+
+
+	App->scene->SceneWindow();
+
+
+	if (mainCam != nullptr) {
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+
+		glMatrixMode(GL_PROJECTION);
+		glLoadMatrixf(mainCam->GetProjectionMatrix());
+
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf(mainCam->GetViewMatrix());
+
+		glBindFramebuffer(GL_FRAMEBUFFER, mainCam->frameBuffer);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
+		App->scene->GameWindow();
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
 
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
@@ -349,14 +404,8 @@ void ModuleRenderer3D::DirectModeTriangleDrawing()
 bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
-
-	/*if (VBO != 0)
-	{
-		glDeleteBuffers(1, &VBO);
-		VBO = 0;
-	}*/
-
-	SDL_GL_DeleteContext(context);
+	delete GameCamera;
+	//delete mainCam;
 
 	return true;
 }
@@ -368,10 +417,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
-	//todo: USE MATHGEOLIB here BEFORE 1st delivery! (TIP: Use MathGeoLib/Geometry/Frustum.h, view and projection matrices are managed internally.)
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	glLoadMatrixf(ProjectionMatrix.M);
+	glLoadMatrixf(App->camera->sceneCam->FrustumCam.ProjectionMatrix().Transposed().ptr());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -383,13 +429,13 @@ void ModuleRenderer3D::SetDepthTestAttribute(bool enable) {
 
 	depthTestAttribute ? glDisable(GL_DEPTH_TEST) : glEnable(GL_DEPTH_TEST);
 
-	std::string aux = "Renderer depthTestAttribute updated to: " + std::string(enable ? "false" : "true" );
+	std::string aux = "Renderer depthTestAttribute updated to: " + std::string(enable ? "false" : "true");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetCullFaceAttribute(bool enable) {
 	cullFaceAttribute = enable;
-		
+
 	cullFaceAttribute ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
 
 	std::string aux = "Renderer cullFaceAttribute updated to: " + std::string(enable ? "true" : "false");
@@ -401,7 +447,7 @@ void ModuleRenderer3D::SetLightingAttribute(bool enable) {
 
 	lightingAttribute ? glDisable(GL_LIGHTING) : glEnable(GL_LIGHTING);
 
-	std::string aux = "Renderer lightingAttribute updated to: " + std::string(enable ? "false" : "true" );
+	std::string aux = "Renderer lightingAttribute updated to: " + std::string(enable ? "false" : "true");
 	LOG(aux.c_str());
 }
 
@@ -425,7 +471,7 @@ void ModuleRenderer3D::SetTexture2DAttribute(bool enable) {
 
 void ModuleRenderer3D::SetBlendAttribute(bool enable) {
 	blendAttribute = enable;
-	
+
 	blendAttribute ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
 
 	std::string aux = "Renderer blendAttribute updated to: " + std::string(blendAttribute ? "true" : "false");
@@ -434,7 +480,7 @@ void ModuleRenderer3D::SetBlendAttribute(bool enable) {
 
 void ModuleRenderer3D::SetAlphaTestAttribute(bool enable) {
 	alphaTestAttribute = enable;
-	
+
 	alphaTestAttribute ? glEnable(GL_ALPHA_TEST) : glDisable(GL_ALPHA_TEST);
 
 	std::string aux = "Renderer alphaTestAttribute updated to: " + std::string(alphaTestAttribute ? "true" : "false");
@@ -443,7 +489,7 @@ void ModuleRenderer3D::SetAlphaTestAttribute(bool enable) {
 
 void ModuleRenderer3D::SetLineSmoothAttribute(bool enable) {
 	lineSmoothAttribute = enable;
-	
+
 	lineSmoothAttribute ? glEnable(GL_LINE_SMOOTH) : glDisable(GL_LINE_SMOOTH);
 
 	std::string aux = "Renderer lineSmoothAttribute updated to: " + std::string(lineSmoothAttribute ? "true" : "false");
@@ -452,7 +498,7 @@ void ModuleRenderer3D::SetLineSmoothAttribute(bool enable) {
 
 void ModuleRenderer3D::SetPointSmoothAttribute(bool enable) {
 	pointSmoothAttribute = enable;
-	
+
 	pointSmoothAttribute ? glEnable(GL_POINT_SMOOTH) : glDisable(GL_POINT_SMOOTH);
 
 	std::string aux = "Renderer pointSmoothAttribute updated to: " + std::string(pointSmoothAttribute ? "true" : "false");
@@ -461,7 +507,7 @@ void ModuleRenderer3D::SetPointSmoothAttribute(bool enable) {
 
 void ModuleRenderer3D::SetPolygonSmoothAttribute(bool enable) {
 	polygonSmoothAttribute = enable;
-	
+
 	polygonSmoothAttribute ? glEnable(GL_POLYGON_SMOOTH) : glDisable(GL_POLYGON_SMOOTH);
 
 	std::string aux = "Renderer polygonSmoothAttribute updated to: " + std::string(polygonSmoothAttribute ? "true" : "false");
@@ -469,14 +515,14 @@ void ModuleRenderer3D::SetPolygonSmoothAttribute(bool enable) {
 }
 
 void ModuleRenderer3D::SetVsync(bool vsync) {
-	
+
 	this->vsync = vsync;
-	if (vsync) 
+	if (vsync)
 	{
 		SDL_GL_SetSwapInterval(1);
-		
+
 	}
-	else 
+	else
 	{
 		SDL_GL_SetSwapInterval(0);
 	}

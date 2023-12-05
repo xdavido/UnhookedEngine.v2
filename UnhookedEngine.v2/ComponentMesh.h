@@ -17,6 +17,8 @@ public:
 
 	Mesh* mesh;
 	
+	std::vector<Mesh*> meshes;
+
 	bool faceNormals;
 
 	void PrintInspector();

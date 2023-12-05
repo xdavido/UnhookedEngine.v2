@@ -10,6 +10,7 @@ class Component;
 class ComponentTransform;
 class ComponentMesh;
 class ComponentMaterial;
+
 class GameObject
 {
 public:

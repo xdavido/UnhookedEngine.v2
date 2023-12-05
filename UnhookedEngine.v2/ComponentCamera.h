@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Component.h"
-#include "imgui.h"
+#include "Imgui/imgui.h"
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
 
@@ -27,7 +27,7 @@ public:
 
 	void Inspector();
 
-	bool ContainsAaBox(Mesh* refBox);
+	//bool ContainsAaBox(Mesh* refBox); <- sirve para frustrum
 
 	Frustum FrustumCam;
 	float4x4 viewMatrix;

@@ -126,3 +126,14 @@ void ComponentTransform::PrintInspector()
 		}
 	}
 }
+
+
+//float4x4 ComponentTransform::GetTransformMatrix()
+//{
+//	if (mOwner->mParent == nullptr) {
+//		return matrix;
+//	}
+//	else {
+//		return matrix * mOwner->mParent->transform->GetTransformMatrix();
+//	}
+//}

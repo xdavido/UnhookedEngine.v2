@@ -340,6 +340,8 @@ void ModuleAssimpMeshes::BufferMesh(Mesh* mesh)
 
 void ModuleAssimpMeshes::RenderScene()
 {
+  //  App->camera->sceneCam->printCount = 0;
+
   
     for (int i = 0; i < meshes.size(); i++) {
         glColor3f(1.0f, 1.0f, 1.0f);

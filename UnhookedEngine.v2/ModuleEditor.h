@@ -34,7 +34,7 @@ public:
     std::string ReadFileIO(const char* file);
     void LOGToConsole(const char* text);
 
-    void PushBackLog(std::vector<float>* log, float current);
+    //void PushBackLog(std::vector<float>* log, float current);
     
 private:
 
@@ -49,6 +49,7 @@ private:
 public:
     std::deque<std::string>* logs = nullptr;
 
+ 
 
 private:
     std::vector<float> mFPSLog;

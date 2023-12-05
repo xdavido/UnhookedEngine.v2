@@ -1,8 +1,19 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "ModuleAssimpMeshes.h"
+#include "ModuleRenderer3D.h"
+#include "ImGui/imgui.h"
+
+#include<string>
+
+using namespace std;
+
 
 class GameObject;
+
+enum class GeometryType;
+
 class ModuleScene : public Module
 {
 public:
@@ -20,8 +31,18 @@ public:
 	void GameWindow();
 
 	GameObject* CreateGameObject(GameObject* parent);
+	ImVec2 NormalizeMouse(float x, float y, float w, float h, ImVec2 pos);
+
+
+	ImVec2 WindowSize;
+
+	void OnSave();
+
+
 	GameObject* root = nullptr;
 	GameObject* root_Assets = nullptr;
+
+
 	GameObject* prova1;
 	GameObject* prova2;
 	GameObject* prova3;

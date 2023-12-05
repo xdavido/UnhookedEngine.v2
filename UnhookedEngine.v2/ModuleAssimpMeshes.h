@@ -9,6 +9,7 @@
 #include"Glew/include/glew.h"
 #include "GameObject.h"
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
+#include "MathGeoLib/include/MathGeoLib.h"
 
 #include <string>
 
@@ -34,6 +35,7 @@ struct Mesh {
     uint VAO;
     uint VBO;
     uint EBO;
+    OBB obb;
 
     GLuint id_texture;
     GLuint texture_width = 0;
