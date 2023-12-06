@@ -18,6 +18,8 @@ public:
 	void SetCam();
 	void GenBuffer();
 
+	bool ContainsAaBox(Mesh* refBox);
+
 	float* GetViewMatrix();
 	float* GetProjectionMatrix();
 

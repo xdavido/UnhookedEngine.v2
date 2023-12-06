@@ -8,7 +8,7 @@
 #include "ComponentTransform.h"
 #include "Primitive.h"
 #include "ModuleAssimpMeshes.h"
-#include "ModuleEditor.h
+#include "ModuleEditor.h"
 #include "Glew/include/glew.h"
 
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
