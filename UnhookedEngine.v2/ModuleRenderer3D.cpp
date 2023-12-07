@@ -4,6 +4,9 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include "ComponentCamera.h"
+#include "ComponentTransform.h"
+
 
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
@@ -265,7 +268,23 @@ bool ModuleRenderer3D::Init()
 
 bool ModuleRenderer3D::Start()
 {
-	
+	LOG("Render Start");
+	bool ret = true;
+
+	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+
+	GameCamera = new GameObject(App->scene->root);
+
+	GameCamera->name = "Main Camera";
+
+	ComponentCamera* cam = new ComponentCamera(GameCamera);
+	mainCam = cam;
+
+	GameCamera->mComponents.push_back(cam);
+	GameCamera->transform->position = float3(0, 2, -10);
+	GameCamera->transform->UpdateMatrixFromInspector();
+
 	
 			
 	return true;

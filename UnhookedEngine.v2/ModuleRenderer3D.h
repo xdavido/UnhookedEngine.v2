@@ -14,6 +14,9 @@
 
 #define MAX_LIGHTS 8
 
+class GameObject;
+class ComponentCamera;
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -63,6 +66,9 @@ private:
 	
 
 public:
+
+	GameObject* GameCamera;
+	ComponentCamera* mainCam;
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
