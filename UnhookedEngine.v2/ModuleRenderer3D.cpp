@@ -297,11 +297,19 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
+	//Bind game camera framebuffer
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(App->camera->sceneCam->GetProjectionMatrix());
+
 	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
+	glLoadMatrixf(App->camera->sceneCam->GetViewMatrix());
+
+	glBindFramebuffer(GL_FRAMEBUFFER, App->camera->sceneCam->frameBuffer);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	// light 0 on cam pos
-	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	lights[0].SetPos(0, 0, 0);
 
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();

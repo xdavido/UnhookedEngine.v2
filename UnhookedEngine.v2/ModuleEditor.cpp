@@ -328,9 +328,9 @@ update_status ModuleEditor::DrawEditor()
 
     if (isActiveViewport) {
 
-        App->scene->SceneWindow();
+      /*  App->scene->SceneWindow();
 
-        App->scene->GameWindow();
+        App->scene->GameWindow();*/
 
     }
 
