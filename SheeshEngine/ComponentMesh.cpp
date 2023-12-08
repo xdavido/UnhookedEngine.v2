@@ -4,12 +4,14 @@ ComponentMesh::ComponentMesh() : Component(nullptr)
 {
 	type = ComponentType::MESH;
 	mesh = nullptr;
+	faceNormals = false;
 }
 ComponentMesh::ComponentMesh(GameObject* owner) : Component(owner)
 {
 	type = ComponentType::MESH;
 	mOwner = owner;
 	mesh = nullptr;
+	faceNormals = false;
 }
 
 ComponentMesh::ComponentMesh::~ComponentMesh()

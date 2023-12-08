@@ -31,7 +31,7 @@ void SceneWindows::PrintScene(Application* app)
         isHovered = false;
     }
 
-    if (ImGui::IsMouseClicked(0) && App->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered())
+    if (ImGui::IsMouseClicked(0) && App->input->GetKey(SDL_SCANCODE_LALT) != KEY_REPEAT && ImGui::IsWindowHovered() && !ImGuizmo::IsOver())
     {
         std::vector<GameObject*> PickedGO;
 

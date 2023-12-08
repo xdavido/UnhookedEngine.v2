@@ -27,6 +27,7 @@ bool ModuleScene::Start() {
 
     //Load Baker House
     App->assimpMeshes->LoadMeshFromFile("Assets/Models/BakerHouse.fbx");
+    App->assimpMeshes->LoadMeshFromFile("Assets/Models/scene.DAE");
 
 
     return true;

@@ -31,12 +31,10 @@ public:
 	void SetTransformMatrixW(float4x4 matrix);
 
 	void PrintInspector();
+	void calculateMatrix();
 
 	float3 position;
-	
-
 private:
-	void calculateMatrix();
 
 	float4x4 matrix;
 	float3 rotation;

@@ -51,7 +51,17 @@ GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
         {
             GameObject* obj = new GameObject();
             OBJ->SetAsChildOf(obj);
-            obj->name = "Mesh_" + std::to_string(i);
+            obj->name = scene->mRootNode->mName.C_Str();
+            aiVector3D scale, position, rotation;
+            aiQuaternion QuatRotation;
+
+            scene->mRootNode->mTransformation.Decompose(scale, QuatRotation, position);
+            rotation = QuatRotation.GetEuler();
+
+            obj->transform->getScale() = float3(scale.x, scale.y, scale.z);
+            obj->transform->getPosition() = float3(position.x, position.y, position.z);
+            /*gObj->mTransform->mRotation = float3(rotation.x, rotation.y, rotation.z);*/
+            obj->transform->calculateMatrix();
             ImportAssimpMesh(scene->mMeshes[i],OBJ, obj, scene,i);
            
         }
@@ -91,6 +101,7 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
         ourMesh->vertex[v * VERTEX + 1] = aiMesh->mVertices[v].y;
         ourMesh->vertex[v * VERTEX + 2] = aiMesh->mVertices[v].z;
 
+        if (aiMesh->mTextureCoords[0] == nullptr) continue;
         ourMesh->vertex[v * VERTEX + 3] = aiMesh->mTextureCoords[0][v].x;
         ourMesh->vertex[v * VERTEX + 4] = aiMesh->mTextureCoords[0][v].y;
     }
