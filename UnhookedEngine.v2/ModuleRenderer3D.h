@@ -11,6 +11,7 @@
 #include "Glew/include/glew.h"
 #include "Imgui/backends/imgui_impl_sdl2.h"
 #include "Imgui/backends/imgui_impl_opengl3.h"
+#include "SDL/include/SDL_video.h"
 
 //todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
