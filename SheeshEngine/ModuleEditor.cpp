@@ -944,12 +944,12 @@ void ModuleEditor::UpdateAtributes()
     if (wireframeMode)
     {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        LOG("Wireframe Mode On");
+       
     }
     else
     {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        LOG("Wireframe Mode Off");
+       
     }
 
 }

@@ -519,9 +519,6 @@ void ModuleRenderer3D::SetDepthTestAttribute(bool enable) {
 	App->editor->depthTest = enable;
 
 	App->editor->depthTest ? glDisable(GL_DEPTH_TEST) : glEnable(GL_DEPTH_TEST);
-
-	std::string aux = "Renderer depthTestAttribute updated to: " + std::string(App->editor->depthTest ? "false" : "true");
-	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetCullFaceAttribute(bool enable) {
@@ -529,8 +526,6 @@ void ModuleRenderer3D::SetCullFaceAttribute(bool enable) {
 
 	App->editor->cullFace ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
 
-	std::string aux = "Renderer cullFaceAttribute updated to: " + std::string(App->editor->cullFace ? "true" : "false");
-	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetLightingAttribute(bool enable) {
@@ -538,8 +533,6 @@ void ModuleRenderer3D::SetLightingAttribute(bool enable) {
 
 	App->editor->lighting ? glDisable(GL_LIGHTING) : glEnable(GL_LIGHTING);
 
-	std::string aux = "Renderer lightingAttribute updated to: " + std::string(App->editor->lighting ? "false" : "true");
-	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetColorMaterialAttribute(bool enable) {
@@ -547,8 +540,6 @@ void ModuleRenderer3D::SetColorMaterialAttribute(bool enable) {
 
 	App->editor->coloMaterial ? glEnable(GL_COLOR_MATERIAL) : glDisable(GL_COLOR_MATERIAL);
 
-	std::string aux = "Renderer coloMaterialAttribute updated to: " + std::string(App->editor->coloMaterial ? "true" : "false");
-	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetTexture2DAttribute(bool enable) {
@@ -556,8 +547,6 @@ void ModuleRenderer3D::SetTexture2DAttribute(bool enable) {
 
 	App->editor->texture2D ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
 
-	std::string aux = "Renderer texture2DAttribute updated to: " + std::string(App->editor->texture2D ? "true" : "false");
-	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetBlendAttribute(bool enable) {
@@ -565,8 +554,6 @@ void ModuleRenderer3D::SetBlendAttribute(bool enable) {
 
 	App->editor->blend ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
 
-	std::string aux = "Renderer blendAttribute updated to: " + std::string(App->editor->blend ? "true" : "false");
-	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetAlphaTestAttribute(bool enable) {
@@ -574,8 +561,6 @@ void ModuleRenderer3D::SetAlphaTestAttribute(bool enable) {
 
 	App->editor->alphaTest ? glEnable(GL_ALPHA_TEST) : glDisable(GL_ALPHA_TEST);
 
-	std::string aux = "Renderer alphaTestAttribute updated to: " + std::string(App->editor->alphaTest ? "true" : "false");
-	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetLineSmoothAttribute(bool enable) {
@@ -583,8 +568,6 @@ void ModuleRenderer3D::SetLineSmoothAttribute(bool enable) {
 
 	App->editor->lineSmooth ? glEnable(GL_LINE_SMOOTH) : glDisable(GL_LINE_SMOOTH);
 
-	std::string aux = "Renderer lineSmoothAttribute updated to: " + std::string(App->editor->lineSmooth ? "true" : "false");
-	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetPointSmoothAttribute(bool enable) {
@@ -592,8 +575,6 @@ void ModuleRenderer3D::SetPointSmoothAttribute(bool enable) {
 
 	App->editor->pointSmooth ? glEnable(GL_POINT_SMOOTH) : glDisable(GL_POINT_SMOOTH);
 
-	std::string aux = "Renderer pointSmoothAttribute updated to: " + std::string(App->editor->pointSmooth ? "true" : "false");
-	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetPolygonSmoothAttribute(bool enable) {
@@ -601,8 +582,6 @@ void ModuleRenderer3D::SetPolygonSmoothAttribute(bool enable) {
 
 	App->editor->polygonSmooth ? glEnable(GL_POLYGON_SMOOTH) : glDisable(GL_POLYGON_SMOOTH);
 
-	std::string aux = "Renderer polygonSmoothAttribute updated to: " + std::string(App->editor->polygonSmooth ? "true" : "false");
-	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetVsync(bool vsync) {
@@ -618,17 +597,13 @@ void ModuleRenderer3D::SetVsync(bool vsync) {
 		SDL_GL_SetSwapInterval(0);
 	}
 
-
-	std::string aux = "Renderer VSYNC attribute updated to: " + std::string(vsync ? "true" : "false");
-	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetWireframeMode(bool enable)
 {
 	App->editor->wireframeMode = enable;
 	DrawWithWireframe();
-	std::string aux = "Wireframe Mode updated to: " + std::string(enable ? "true" : "false");
-	LOG(aux.c_str());
+
 }
 
 void ModuleRenderer3D::DrawWithWireframe()
