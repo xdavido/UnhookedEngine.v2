@@ -42,6 +42,9 @@ update_status ModuleScene::Update(float dt) {
 
     root->Update();
     UpdateGameObjects();
+    if (App->input->GetKey(SDL_SCANCODE_W)) App->camera->operation = ImGuizmo::OPERATION::TRANSLATE;
+    else if (App->input->GetKey(SDL_SCANCODE_E)) App->camera->operation = ImGuizmo::OPERATION::ROTATE;
+    else if (App->input->GetKey(SDL_SCANCODE_R)) App->camera->operation = ImGuizmo::OPERATION::SCALE;
     return UPDATE_CONTINUE;
 }
 

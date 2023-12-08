@@ -28,16 +28,17 @@ public:
 	float3 getScale();
 	void setScale(float3 sca);
 
+	void SetTransformMatrixW(float4x4 matrix);
+
 	void PrintInspector();
 
-
+	float3 position;
 	
 
 private:
 	void calculateMatrix();
 
 	float4x4 matrix;
-	float3 position;
 	float3 rotation;
 	float3 scale;
 };

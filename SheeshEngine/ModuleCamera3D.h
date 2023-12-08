@@ -3,7 +3,7 @@
 #include "Globals.h"
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
-
+#include "ImGuismo/ImGuizmo.h"
 
 
 class ComponentCamera;
@@ -43,6 +43,9 @@ public:
 	CamStates camState;
 	GameObject* mainCamera;
 	GameObject* gameCamera;
+
+	ImGuizmo::OPERATION operation;
+	ImGuizmo::MODE mode;
 
 	
 };

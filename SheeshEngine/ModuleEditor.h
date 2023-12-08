@@ -2,6 +2,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include <vector>
+#include"ImGui/imgui.h"
 #include "Glew/include/glew.h"
 #include <iostream>
 #include <fstream>
@@ -39,6 +40,7 @@ public:
     void LOGToConsole(const char* text);
 
     void PushBackLog(std::vector<float>* log, float current);
+    void DrawGuizmos();
     
 private:
 
@@ -66,6 +68,8 @@ public:
     bool fulldesktop;
 
     float brightness;
+
+    bool guizmosBool = true;
 
 
     //Renderer info
@@ -115,5 +119,9 @@ public:
     //About Window
     std::string license;
 
+    ImVec2 guizmoSize;
+    ImVec2 guizmoWindowPos;
+    ImVec2 sizeWindScn;
+    int guizmoOffset;
 };
 

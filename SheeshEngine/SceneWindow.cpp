@@ -5,7 +5,6 @@
 #include "ModuleAssimpMeshes.h"
 #include "ComponentTransform.h"
 
-ImVec2 SceneWindows::sizeWindScn = { 0,0 };
 bool SceneWindows::isHovered = false;
 
 void SceneWindows::PrintScene(Application* app)
@@ -13,12 +12,15 @@ void SceneWindows::PrintScene(Application* app)
     
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
     ImGui::Begin("Scene");
-    sizeWindScn = ImGui::GetContentRegionAvail();
+   App->editor->sizeWindScn = ImGui::GetContentRegionAvail();
 
+    App->editor->guizmoWindowPos = ImGui::GetWindowPos();
+    App->editor->guizmoOffset = ImGui::GetFrameHeight() / 2;
+    App->editor->guizmoSize = ImGui::GetContentRegionAvail();
     
-    float aspectRatio = sizeWindScn.x / sizeWindScn.y;
+    float aspectRatio = App->editor->sizeWindScn.x / App->editor->sizeWindScn.y;
     app->camera->camera->SetAspectRatio(aspectRatio);
-    ImGui::Image((ImTextureID)app->camera->camera->cameraBuffer, sizeWindScn, ImVec2(0, 1), ImVec2(1, 0));
+    ImGui::Image((ImTextureID)app->camera->camera->cameraBuffer, App->editor->sizeWindScn, ImVec2(0, 1), ImVec2(1, 0));
 
     if (ImGui::IsWindowHovered())
     {
@@ -108,7 +110,7 @@ void SceneWindows::PrintScene(Application* app)
         if (PickedGO.size() == 0) App->hierarchy->SetGameObject(nullptr);
         PickedGO.clear();
     }
-
+     App->editor->DrawGuizmos();
         ImGui::End();
         ImGui::PopStyleVar();
 

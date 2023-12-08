@@ -6,6 +6,7 @@
 #include "ImGui/imgui.h"
 #include "ImGui/backends/imgui_impl_opengl3.h"
 #include "ImGui/backends/imgui_impl_sdl2.h"
+#include "ImGuismo/ImGuizmo.h"
 
 #include "parson.h"
 #include "ModuleWindow.h"
@@ -14,6 +15,7 @@
 #include "OurPrimitive.h"
 #include "ModuleCamera3D.h"
 #include "ComponentCamera.h"
+#include"ComponentTransform.h"
 #include "SceneWindow.h"
 #include"GameWindow.h"
 
@@ -147,7 +149,8 @@ update_status ModuleEditor::DrawEditor()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
-
+    ImGuizmo::BeginFrame();
+    ImGuizmo::Enable(true);
     EditorShortcuts();
 
     
@@ -169,7 +172,7 @@ update_status ModuleEditor::DrawEditor()
 
     ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
     ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
-
+    /*ImGui::DockSpaceOverViewport(NULL, ImGuiDockNodeFlags_PassthruCentralNode);*/
     ImGui::End();
 
     UpdatePlots();
@@ -381,18 +384,53 @@ update_status ModuleEditor::DrawEditor()
         {
             if (ImGui::MenuItem("About..."))
             {
-                showAboutWindow = true; 
+                showAboutWindow = true;
             }
 
             ImGui::EndMenu();
         }
-
 
         //CreateAboutModalPopup(showModalAbout);
         CreateAboutWindow(showAboutWindow);
         CreateConsoleWindow(isActiveConsole);
 
         ViewCollapsingHeader();
+
+        ImGui::SameLine(ImGui::GetWindowWidth() / 2 - 37);
+        {
+            if (ImGui::Button(">", ImVec2(20, 20)))
+            {
+                if (App->IsRunning()) {
+                    App->SetState(GameState::STOP);
+                    ImGui::SetWindowFocus("Scene");
+                }
+                else {
+                    App->SetState(GameState::PLAY);
+                    ImGui::SetWindowFocus("Game");
+                }
+                LOG("Play");
+                //App->SetGameDT();
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("[]", ImVec2(20, 20)))
+            {
+                if (App->IsRunning()) {
+                    App->SetState(GameState::STOP);
+                    ImGui::SetWindowFocus("Scene");
+                }
+                LOG("Stop");
+                //App->StopGameDT();
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("||", ImVec2(20, 20)))
+            {
+                if (App->IsRunning()) {
+                    App->SetState(GameState::PAUSE);
+                }
+                LOG("Pause");
+                //App->PauseGameDT();
+            }
+        }
 
         ImGui::EndMainMenuBar();
     }
@@ -941,6 +979,39 @@ void ModuleEditor::LOGToConsole(const char* text) {
 
     logs->push_front(aux);
 
+}
+
+void ModuleEditor::DrawGuizmos()
+{
+    if (App->hierarchy->objSelected == nullptr) return;
+    ComponentTransform* transform = App->hierarchy->objSelected->GetTransformComponent();
+    if (transform == nullptr) return;
+
+
+    ImGuizmo::SetDrawlist();
+
+    float x = ImGui::GetWindowPos().x;
+    float y = ImGui::GetWindowPos().y;
+    float w = sizeWindScn.x;
+    float h = sizeWindScn.y;
+    //Guizmo
+
+    float4x4 aux = transform->getGlobalMatrix();
+
+    ImGuizmo::MODE finalMode = (App->camera->operation == ImGuizmo::OPERATION::SCALE ? ImGuizmo::MODE::LOCAL : App->camera->mode);
+
+    ImGuizmo::SetRect(x, y, w, h);
+    if (ImGuizmo::Manipulate(App->camera->camera->GetViewMatrix(), App->camera->camera->GetProjetionMatrix(), App->camera->operation, finalMode, &aux.v[0][0]))
+    {
+        aux.Transpose();
+        transform->SetTransformMatrixW(aux);
+    }
+
+
+    if (ImGuizmo::IsOver())
+    {
+
+    }
 }
 
 

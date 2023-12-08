@@ -16,6 +16,13 @@
 
 #include<vector>
 
+enum class GameState
+{
+	PLAY,
+	PAUSE,
+	STOP
+};
+
 class Application
 {
 public:
@@ -32,6 +39,8 @@ public:
 private:
 
 	Timer	ms_timer;
+	Timer game_timer;
+	float gamedt;
 	std::vector<Module*> list_modules;
 
 public:
@@ -46,6 +55,11 @@ public:
 
 	void SaveConfigRequest() { saveRequested = true; };
 	void LoadConfigRequest() { loadRequested = true; }
+
+	float GetGameDT();
+	void SetGameDT();
+	void StopGameDT();
+	void PauseGameDT();
 
 
 public:
@@ -64,6 +78,16 @@ public:
 
 	void SaveConfig();
 	void LoadConfig();
+
+	void SetDT(float dt);
+	float DTG();
+	bool IsRunning();
+	bool IsPaused();
+	GameState GetState();
+	void SetState(GameState gameState);
+
+	float dtG;
+	GameState gameState = GameState::STOP;
 
 private:
 

@@ -14,6 +14,6 @@ public:
 
 private:
 
-	static ImVec2 sizeWindScn;
+	
 
 };

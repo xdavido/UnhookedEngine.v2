@@ -61,6 +61,9 @@
     <Filter Include="Sources\Windows">
       <UniqueIdentifier>{96be65c8-6243-4f35-92a5-a1fca3fca30a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\ImGuizmo">
+      <UniqueIdentifier>{0db19da6-3b1e-4435-9046-19db9b0cfd56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -354,6 +357,24 @@
     <ClInclude Include="SceneWindow.h">
       <Filter>Sources\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="ImGuismo\GraphEditor.h">
+      <Filter>Sources\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuismo\ImCurveEdit.h">
+      <Filter>Sources\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuismo\ImGradient.h">
+      <Filter>Sources\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuismo\ImGuizmo.h">
+      <Filter>Sources\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuismo\ImSequencer.h">
+      <Filter>Sources\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGuismo\ImZoomSlider.h">
+      <Filter>Sources\ImGuizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="log.cpp">
@@ -556,6 +577,21 @@
     </ClCompile>
     <ClCompile Include="SceneWindow.cpp">
       <Filter>Sources\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuismo\GraphEditor.cpp">
+      <Filter>Sources\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuismo\ImCurveEdit.cpp">
+      <Filter>Sources\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuismo\ImGradient.cpp">
+      <Filter>Sources\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuismo\ImGuizmo.cpp">
+      <Filter>Sources\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGuismo\ImSequencer.cpp">
+      <Filter>Sources\ImGuizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

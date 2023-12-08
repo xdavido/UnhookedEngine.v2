@@ -120,8 +120,10 @@ void Application::FinishUpdate()
 update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
+	if (gameState == GameState::PLAY) dtG = dt ;
+	else dtG = 0;
 	PrepareUpdate();
-	
+
 	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret == UPDATE_CONTINUE; ++it)
 	{
 		ret = (*it)->PreUpdate(dt);
@@ -152,6 +154,27 @@ bool Application::CleanUp()
 
 
 	return ret;
+}
+float Application::GetGameDT()
+{
+	return gamedt;
+}
+void Application::SetGameDT()
+{
+	game_timer.Start();
+	gamedt = ((float)game_timer.Read() / 1000.0f);
+}
+void Application::StopGameDT()
+{
+	game_timer.Stop();
+	gamedt = 0;
+}
+void Application::PauseGameDT()
+{
+	if (gamedt == 0)
+		gamedt = ((float)game_timer.Read() / 1000.0f);
+	else
+		gamedt = 0;
 }
 
 void Application::LOGToEditor(const char* text)
@@ -209,4 +232,29 @@ void Application::LoadConfig()
 	}
 
 	loadRequested = false;
+}
+
+void Application::SetDT(float dt)
+{
+	this->dt = dt;
+}
+float Application::DTG()
+{
+	return dtG;
+}
+bool Application::IsRunning()
+{
+	return gameState == GameState::PLAY;
+}
+bool Application::IsPaused()
+{
+	return gameState == GameState::PAUSE;
+}
+GameState Application::GetState()
+{
+	return gameState;
+}
+void Application::SetState(GameState gameState)
+{
+	this->gameState = gameState;
 }

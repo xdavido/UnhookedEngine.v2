@@ -90,6 +90,12 @@
     <ClInclude Include="GameWindow.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="ImGuismo\GraphEditor.h" />
+    <ClInclude Include="ImGuismo\ImCurveEdit.h" />
+    <ClInclude Include="ImGuismo\ImGradient.h" />
+    <ClInclude Include="ImGuismo\ImGuizmo.h" />
+    <ClInclude Include="ImGuismo\ImSequencer.h" />
+    <ClInclude Include="ImGuismo\ImZoomSlider.h" />
     <ClInclude Include="ImGui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="ImGui\backends\imgui_impl_opengl3_loader.h" />
     <ClInclude Include="ImGui\backends\imgui_impl_sdl2.h" />
@@ -188,6 +194,11 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="glmath.cpp" />
+    <ClCompile Include="ImGuismo\GraphEditor.cpp" />
+    <ClCompile Include="ImGuismo\ImCurveEdit.cpp" />
+    <ClCompile Include="ImGuismo\ImGradient.cpp" />
+    <ClCompile Include="ImGuismo\ImGuizmo.cpp" />
+    <ClCompile Include="ImGuismo\ImSequencer.cpp" />
     <ClCompile Include="ImGui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="ImGui\backends\imgui_impl_sdl2.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />

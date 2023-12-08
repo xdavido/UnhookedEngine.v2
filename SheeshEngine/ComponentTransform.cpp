@@ -79,7 +79,16 @@ void ComponentTransform::setScale(float3 sca)
 	calculateMatrix();
 }
 
+void ComponentTransform::SetTransformMatrixW(float4x4 matrix)
+{
+	math::Quat q;
+	matrix.Decompose(position, q, scale);
 
+	rotation = q.ToEulerXYZ();
+	rotation.x = math::RadToDeg(rotation.x);
+	rotation.y = math::RadToDeg(rotation.y);
+	rotation.z = math::RadToDeg(rotation.z);
+}
 
 void ComponentTransform::calculateMatrix()
 {
