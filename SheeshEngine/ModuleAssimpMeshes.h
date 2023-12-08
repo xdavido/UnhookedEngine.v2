@@ -66,14 +66,16 @@ public:
     bool Init() override;
     bool Start() override;
     bool CleanUp() override;
-    GameObject* LoadMeshFromFile(const char* file_path);
-    void ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObject, GameObject* CgameObject, const aiScene* scene, int index);
     void BufferMesh(Mesh* mesh);
     void RenderScene();
     void DrawBox(float3* corners, float3 color);
     void RenderGameWindow();
     void DeleteMesh(Mesh* mesh);
     
+    GameObject* LoadFile(std::string file_path);
+    Mesh* ImportMesh(aiMesh* aiMesh);
+    std::string ImportTexture(const aiScene* scene, int index, std::string path);
+    GameObject* ProcessNode(const aiScene* scene, aiNode* node, GameObject* parent, std::string Path);
     
 public:
     std::vector<Mesh*> meshes;

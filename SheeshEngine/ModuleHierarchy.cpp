@@ -158,5 +158,9 @@ void ModuleHierarchy::GameObjectTree(GameObject* obj, int index)
 
 void ModuleHierarchy::SetGameObject(GameObject* obj)
 {
+	if (obj == nullptr) {
+		objSelected = nullptr;
+		return;
+	}
 	objSelected = obj;
 }

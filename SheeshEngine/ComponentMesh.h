@@ -15,7 +15,7 @@ public:
 	ComponentMesh(GameObject* owner);
 	~ComponentMesh();
 
-	Mesh* mesh;
+	std::vector<Mesh*> meshes;
 	
 	bool faceNormals;
 

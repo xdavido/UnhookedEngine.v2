@@ -3,31 +3,40 @@
 ComponentMesh::ComponentMesh() : Component(nullptr)
 {
 	type = ComponentType::MESH;
-	mesh = nullptr;
+
 	faceNormals = false;
 }
 ComponentMesh::ComponentMesh(GameObject* owner) : Component(owner)
 {
 	type = ComponentType::MESH;
 	mOwner = owner;
-	mesh = nullptr;
+	
 	faceNormals = false;
 }
 
 ComponentMesh::ComponentMesh::~ComponentMesh()
 {
-	App->assimpMeshes->DeleteMesh(mesh);
-	mesh = nullptr;
+	for (int i = 0; i < meshes.size(); i++)
+	{
+		App->assimpMeshes->DeleteMesh(meshes[i]);
+	}
+	meshes.clear();
+	
 }
 
 void ComponentMesh::PrintInspector()
 {
 	if (ImGui::CollapsingHeader("Mesh"))
 	{
-		if (mesh == nullptr) return;
-		ImGui::LabelText("##%f", "Number of vertex:");
-		ImGui::SameLine();
-		ImGui::Text("%d", mesh->vertexCount);
-		ImGui::Checkbox("Face Normals", &faceNormals);
+		if (meshes.empty()) return;
+		for (int i = 0; i < meshes.size(); i++)
+		{
+			ImGui::LabelText("##%f", "Number of vertex:");
+			ImGui::SameLine();
+			ImGui::Text("%d", meshes[i]->vertexCount);
+			ImGui::LabelText("##%f", "Number of index:");
+			ImGui::Checkbox("Face Normals", &faceNormals);
+		}
+		
 	}
 }

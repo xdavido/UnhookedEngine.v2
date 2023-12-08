@@ -30,14 +30,14 @@ GameObject* PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryTyp
         switch (type)
         {
         case GeometryType::P_PLANE:
-            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/plane.fbx");
+            gameObject = App->assimpMeshes->LoadFile("Assets/Models/plane.fbx");
             aux = "Plane";
             gameObject->name = aux;
             gameObject->Stype = GeometryType::P_PLANE;
             return gameObject;
             break;
         case GeometryType::P_CUBE:
-            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/cube.fbx");
+            gameObject = App->assimpMeshes->LoadFile("Assets/Models/cube.fbx");
             aux = "Cube";
             gameObject->name = aux;
             gameObject->Stype = GeometryType::P_CUBE;
@@ -45,14 +45,14 @@ GameObject* PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryTyp
 
             break;
         case GeometryType::P_CYLINDER:
-            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/cylinder.fbx");
+            gameObject = App->assimpMeshes->LoadFile("Assets/Models/cylinder.fbx");
             aux = "Cylinder";
             gameObject->name = aux;
             gameObject->Stype = GeometryType::P_CYLINDER;
             return gameObject;
             break;
         case GeometryType::P_SPHERE:
-            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/sphere.fbx");
+            gameObject = App->assimpMeshes->LoadFile("Assets/Models/sphere.fbx");
             aux = "Sphere";
             gameObject->name = aux;
             gameObject->Stype = GeometryType::P_SPHERE;
@@ -60,7 +60,7 @@ GameObject* PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryTyp
             break;
 
         case GeometryType::P_ICOSHPERE:
-            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/icosphere.fbx");
+            gameObject = App->assimpMeshes->LoadFile("Assets/Models/icosphere.fbx");
             aux = "Icosphere";
             gameObject->name = aux;
             gameObject->Stype = GeometryType::P_ICOSHPERE;
@@ -68,7 +68,7 @@ GameObject* PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryTyp
             break;
 
         case GeometryType::P_CONE:
-            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/cone.fbx");
+            gameObject = App->assimpMeshes->LoadFile("Assets/Models/cone.fbx");
             aux = "Cone";
             gameObject->name = aux;
             gameObject->Stype = GeometryType::P_CONE;
@@ -76,14 +76,14 @@ GameObject* PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryTyp
             break;
 
         case GeometryType::P_TORUS:
-            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/torus.fbx");
+            gameObject = App->assimpMeshes->LoadFile("Assets/Models/torus.fbx");
             aux = "Torus";
             gameObject->name = aux;
             gameObject->Stype = GeometryType::P_TORUS;
             return gameObject;
             break;
         case GeometryType::P_SUZANNE:
-            gameObject = App->assimpMeshes->LoadMeshFromFile("Assets/Models/suzanne.fbx");
+            gameObject = App->assimpMeshes->LoadFile("Assets/Models/suzanne.fbx");
             aux = "Suzanne";
             gameObject->name = aux;
             gameObject->Stype = GeometryType::P_SUZANNE;

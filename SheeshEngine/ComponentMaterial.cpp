@@ -46,24 +46,26 @@ void ComponentMaterial::ResetTexture()
 void ComponentMaterial::UpdateMeshTexture()
 {
 	ComponentMesh* componentMesh = mOwner->GetMeshComponent();
+	for (int i = 0; i < mOwner->GetMeshComponent()->meshes.size(); i++){
 
-	if (componentMesh == nullptr)
-		return;
-	 
+		if (componentMesh == nullptr)
+			return;
+
 	if (textureSelected == 0)
 	{
-		componentMesh->mesh->id_texture = textureID;
-		
+		componentMesh->meshes[i]->id_texture = textureID;
+
 		return;
 	}
 
 	if (textureSelected == 2)
 	{
-		componentMesh->mesh->id_texture = App->textures->checkersID;
+		componentMesh->meshes[i]->id_texture = App->textures->checkersID;
 		return;
 	}
-	
-	componentMesh->mesh->id_texture = -1;
+
+	componentMesh->meshes[i]->id_texture = -1;
+  }
 
 }
 
@@ -76,10 +78,10 @@ void ComponentMaterial::PrintInspector()
 	{
 		std::string pathaux = "Path: " + std::string(pathTexture);
 		ImGui::TextWrapped(pathaux.c_str());
-		int width = mOwner->GetMeshComponent()->mesh->texture_width;
+		int width = mOwner->GetMeshComponent()->meshes[0]->texture_width;
 		std::string aux = "Texture Width: " + std::to_string(width);
 		ImGui::Text(aux.c_str() );
-		int height = mOwner->GetMeshComponent()->mesh->texture_height;
+		int height = mOwner->GetMeshComponent()->meshes[0]->texture_height;
 		std::string aux2 = "Texture Height: " + std::to_string(height);
 		ImGui::Text(aux2.c_str());
 		ImGui::Image((ImTextureID)textureID, ImVec2(128, 128));

@@ -117,7 +117,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 				if (extension == "fbx" || extension == "FBX") {
 					
-					App->assimpMeshes->LoadMeshFromFile(dropped_filedir);
+					App->assimpMeshes->LoadFile(dropped_filedir);
 
 				}
 				else if (extension == "png" || extension == "dds" || extension == "PNG" || extension == "DDS")

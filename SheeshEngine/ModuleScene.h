@@ -20,10 +20,12 @@ public:
 
 	GameObject* CreateGameObject(GameObject* parent);
 	GameObject* root = nullptr;
+	GameObject* street;
 
 
 	void SaveSceneRequest() { saveSceneRequest = true; }
 	void LoadSceneRequest() { loadSceneRequest = true; }
+	 
 
 private:
 	void UpdateGameObjects();

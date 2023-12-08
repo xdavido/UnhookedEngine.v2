@@ -110,8 +110,10 @@ uint ModuleTexture::LoadTexture(const char* path)
 	if (App->hierarchy->objSelected != nullptr ) {
 		if (App->hierarchy->objSelected->GetMeshComponent() != nullptr) {
 
-			App->hierarchy->objSelected->GetMeshComponent()->mesh->texture_width = imgWidth;
-			App->hierarchy->objSelected->GetMeshComponent()->mesh->texture_height = imgHeight;
+			for (int i = 0; i < App->hierarchy->objSelected->GetMeshComponent()->meshes.size(); i++) {
+				App->hierarchy->objSelected->GetMeshComponent()->meshes[i]->texture_width = imgWidth;
+				App->hierarchy->objSelected->GetMeshComponent()->meshes[i]->texture_height = imgHeight;
+			}
 		}
 		if (App->hierarchy->objSelected->GetComponentTexture() != nullptr) {
 

@@ -4,6 +4,7 @@
 #include "ComponentMesh.h"
 #include "ModuleAssimpMeshes.h"
 #include "ComponentTransform.h"
+#include"ModuleHierarchy.h"
 
 bool SceneWindows::isHovered = false;
 
@@ -63,48 +64,51 @@ void SceneWindows::PrintScene(Application* app)
         float currentDist;
         float minDist = 0;
 
-        for (size_t i = 0; i < PickedGO.size(); i++)
-        {
-            Mesh* m = PickedGO[i]->GetMeshComponent()->mesh;
-            float4x4 mat = PickedGO[i]->transform->getGlobalMatrix().Transposed();
+        for (size_t j = 0; j < PickedGO.size(); j++) {
 
-            for (size_t j = 0; j < m->indexCount; j += 3)
-            {
-                
-                float* v1 = &m->vertex[m->index[j] * VERTEX];
-                float* v2 = &m->vertex[m->index[j + 1] * VERTEX];
-                float* v3 = &m->vertex[m->index[j + 2] * VERTEX];
+            ComponentMesh* gObjMesh = PickedGO[j]->GetMeshComponent();
+            if (gObjMesh != nullptr) {
 
-                
-                float4 pT1 = mat * float4(*v1, *(v1 + 1), *(v1 + 2), 1);
-                float4 pT2 = mat * float4(*v2, *(v2 + 1), *(v2 + 2), 1);
-                float4 pT3 = mat * float4(*v3, *(v3 + 1), *(v3 + 2), 1);
+                for (size_t i = 0; i < gObjMesh->meshes.size(); i++) {
 
-                
-                float3 _pt1 = float3(pT1.x, pT1.y, pT1.z);
-                float3 _pt2 = float3(pT2.x, pT2.y, pT2.z);
-                float3 _pt3 = float3(pT3.x, pT3.y, pT3.z);
+                    Mesh* mesh = gObjMesh->meshes[i];
+                    float4x4 matTrans = PickedGO[j]->transform->getGlobalMatrix().Transposed();
 
-                
-                Triangle triangle(_pt1, _pt2, _pt3);
+                    if (mesh->indexCount > 9) {
+                        for (size_t b = 0; b < mesh->indexCount; b += 3) {
 
-                
-                if (picking.Intersects(triangle, &currentDist, nullptr))
-                {
-                    
-                    if (minDist == 0) {
-                        minDist = currentDist;
-                        App->hierarchy->SetGameObject(PickedGO[i]);
-                        continue;
-                    }
+                            float* t1 = &mesh->vertex[mesh->index[b] * VERTEX];
+                            float* t2 = &mesh->vertex[mesh->index[b + 1] * VERTEX];
+                            float* t3 = &mesh->vertex[mesh->index[b + 2] * VERTEX];
 
-                    
-                    if (minDist > currentDist) {
-                        minDist = currentDist;
-                        App->hierarchy->SetGameObject(PickedGO[i]);
+                            float4 tr1 = matTrans * float4(*t1, *(t1 + 1), *(t1 + 2), 1);
+                            float4 tr2 = matTrans * float4(*t2, *(t2 + 1), *(t2 + 2), 1);
+                            float4 tr3 = matTrans * float4(*t3, *(t3 + 1), *(t3 + 2), 1);
+
+                            float3 tri1 = float3(tr1.x, tr1.y, tr1.z);
+                            float3 tri2 = float3(tr2.x, tr2.y, tr2.z);
+                            float3 tri3 = float3(tr3.x, tr3.y, tr3.z);
+
+                            Triangle triangle(tri1, tri2, tri3);
+
+                            if (picking.Intersects(triangle, &currentDist, nullptr))
+                            {
+                                if (minDist == 0) {
+                                    minDist = currentDist;
+                                    App->hierarchy->SetGameObject(PickedGO[j]);
+                                    continue;
+                                }
+                                if (currentDist < minDist) {
+                                    minDist = currentDist;
+                                    App->hierarchy->SetGameObject(PickedGO[j]);
+                                }
+
+                            }
+                        }
                     }
                 }
             }
+
         }
         
         if (PickedGO.size() == 0) App->hierarchy->SetGameObject(nullptr);
