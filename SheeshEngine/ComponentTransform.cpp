@@ -93,7 +93,6 @@ void ComponentTransform::calculateMatrix()
 	q=q.Normalized();
 	matrix = float4x4::FromTRS(position, q, scale).Transposed();
 
-
 }
 
 void ComponentTransform:: PrintInspector() {

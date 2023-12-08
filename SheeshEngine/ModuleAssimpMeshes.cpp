@@ -216,14 +216,14 @@ void Mesh::RenderAABB()
 
     _OBB.GetCornerPoints(corners1);
 
-    DrawBox(corners1, float3(182, 149, 192));
+    App->assimpMeshes->DrawBox(corners1, float3(182, 149, 192));
 
     float3 corners2[8];
     GlobalAABB.GetCornerPoints(corners2);
 
-    DrawBox(corners2, float3(182, 149, 192));
+    App->assimpMeshes->DrawBox(corners2, float3(182, 149, 192));
 }
-void Mesh::DrawBox(float3* corners, float3 color)
+void ModuleAssimpMeshes::DrawBox(float3* corners, float3 color)
 {
     int indices[24] = { 0,2,2,6,6,4,4,0,0,1,1,3,3,2,4,5,6,7,5,7,3,7,1,5 };
     glBegin(GL_LINES);
@@ -399,12 +399,19 @@ void ModuleAssimpMeshes::RenderScene()
             meshes[i]->RenderAABB();
             renderedSceneMeshes++;
             glColor3f(0.0f, 0.6f, 0.7f);
+            //Frustum debug
             if (meshes[i]->owner->GetMeshComponent()->faceNormals) {
                 meshes[i]->RenderFaceNormals();
             }
             /* glColor3f(1, 0, 0);
                 meshes[i]->RenderVertexNormals();*/
         }
+    }
+    ComponentCamera* pilota = App->renderer3D->GetMainCamera();
+    if (pilota != nullptr) {
+        float3 corners[8];
+        pilota->frustum.GetCornerPoints(corners);
+        DrawBox(corners, float3(1, .5, .9));
     }
     glColor3f(1.0f, 1.0f, 1.0f);
 

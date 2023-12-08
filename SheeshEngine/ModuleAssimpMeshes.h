@@ -51,8 +51,6 @@ struct Mesh {
 
     void RenderAABB();
 
-    void DrawBox(float3* corners, float3 color);
-
     void RenderFaceNormals();
 
     void RenderVertexNormals();
@@ -72,6 +70,7 @@ public:
     void ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObject, GameObject* CgameObject, const aiScene* scene, int index);
     void BufferMesh(Mesh* mesh);
     void RenderScene();
+    void DrawBox(float3* corners, float3 color);
     void RenderGameWindow();
     void DeleteMesh(Mesh* mesh);
     
