@@ -21,8 +21,8 @@ class Application
 public:
 	ModuleWindow* window;
 	ModuleInput* input;
-	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
+	ModuleRenderer3D* renderer3D;
 	ModuleEditor* editor;
 	ModuleAssimpMeshes* assimpMeshes;
 	ModuleTexture* textures;
