@@ -337,6 +337,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//(4)--- DRAW BAKE HOUSE ---
 	App->assimpMeshes->RenderScene();
 
+	DrawLineSegment(linesegment.a, linesegment.b);
+
 	if (mainGameCamera != nullptr) {
 		//Only polygon fill
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -346,6 +348,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 		//Render Game Camera
 		App->assimpMeshes->RenderGameWindow();
+
+		DrawLineSegment(linesegment.a, linesegment.b);
 	}
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -478,6 +482,21 @@ void ModuleRenderer3D::SetMainCamera(ComponentCamera* cam)
 ComponentCamera* ModuleRenderer3D::GetMainCamera()
 {
 	return mainGameCamera;
+}
+
+void ModuleRenderer3D::DrawLineSegment(float3 a, float3 b)
+{
+	glBegin(GL_LINES);
+
+	glColor3fv(float3(255.0f, 0, 255.0f).ptr());
+
+
+	glVertex3fv(a.ptr());
+	glVertex3fv(b.ptr());
+
+	glColor3f(255.f, 255.f, 255.f);
+
+	glEnd();
 }
 
 void ModuleRenderer3D::BindCameraBuffer(ComponentCamera* cc)

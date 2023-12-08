@@ -2,16 +2,13 @@
 #include "Module.h"
 #include "Globals.h"
 #include "Light.h"
-
+#include"MathGeoLib/include/MathGeoLib.h"
 #include "MathGeoLib/include/Math/float3x3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
 #include "Primitive.h"
 #include "ComponentCamera.h"
 #include "Glew/include/glew.h"
 
-
-//todo: REMOVE this before 1st delivery!!
-#include "glmath.h"
 
 #define MAX_LIGHTS 8
 
@@ -31,6 +28,8 @@ public:
 	void SetMainCamera(ComponentCamera* cam);
 
 	ComponentCamera* GetMainCamera();
+
+	void DrawLineSegment(float3 a, float3 b);
 
 	void BindCameraBuffer(ComponentCamera* cc);
 
@@ -97,6 +96,8 @@ public:
 	GLuint VAORect;
 	GLuint VBORect;
 	GLuint EBORect;
+
+	LineSegment linesegment;
 	
 	
 private:
