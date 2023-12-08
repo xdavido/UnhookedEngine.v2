@@ -33,6 +33,7 @@ public:
     void AddMs(const float aFPS);
     float AverageValueFloatVector(const std::vector<float>& fps);
     
+    void UpdateAtributes();
 
     std::string ReadFileIO(const char* file);
     void LOGToConsole(const char* text);
@@ -53,7 +54,7 @@ public:
     std::deque<std::string>* logs = nullptr;
 
 
-private:
+
     std::vector<float> mFPSLog;
     std::vector<float> mMsLog;
     
@@ -63,10 +64,10 @@ private:
     bool resizable;
     bool borderless;
     bool fulldesktop;
-public:
+
     float brightness;
 
-private:
+
     //Renderer info
     bool vsync;
     bool depthTest;

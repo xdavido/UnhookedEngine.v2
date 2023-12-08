@@ -98,7 +98,7 @@ void Application::FinishUpdate()
 	}
 
 
-	if (renderer3D->GetVsync())
+	if (App->editor->vsync)
 	{
 		msLastFrame = ms_timer.Read();
 

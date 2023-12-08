@@ -107,18 +107,6 @@ bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
-	vsync = VSYNC;
-	depthTestAttribute = DEPTH_TEST_ATTRIBUTE;
-	cullFaceAttribute = CULL_FACE_ATTRIBUTE;
-	lightingAttribute = LIGHTING_ATTRIBUTE;
-	colorMaterialAttribute = COLOR_MATERIAL_ATTRIBUTE;
-	texture2DAttribute = TEXTURE_2D_ATTRIBUTE;
-	blendAttribute = BLEND_ATTRIBUTE;
-	alphaTestAttribute = ALPHA_TEST_ATTRIBUTE;
-	lineSmoothAttribute = LINE_SMOOTH_ATTRIBUTE;
-	pointSmoothAttribute = POINT_SMOOTH_ATTRIBUTE;
-	polygonSmoothAttribute = POLYGON_SMOOTH_ATTRIBUTE;
-	wireframeMode = WIREFRAME_MODE;
 	
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
@@ -187,18 +175,18 @@ bool ModuleRenderer3D::Init()
 		GLfloat MaterialDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 		
-		SetDepthTestAttribute(depthTestAttribute);
-		SetCullFaceAttribute(cullFaceAttribute);
+		SetDepthTestAttribute(App->editor->depthTest);
+		SetCullFaceAttribute(App->editor->cullFace);
 		lights[0].Active(true);
-		SetLightingAttribute(lightingAttribute);
-		SetColorMaterialAttribute(colorMaterialAttribute);
-		SetCullFaceAttribute(cullFaceAttribute);
-		SetTexture2DAttribute(texture2DAttribute);
-		SetBlendAttribute(blendAttribute);
-		SetAlphaTestAttribute(alphaTestAttribute);
-		SetLineSmoothAttribute(lineSmoothAttribute);
-		SetPointSmoothAttribute(pointSmoothAttribute);
-		SetPolygonSmoothAttribute(polygonSmoothAttribute);
+		SetLightingAttribute(App->editor->lighting);
+		SetColorMaterialAttribute(App->editor->coloMaterial);
+		SetCullFaceAttribute(App->editor->cullFace);
+		SetTexture2DAttribute(App->editor->texture2D);
+		SetBlendAttribute(App->editor->blend);
+		SetAlphaTestAttribute(App->editor->alphaTest);
+		SetLineSmoothAttribute(App->editor->lineSmooth);
+		SetPointSmoothAttribute(App->editor->pointSmooth);
+		SetPolygonSmoothAttribute(App->editor->polygonSmooth);
 		
 		glewInit();
 	}
@@ -528,104 +516,104 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 // Setter functions for renderer attributes with logging
 void ModuleRenderer3D::SetDepthTestAttribute(bool enable) {
-	depthTestAttribute = enable;
+	App->editor->depthTest = enable;
 
-	depthTestAttribute ? glDisable(GL_DEPTH_TEST) : glEnable(GL_DEPTH_TEST);
+	App->editor->depthTest ? glDisable(GL_DEPTH_TEST) : glEnable(GL_DEPTH_TEST);
 
-	std::string aux = "Renderer depthTestAttribute updated to: " + std::string(enable ? "false" : "true" );
+	std::string aux = "Renderer depthTestAttribute updated to: " + std::string(App->editor->depthTest ? "false" : "true");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetCullFaceAttribute(bool enable) {
-	cullFaceAttribute = enable;
-		
-	cullFaceAttribute ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
+	App->editor->cullFace = enable;
 
-	std::string aux = "Renderer cullFaceAttribute updated to: " + std::string(enable ? "true" : "false");
+	App->editor->cullFace ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
+
+	std::string aux = "Renderer cullFaceAttribute updated to: " + std::string(App->editor->cullFace ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetLightingAttribute(bool enable) {
-	lightingAttribute = enable;
+	App->editor->lighting = enable;
 
-	lightingAttribute ? glDisable(GL_LIGHTING) : glEnable(GL_LIGHTING);
+	App->editor->lighting ? glDisable(GL_LIGHTING) : glEnable(GL_LIGHTING);
 
-	std::string aux = "Renderer lightingAttribute updated to: " + std::string(enable ? "false" : "true" );
+	std::string aux = "Renderer lightingAttribute updated to: " + std::string(App->editor->lighting ? "false" : "true");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetColorMaterialAttribute(bool enable) {
-	colorMaterialAttribute = enable;
+	App->editor->coloMaterial = enable;
 
-	colorMaterialAttribute ? glEnable(GL_COLOR_MATERIAL) : glDisable(GL_COLOR_MATERIAL);
+	App->editor->coloMaterial ? glEnable(GL_COLOR_MATERIAL) : glDisable(GL_COLOR_MATERIAL);
 
-	std::string aux = "Renderer coloMaterialAttribute updated to: " + std::string(enable ? "true" : "false");
+	std::string aux = "Renderer coloMaterialAttribute updated to: " + std::string(App->editor->coloMaterial ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetTexture2DAttribute(bool enable) {
-	texture2DAttribute = enable;
+	App->editor->texture2D = enable;
 
-	texture2DAttribute ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
+	App->editor->texture2D ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
 
-	std::string aux = "Renderer texture2DAttribute updated to: " + std::string(texture2DAttribute ? "true" : "false");
+	std::string aux = "Renderer texture2DAttribute updated to: " + std::string(App->editor->texture2D ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetBlendAttribute(bool enable) {
-	blendAttribute = enable;
-	
-	blendAttribute ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
+	App->editor->blend = enable;
 
-	std::string aux = "Renderer blendAttribute updated to: " + std::string(blendAttribute ? "true" : "false");
+	App->editor->blend ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
+
+	std::string aux = "Renderer blendAttribute updated to: " + std::string(App->editor->blend ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetAlphaTestAttribute(bool enable) {
-	alphaTestAttribute = enable;
-	
-	alphaTestAttribute ? glEnable(GL_ALPHA_TEST) : glDisable(GL_ALPHA_TEST);
+	App->editor->alphaTest = enable;
 
-	std::string aux = "Renderer alphaTestAttribute updated to: " + std::string(alphaTestAttribute ? "true" : "false");
+	App->editor->alphaTest ? glEnable(GL_ALPHA_TEST) : glDisable(GL_ALPHA_TEST);
+
+	std::string aux = "Renderer alphaTestAttribute updated to: " + std::string(App->editor->alphaTest ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetLineSmoothAttribute(bool enable) {
-	lineSmoothAttribute = enable;
-	
-	lineSmoothAttribute ? glEnable(GL_LINE_SMOOTH) : glDisable(GL_LINE_SMOOTH);
+	App->editor->lineSmooth = enable;
 
-	std::string aux = "Renderer lineSmoothAttribute updated to: " + std::string(lineSmoothAttribute ? "true" : "false");
+	App->editor->lineSmooth ? glEnable(GL_LINE_SMOOTH) : glDisable(GL_LINE_SMOOTH);
+
+	std::string aux = "Renderer lineSmoothAttribute updated to: " + std::string(App->editor->lineSmooth ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetPointSmoothAttribute(bool enable) {
-	pointSmoothAttribute = enable;
-	
-	pointSmoothAttribute ? glEnable(GL_POINT_SMOOTH) : glDisable(GL_POINT_SMOOTH);
+	App->editor->pointSmooth = enable;
 
-	std::string aux = "Renderer pointSmoothAttribute updated to: " + std::string(pointSmoothAttribute ? "true" : "false");
+	App->editor->pointSmooth ? glEnable(GL_POINT_SMOOTH) : glDisable(GL_POINT_SMOOTH);
+
+	std::string aux = "Renderer pointSmoothAttribute updated to: " + std::string(App->editor->pointSmooth ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetPolygonSmoothAttribute(bool enable) {
-	polygonSmoothAttribute = enable;
-	
-	polygonSmoothAttribute ? glEnable(GL_POLYGON_SMOOTH) : glDisable(GL_POLYGON_SMOOTH);
+	App->editor->polygonSmooth = enable;
 
-	std::string aux = "Renderer polygonSmoothAttribute updated to: " + std::string(polygonSmoothAttribute ? "true" : "false");
+	App->editor->polygonSmooth ? glEnable(GL_POLYGON_SMOOTH) : glDisable(GL_POLYGON_SMOOTH);
+
+	std::string aux = "Renderer polygonSmoothAttribute updated to: " + std::string(App->editor->polygonSmooth ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::SetVsync(bool vsync) {
-	
-	this->vsync = vsync;
-	if (vsync) 
+
+	App->editor->vsync = vsync;
+	if (App->editor->vsync)
 	{
 		SDL_GL_SetSwapInterval(1);
-		
+
 	}
-	else 
+	else
 	{
 		SDL_GL_SetSwapInterval(0);
 	}
@@ -637,33 +625,33 @@ void ModuleRenderer3D::SetVsync(bool vsync) {
 
 void ModuleRenderer3D::SetWireframeMode(bool enable)
 {
-	wireframeMode = enable;
-
+	App->editor->wireframeMode = enable;
+	DrawWithWireframe();
 	std::string aux = "Wireframe Mode updated to: " + std::string(enable ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleRenderer3D::DrawWithWireframe()
 {
-	wireframeMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	App->editor->wireframeMode ? glPolygonMode(GL_FRONT_AND_BACK, GL_LINE) : glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 bool ModuleRenderer3D::SaveConfig(JsonParser& node) const
 {
 	//Module::SaveConfig(node);
 
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "vsync", vsync);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "wireframe", wireframeMode);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "depthTest", depthTestAttribute);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "cullFace", cullFaceAttribute);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "lighting", lightingAttribute);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "colorMaterial", colorMaterialAttribute);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "texture2D", texture2DAttribute);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "blend", blendAttribute);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "alphaTest", alphaTestAttribute);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "lineSmooth", lineSmoothAttribute);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "pointSmooth", pointSmoothAttribute);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "polygonSmooth", polygonSmoothAttribute);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "vsync", App->editor->vsync);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "wireframe", App->editor->wireframeMode);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "depthTest", App->editor->depthTest);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "cullFace", App->editor->cullFace);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "lighting", App->editor->lighting);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "colorMaterial", App->editor->coloMaterial);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "texture2D", App->editor->texture2D);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "blend", App->editor->blend);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "alphaTest", App->editor->alphaTest);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "lineSmooth", App->editor->lineSmooth);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "pointSmooth", App->editor->pointSmooth);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "polygonSmooth", App->editor->polygonSmooth);
 
 	return true;
 }
@@ -672,18 +660,18 @@ bool ModuleRenderer3D::LoadConfig(JsonParser& node)
 {
 	//Module::LoadConfig(node);
 
-	vsync = node.JsonValToBool("vsync");
-	wireframeMode = node.JsonValToBool("wireframe");
-	depthTestAttribute = node.JsonValToBool("depthTest");
-	cullFaceAttribute = node.JsonValToBool("cullFace");
-	lightingAttribute = node.JsonValToBool("lighting");
-	colorMaterialAttribute = node.JsonValToBool("colorMaterial");
-	texture2DAttribute = node.JsonValToBool("texture2D");
-	blendAttribute = node.JsonValToBool("blend");
-	alphaTestAttribute = node.JsonValToBool("alphaTest");
-	lineSmoothAttribute = node.JsonValToBool("lineSmooth");
-	pointSmoothAttribute = node.JsonValToBool("pointSmooth");
-	polygonSmoothAttribute = node.JsonValToBool("polygonSmooth");
+	App->editor->vsync = node.JsonValToBool("vsync");
+	App->editor->wireframeMode = node.JsonValToBool("wireframe");
+	App->editor->depthTest = node.JsonValToBool("depthTest");
+	App->editor->cullFace = node.JsonValToBool("cullFace");
+	App->editor->lighting = node.JsonValToBool("lighting");
+	App->editor->coloMaterial = node.JsonValToBool("colorMaterial");
+	App->editor->texture2D = node.JsonValToBool("texture2D");
+	App->editor->blend = node.JsonValToBool("blend");
+	App->editor->alphaTest = node.JsonValToBool("alphaTest");
+	App->editor->lineSmooth = node.JsonValToBool("lineSmooth");
+	App->editor->pointSmooth = node.JsonValToBool("pointSmooth");
+	App->editor->polygonSmooth = node.JsonValToBool("polygonSmooth");
 
 	return true;
 }

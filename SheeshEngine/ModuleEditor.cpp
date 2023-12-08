@@ -58,24 +58,24 @@ bool ModuleEditor::Init()
     wireframeMode = false;
 
     //Window info
-    fullscreen = App->window->IsFullscreen();
-    resizable = App->window->IsResizable();
-    borderless = App->window->IsBorderless();
-    fulldesktop = App->window->IsFulldesktop();
-    brightness = SDL_GetWindowBrightness(App->window->window);
+    //fullscreen = App->window->IsFullscreen();
+    //resizable = App->window->IsResizable();
+    //borderless = App->window->IsBorderless();
+    //fulldesktop = App->window->IsFulldesktop();
+    //brightness = SDL_GetWindowBrightness(App->window->window);
     
     //Renderer info
-    vsync = App->renderer3D->GetVsync();
-    depthTest = App->renderer3D->GetDepthTestAttribute();
-    cullFace = App->renderer3D->GetCullFaceAttribute();
-    lighting = App->renderer3D->GetLightingAttribute();
-    coloMaterial = App->renderer3D->GetColorMaterialAttribute();
-    texture2D = App->renderer3D->GetTexture2DAttribute();
-    blend = App->renderer3D->GetBlendAttribute();
-    alphaTest = App->renderer3D->GetAlphaTestAttribute();
-    lineSmooth = App->renderer3D->GetLineSmoothAttribute();
-    pointSmooth = App->renderer3D->GetPointSmoothAttribute();
-    polygonSmooth = App->renderer3D->GetPolygonSmoothAttribute();
+    //vsync = App->renderer3D->GetVsync();
+    //depthTest = App->renderer3D->GetDepthTestAttribute();
+    //cullFace = App->renderer3D->GetCullFaceAttribute();
+    //lighting = App->renderer3D->GetLightingAttribute();
+    //coloMaterial = App->renderer3D->GetColorMaterialAttribute();
+    //texture2D = App->renderer3D->GetTexture2DAttribute();
+    //blend = App->renderer3D->GetBlendAttribute();
+    //alphaTest = App->renderer3D->GetAlphaTestAttribute();
+    //lineSmooth = App->renderer3D->GetLineSmoothAttribute();
+    //pointSmooth = App->renderer3D->GetPointSmoothAttribute();
+    //polygonSmooth = App->renderer3D->GetPolygonSmoothAttribute();
 
     //Hardware Info
     SDL_version versionSDL;
@@ -422,6 +422,7 @@ update_status ModuleEditor::DrawEditor()
 
     GameWindows::PrintCamera(App);
     SceneWindows::PrintScene(App);
+    UpdateAtributes();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -884,6 +885,35 @@ float ModuleEditor::AverageValueFloatVector(const std::vector<float>& fps)
 
     float average = total / fps.size();
     return std::round(average * 10) / 10.0f;
+}
+
+void ModuleEditor::UpdateAtributes()
+{
+    App->renderer3D->SetVsync(vsync);
+  
+
+    App->renderer3D->SetDepthTestAttribute(depthTest);
+    App->renderer3D->SetCullFaceAttribute(cullFace);
+    App->renderer3D->SetLightingAttribute(lighting);
+    App->renderer3D->SetColorMaterialAttribute(coloMaterial);
+    App->renderer3D->SetTexture2DAttribute(texture2D);
+    App->renderer3D->SetBlendAttribute(blend);
+    App->renderer3D->SetAlphaTestAttribute(alphaTest);
+    App->renderer3D->SetLineSmoothAttribute(lineSmooth);
+    App->renderer3D->SetPointSmoothAttribute(pointSmooth);
+    App->renderer3D->SetPolygonSmoothAttribute(polygonSmooth);
+
+    if (wireframeMode)
+    {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        LOG("Wireframe Mode On");
+    }
+    else
+    {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        LOG("Wireframe Mode Off");
+    }
+
 }
 
 

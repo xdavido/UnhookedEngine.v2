@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include"ModuleEditor.h"
 
 ModuleWindow::ModuleWindow(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -20,10 +21,6 @@ bool ModuleWindow::Init()
 	LOG("Init SDL window & surface");
 	bool ret = true;
 
-	fullscreen = WIN_FULLSCREEN;
-	resizable = WIN_RESIZABLE;
-	borderless = WIN_BORDERLESS;
-	fulldesktop = WIN_FULLSCREEN_DESKTOP;
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -103,38 +100,38 @@ void ModuleWindow::SetTitle(const char* title)
 }
 
 void ModuleWindow::SetFullscreen(bool newFullscreen) {
-	fullscreen = newFullscreen;
+	App->editor->fullscreen = newFullscreen;
 
-	fullscreen ? SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN) : SDL_SetWindowFullscreen(window, 0);
-	
-	std::string aux = "Window Fullscreen attribute updated to: " + std::string(newFullscreen ? "true" : "false");
+	App->editor->fullscreen ? SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN) : SDL_SetWindowFullscreen(window, 0);
+
+	std::string aux = "Window Fullscreen attribute updated to: " + std::string(App->editor->fullscreen ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleWindow::SetResizable(bool newResizable) {
-	resizable = newResizable;
+	App->editor->resizable = newResizable;
 
-	resizable ? SDL_SetWindowResizable(window, SDL_TRUE) : SDL_SetWindowResizable(window, SDL_FALSE);
-	
-	std::string aux = "Window Resizable attribute updated to: " + std::string(newResizable ? "true" : "false");
+	App->editor->resizable ? SDL_SetWindowResizable(window, SDL_TRUE) : SDL_SetWindowResizable(window, SDL_FALSE);
+
+	std::string aux = "Window Resizable attribute updated to: " + std::string(App->editor->resizable ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleWindow::SetBorderless(bool newBorderless) {
-	borderless = newBorderless;
+	App->editor->borderless = newBorderless;
 
-	borderless ? SDL_SetWindowBordered(window, SDL_FALSE) : SDL_SetWindowBordered(window, SDL_TRUE);
-	
-	std::string aux = "Window Borderless attribute updated to: " + std::string(newBorderless ? "true" : "false");
+	App->editor->borderless ? SDL_SetWindowBordered(window, SDL_FALSE) : SDL_SetWindowBordered(window, SDL_TRUE);
+
+	std::string aux = "Window Borderless attribute updated to: " + std::string(App->editor->borderless ? "true" : "false");
 	LOG(aux.c_str());
 }
 
 void ModuleWindow::SetFulldesktop(bool newFulldesktop) {
-	fulldesktop = newFulldesktop;
-																						// Modo ventana
-	fulldesktop ? SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) : SDL_SetWindowFullscreen(window, 0);
+	App->editor->fulldesktop = newFulldesktop;
+	// Modo ventana
+	App->editor->fulldesktop ? SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP) : SDL_SetWindowFullscreen(window, 0);
 
-	std::string aux = "Window Fulldesktop attribute updated to: " + std::string(newFulldesktop ? "true" : "false");
+	std::string aux = "Window Fulldesktop attribute updated to: " + std::string(App->editor->fulldesktop ? "true" : "false");
 	LOG(aux.c_str());
 }
 
@@ -163,10 +160,10 @@ bool ModuleWindow::SaveConfig(JsonParser& node) const
 	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "height", height);
 	node.SetNewJsonNumber(node.ValueToObject(node.GetRootValue()), "brightness", App->editor->brightness);
 
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "fullscreen", fullscreen);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "fullscreen desktop", fulldesktop);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "borderless", borderless);
-	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "resizable", resizable);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "fullscreen", App->editor->fullscreen);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "fullscreen desktop", App->editor->fulldesktop);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "borderless", App->editor->borderless);
+	node.SetNewJsonBool(node.ValueToObject(node.GetRootValue()), "resizable", App->editor->resizable);
 
 	return true;
 }
@@ -177,16 +174,16 @@ bool ModuleWindow::LoadConfig(JsonParser& node)
 	height = (int)node.JsonValToNumber("height") * SCREEN_SIZE;
 	App->editor->brightness = (float)node.JsonValToNumber("brightness");
 
-	fullscreen = node.JsonValToBool("fullscreen");
-	fulldesktop = node.JsonValToBool("fullscreen desktop");
-	borderless = node.JsonValToBool("borderless");
-	resizable = node.JsonValToBool("resizable");
+	App->editor->fullscreen = node.JsonValToBool("fullscreen");
+	App->editor->fulldesktop = node.JsonValToBool("fullscreen desktop");
+	App->editor->borderless = node.JsonValToBool("borderless");
+	App->editor->resizable = node.JsonValToBool("resizable");
 
-	if (fullscreen) SetFullscreen(fullscreen);
-	else if (fulldesktop) SetFulldesktop(fulldesktop);
-	if (borderless) SetBorderless(borderless);
+	 SetFullscreen(App->editor->fullscreen);
+	 SetFulldesktop(App->editor->fulldesktop);
+	 SetBorderless(App->editor->borderless);
 
-	SetResizable(resizable);
+	SetResizable(App->editor->resizable);
 	SetSize(width, height);
 
 	return true;
