@@ -1,11 +1,12 @@
 #pragma once
 enum class ComponentType
 {
-	NONE, 
+	NONE,
+	CAMERA,
 	TRANSFORM,
 	MESH,
-	MATERIAL,
-	CAMERA
+	MATERIAL
+	
 
 };
 

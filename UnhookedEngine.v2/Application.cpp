@@ -5,8 +5,8 @@ Application::Application()
 
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
-	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
+	renderer3D = new ModuleRenderer3D(this);
 	editor = new ModuleEditor(this);
 	assimpMeshes = new ModuleAssimpMeshes(this);
 	textures = new ModuleTexture(this);
@@ -20,17 +20,18 @@ Application::Application()
 
 	// Main Modules
 	AddModule(window);
-	AddModule(camera);
 	AddModule(input);
+	AddModule(camera);
 	AddModule(hierarchy);
 	AddModule(assimpMeshes);
 	AddModule(textures);
 	AddModule(scene);
+	AddModule(viewport);
 
 	// Renderer last!
 	AddModule(renderer3D);
 	AddModule(editor);
-	AddModule(viewport);
+	
 }
 
 Application::~Application()
