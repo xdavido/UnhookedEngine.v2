@@ -34,7 +34,7 @@ void SceneWindows::PrintScene(Application* app)
         std::vector<GameObject*> PickedGO;
 
         ImVec2 mousePos = ImGui::GetMousePos();
-        LOG("Mouse Pos: %.2f, %.2f", mousePos.x, mousePos.y);
+
 
         ImVec2 norm = NormMousePos(ImGui::GetWindowPos().x,
             ImGui::GetWindowPos().y + ImGui::GetFrameHeight(),
@@ -42,10 +42,6 @@ void SceneWindows::PrintScene(Application* app)
             ImGui::GetWindowSize().y - ImGui::GetFrameHeight(), mousePos);
 
         
-        //norm.x -= .5f;
-        //norm.y -= .5f;
-
-        LOG("Normalized Pos: %.2f, %.2f", norm.x, norm.y);
 
         LineSegment picking = App->camera->camera->frustum.UnProjectLineSegment(norm.x, norm.y);
         App->renderer3D->linesegment = picking;

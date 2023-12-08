@@ -337,7 +337,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//(4)--- DRAW BAKE HOUSE ---
 	App->assimpMeshes->RenderScene();
 
-	DrawLineSegment(linesegment.a, linesegment.b);
+	/*DrawLineSegment(linesegment.a, linesegment.b);*/
 
 	if (mainGameCamera != nullptr) {
 		//Only polygon fill
@@ -349,7 +349,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		//Render Game Camera
 		App->assimpMeshes->RenderGameWindow();
 
-		DrawLineSegment(linesegment.a, linesegment.b);
+		/*DrawLineSegment(linesegment.a, linesegment.b);*/
 	}
 	
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
