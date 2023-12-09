@@ -17,7 +17,7 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	Reference = float3(0.0f, 0.0f, 0.0f);
 	ViewMatrix = IdentityMatrix;*/
 
-	CalculateViewMatrix();
+	//CalculateViewMatrix();
 }
 
 ModuleCamera3D::~ModuleCamera3D()

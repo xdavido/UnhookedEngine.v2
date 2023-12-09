@@ -41,11 +41,13 @@ public:
 	int printCount;
 
 	int FOV = 60.0f;
+	float farDistance = 500;
+	float nearDistance = 0.1;
 
 	unsigned int cameraBuffer;
 	unsigned int frameBuffer;
+	unsigned int renderObjBuffer;
 
 private:
 
-	unsigned int renderObjBuffer;
 };

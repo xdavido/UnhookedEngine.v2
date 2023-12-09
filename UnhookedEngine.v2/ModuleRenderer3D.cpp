@@ -306,11 +306,11 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-	// light 0 on cam pos
-	lights[0].SetPos(App->camera->sceneCam->FrustumCam.pos.x, App->camera->sceneCam->FrustumCam.pos.y, App->camera->sceneCam->FrustumCam.pos.z);
+	lights[0].SetPos(0, 0, 0);
 
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
+
 
 
 	return UPDATE_CONTINUE;
@@ -412,7 +412,9 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//glLoadMatrixf(App->camera->sceneCam->FrustumCam.ProjectionMatrix().Transposed().ptr());
+
+	//glLoadMatrixf(App->camera->sceneCam->GetProjectionMatrix());//error frusturm, ??
+
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

@@ -2,6 +2,7 @@
 #include "ComponentCamera.h"
 #include "ComponentTransform.h"
 #include "GameObject.h"
+#include "ModuleRenderer3D.h"
 
 
 
@@ -9,7 +10,7 @@ ComponentCamera::ComponentCamera() : Component(nullptr)
 {
 	type = ComponentType::CAMERA;
 	mOwner = nullptr;
-	printCount = 0;
+
 	SetCam();
 	GenBuffer();
 }
@@ -34,8 +35,8 @@ ComponentCamera::~ComponentCamera()
 void ComponentCamera::SetCam()
 {
 	FrustumCam.type = FrustumType::PerspectiveFrustum;
-	FrustumCam.nearPlaneDistance = 0.1f;
-	FrustumCam.farPlaneDistance = 500.f;
+	FrustumCam.nearPlaneDistance = nearDistance;
+	FrustumCam.farPlaneDistance = farDistance;
 	FrustumCam.front = float3::unitZ;
 	FrustumCam.up = float3::unitY;
 
@@ -53,7 +54,6 @@ void ComponentCamera::GenBuffer()
 	glGenTextures(1, &cameraBuffer);
 	glBindTexture(GL_TEXTURE_2D, cameraBuffer);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-
 	float color[4] = { 0.1,0.1,0.1,0 };
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
@@ -63,17 +63,13 @@ void ComponentCamera::GenBuffer()
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, cameraBuffer, 0);
-
 	glGenRenderbuffers(1, &renderObjBuffer);
 	glBindRenderbuffer(GL_RENDERBUFFER, renderObjBuffer);
 	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCREEN_WIDTH, SCREEN_HEIGHT);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
-
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderObjBuffer);
-
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		LOG("ERROR::FRAMEBUFFER:: Framebuffer is not complete!");
-
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 bool ComponentCamera::FrustumCulling(Mesh* mesh)
