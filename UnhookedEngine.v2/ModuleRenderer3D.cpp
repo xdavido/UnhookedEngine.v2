@@ -107,7 +107,7 @@ bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
-	vsync = VSYNC;
+	/*vsync = VSYNC;
 	depthTestAttribute = DEPTH_TEST_ATTRIBUTE;
 	cullFaceAttribute = CULL_FACE_ATTRIBUTE;
 	lightingAttribute = LIGHTING_ATTRIBUTE;
@@ -118,7 +118,7 @@ bool ModuleRenderer3D::Init()
 	lineSmoothAttribute = LINE_SMOOTH_ATTRIBUTE;
 	pointSmoothAttribute = POINT_SMOOTH_ATTRIBUTE;
 	polygonSmoothAttribute = POLYGON_SMOOTH_ATTRIBUTE;
-	wireframeMode = WIREFRAME_MODE;
+	wireframeMode = WIREFRAME_MODE;*/
 
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
@@ -129,6 +129,8 @@ bool ModuleRenderer3D::Init()
 		ret = false;
 	}
 
+	//Initialize Glew
+	glewInit();
 
 	if (ret == true)
 	{
@@ -178,9 +180,9 @@ bool ModuleRenderer3D::Init()
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 
 		lights[0].ref = GL_LIGHT0;
-		lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
+		lights[0].ambient.Set(1.20f, 1.0f, 1.0f, 1.0f);
 		lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
-		lights[0].SetPos(0.0f, 0.0f, 2.5f);
+		lights[0].SetPos(0.0f, 0.0f, -2.5f);
 		lights[0].Init();
 
 		GLfloat MaterialAmbient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -188,6 +190,7 @@ bool ModuleRenderer3D::Init()
 
 		GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
+
 
 		SetDepthTestAttribute(depthTestAttribute);
 		SetCullFaceAttribute(cullFaceAttribute);
@@ -202,7 +205,7 @@ bool ModuleRenderer3D::Init()
 		SetPointSmoothAttribute(pointSmoothAttribute);
 		SetPolygonSmoothAttribute(polygonSmoothAttribute);
 
-		glewInit();
+		
 	}
 
 
@@ -402,6 +405,7 @@ bool ModuleRenderer3D::CleanUp()
 	delete GameCamera;
 	//delete mainCam;
 
+	SDL_GL_DeleteContext(context);
 	return true;
 }
 

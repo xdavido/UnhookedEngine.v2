@@ -16,6 +16,7 @@ public:
 	ComponentCamera();
 	ComponentCamera(GameObject* owner);
 	~ComponentCamera();
+	void Update();
 
 	void SetCam();
 	void GenBuffer();

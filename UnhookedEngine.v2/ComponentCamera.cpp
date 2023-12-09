@@ -31,6 +31,15 @@ ComponentCamera::~ComponentCamera()
 	glDeleteFramebuffers(1, &renderObjBuffer);
 }
 
+void ComponentCamera::Update()
+{
+	if (mOwner == nullptr) return;
+
+	FrustumCam.pos = mOwner->transform->getPosition();
+	float4x4 m = mOwner->transform->getGlobalMatrix();
+	FrustumCam.up = m.RotatePart().Col(1).Normalized();
+	FrustumCam.front = m.RotatePart().Col(2).Normalized();
+}
 
 void ComponentCamera::SetCam()
 {

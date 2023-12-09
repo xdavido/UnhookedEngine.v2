@@ -36,7 +36,7 @@ bool ModuleScene::Start() {
     //Load Street House
     objdebug = App->assimpMeshes->LoadMeshFromFile("Assets/Scenes/scene.DAE");
     //objdebug->transform->setRotation({ -90, 0, 0 });
-    root->transform->setRotation({ 0, 0, -90 });
+	objdebug->transform->setRotation({ 0, 0, -90 });
 
 
     return true;
@@ -50,6 +50,11 @@ update_status ModuleScene::PreUpdate(float dt) {
 
 update_status ModuleScene::Update(float dt) {
     
+
+	if (App->renderer3D->mainCam != nullptr) {
+		App->renderer3D->mainCam->TransformCam();
+	}
+
     return UPDATE_CONTINUE;
 }
 
