@@ -9,13 +9,13 @@
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	X = float3(1.0f, 0.0f, 0.0f);
+	/*X = float3(1.0f, 0.0f, 0.0f);
 	Y = float3(0.0f, 1.0f, 0.0f);
 	Z = float3(0.0f, 0.0f, 1.0f);
 
 	Position = float3(0.0f, 10.0f, 5.0f);
 	Reference = float3(0.0f, 0.0f, 0.0f);
-	ViewMatrix = IdentityMatrix;
+	ViewMatrix = IdentityMatrix;*/
 
 	CalculateViewMatrix();
 }
@@ -128,18 +128,6 @@ void ModuleCamera3D::Look(const float3& Position, const float3& Reference, bool 
 	CalculateViewMatrix();
 }
 
-// -----------------------------------------------------------------
-void ModuleCamera3D::LookAt(const float3& Spot)
-{
-	Reference = Spot;
-
-	Z = (Position - Reference).Normalized();
-	X = (float3(0.0f, 1.0f, 0.0f).Cross(Z)).Normalized();
-	Y = Z.Cross(X);
-
-	CalculateViewMatrix();
-}
-
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::Move(const float3& Movement)
@@ -159,13 +147,13 @@ float* ModuleCamera3D::GetViewMatrix()
 void ModuleCamera3D::FocusCameraToSelectedObject()
 {
 
-	float3 focusObjectPosition;
-	//Get the GameObject selected in hierarchy
-	if (App->hierarchy->objSelected != nullptr)
-	{
-		focusObjectPosition = App->hierarchy->objSelected->transform->getPosition();
-		LookAt(focusObjectPosition);
-	}
+	//float3 focusObjectPosition;
+	////Get the GameObject selected in hierarchy
+	//if (App->hierarchy->objSelected != nullptr)
+	//{
+	//	focusObjectPosition = App->hierarchy->objSelected->transform->getPosition();
+	//	LookAt(focusObjectPosition);//esta en ComponentCamera
+	//}
 
 }
 

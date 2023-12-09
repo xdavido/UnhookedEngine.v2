@@ -26,12 +26,10 @@ Application::Application()
 	AddModule(assimpMeshes);
 	AddModule(textures);
 	AddModule(scene);
-	AddModule(viewport);
 
 	// Renderer last!
-	AddModule(editor);
-	
 	AddModule(renderer3D);
+	AddModule(editor);
 }
 
 Application::~Application()

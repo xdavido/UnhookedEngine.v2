@@ -181,6 +181,7 @@ void ComponentCamera::Inspector()
 	}
 }
 
+
 bool ComponentCamera::ContainsAaBox(Mesh* refBox)
 {
 	float3 vCorner[8];
