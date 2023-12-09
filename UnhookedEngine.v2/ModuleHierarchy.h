@@ -18,7 +18,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void DrawHierarchy();
+	//void DrawHierarchy();
 	void GameObjectTree(GameObject* obj, int index);
 	void SetGameObject(GameObject* obj);
 

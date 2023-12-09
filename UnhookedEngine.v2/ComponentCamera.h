@@ -31,7 +31,7 @@ public:
 
 	void TransformCam();
 
-	void Inspector();
+	void PrintInspector();
 
 	//bool ContainsAaBox(Mesh* refBox); <- sirve para frustrum
 

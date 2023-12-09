@@ -15,6 +15,8 @@ public:
 	ModuleCamera3D(Application* app, bool start_enabled = true);
 	~ModuleCamera3D();
 
+	GameObject* SceneCamera;
+
 	ComponentCamera* sceneCam;
 
 	bool Start();

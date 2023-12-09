@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -10,6 +11,8 @@
 #include "ModuleAssimpMeshes.h"
 #include "ModuleEditor.h"
 #include "Glew/include/glew.h"
+
+
 
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
@@ -310,6 +313,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	lights[0].SetPos(0, 0, 0);
+//	lights[0].SetPos(App->camera->sceneCam->FrustumCam.pos.x, App->camera->sceneCam->FrustumCam.pos.y, App->camera->sceneCam->FrustumCam.pos.z);
+
 
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
@@ -322,14 +327,15 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	Grid.Render();
 	//SethWireframe();
-	DrawWithWireframe();
+	//DrawWithWireframe();
+
 
 	App->assimpMeshes->RenderScene();
 
 	//App->scene->SceneWindow();
 
+	
 
 	if (mainCam != nullptr) {
 
@@ -355,6 +361,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
+
 
 	if (App->editor->DrawEditor() == UPDATE_STOP)
 	{

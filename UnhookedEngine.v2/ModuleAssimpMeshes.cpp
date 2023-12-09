@@ -382,37 +382,36 @@ void ModuleAssimpMeshes::BufferMesh(Mesh* mesh)
 
 void ModuleAssimpMeshes::RenderScene()
 {
-    renderedSceneMeshes = 0;
+    App->camera->sceneCam->printCount = 0;
+
     for (int i = 0; i < meshes.size(); i++) {
-        if (App->camera->sceneCam->FrustumCulling(meshes[i])) {
-            glColor3f(1.0f, 1.0f, 1.0f);
-            meshes[i]->obb = meshes[i]->localAABB;
-            meshes[i]->obb.Transform(meshes[i]->owner->transform->getGlobalMatrix().Transposed());
-            meshes[i]->GlobalAABB.SetNegativeInfinity();
-            meshes[i]->GlobalAABB.Enclose(meshes[i]->obb);
-            meshes[i]->Render();
-            meshes[i]->RenderAABB();
-            renderedSceneMeshes++;
-            glColor3f(0.0f, 0.6f, 0.7f);
-            if (meshes[i]->owner->GetMeshComponent()->faceNormals) {
-                meshes[i]->RenderFaceNormals();
-            }
-            
-        }
+
+        if (!App->camera->sceneCam->ContainsAaBox(meshes[i])) continue;
+
+        meshes[i]->Render();
+        App->camera->sceneCam->printCount++;
     }
-    glColor3f(1.0f, 1.0f, 1.0f);
+
+    for (int i = 0; i < gObjPrimList.size(); i++) {
+        gObjPrimList[i]->Render();
+    }
 }
 
 void ModuleAssimpMeshes::RenderGameWindow()
 {
-    renderedGameMeshes = 0;
+    App->renderer3D->mainCam->printCount = 0;
 
-    //Render Game Window
     for (int i = 0; i < meshes.size(); i++) {
-        if (!App->renderer3D->mainCam->FrustumCulling(meshes[i])) continue;
+
+        if (!App->renderer3D->mainCam->ContainsAaBox(meshes[i])) continue;
 
         meshes[i]->Render();
-        renderedGameMeshes++;
+
+        App->renderer3D->mainCam->printCount++;
+    }
+
+    for (int i = 0; i < gObjPrimList.size(); i++) {
+        gObjPrimList[i]->Render();
     }
 }
 

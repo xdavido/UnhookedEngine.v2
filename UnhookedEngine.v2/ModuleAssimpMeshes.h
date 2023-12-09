@@ -17,6 +17,9 @@
 
 #define VERTEX 5
 
+class GameObject;
+class Primitive;
+
 struct Mesh {
     uint indexID = 0;
     uint indexCount = 0;
@@ -82,5 +85,7 @@ public:
     bool MeshDebug;
     int renderedGameMeshes;
     int renderedSceneMeshes;
+    std::vector<Primitive*> gObjPrimList;
+
 };
 

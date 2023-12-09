@@ -75,7 +75,7 @@ bool ModuleScene::CleanUp() {
 void ModuleScene::SceneWindow()
 {
 	
-	ImVec2 WindowSize = ImGui::GetContentRegionAvail();
+	 WindowSize = ImGui::GetContentRegionAvail();
 
 	//Prevent image stretching by setting new aspect ratio
 	float aspectRatio = WindowSize.x / WindowSize.y;
@@ -84,7 +84,7 @@ void ModuleScene::SceneWindow()
 
 	ImGui::Image((ImTextureID)App->camera->sceneCam->cameraBuffer, WindowSize, ImVec2(0, 1), ImVec2(1, 0));
 
-	Raycasting();
+	//Raycasting();
 
 	
 }
@@ -171,7 +171,7 @@ void ModuleScene::GameWindow()
 	
 	
 	//ImGui::PopStyleColor();
-	ImVec2 WindowSize = ImGui::GetContentRegionAvail();
+	 WindowSize = ImGui::GetContentRegionAvail();
 
 	float aspectRatio = WindowSize.x / WindowSize.y;
 	App->renderer3D->mainCam->FrustumCam.verticalFov = App->renderer3D->mainCam->FOV * DEGTORAD;

@@ -18,7 +18,6 @@ public:
 
     bool Init();
     
-
     update_status DrawEditor();
 
     void ViewCollapsingHeader();

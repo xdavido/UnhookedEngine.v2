@@ -34,6 +34,7 @@ public:
 	GameObject* CreateGameObject(GameObject* parent);
 	ImVec2 NormalizeMouse(float x, float y, float w, float h, ImVec2 pos);
 
+	ImVec2 WindowSize;
 
 
 	void OnSave();
