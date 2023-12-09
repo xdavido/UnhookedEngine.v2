@@ -82,7 +82,9 @@ void ComponentTransform::UpdateMatrixFromInspector()
 	Quat q;
 	q = Quat::FromEulerXYZ(rx, ry, rz);
 	matrix = float4x4::FromTRS(position, q, scale).Transposed();
-	//ApplyTransformToGameObject();
+
+	ApplyTransformToGameObject();
+
 }
 
 void ComponentTransform::ApplyTransformToGameObject()
@@ -103,21 +105,18 @@ void ComponentTransform::PrintInspector()
 		if (ImGui::InputFloat3("Position", position.ptr()))
 		{
 			// Position changed, trigger matrix update
-			UpdateMatrixFromInspector();
 		}
 
 		ImGui::Text("X\t\t Y\t\t Z");
 		if (ImGui::InputFloat3("Rotation", rotation.ptr()))
 		{
 			// Rotation changed, trigger matrix update
-			UpdateMatrixFromInspector();
 		}
 
 		ImGui::Text("X\t\t Y\t\t Z");
 		if (ImGui::InputFloat3("Scale", scale.ptr()))
 		{
 			// Scale changed, trigger matrix update
-			UpdateMatrixFromInspector();
 		}
 
 		if (ImGui::Button("Update Matrix"))
@@ -127,14 +126,3 @@ void ComponentTransform::PrintInspector()
 		}
 	}
 }
-
-
-//float4x4 ComponentTransform::GetTransformMatrix()
-//{
-//	if (mOwner->mParent == nullptr) {
-//		return matrix;
-//	}
-//	else {
-//		return matrix * mOwner->mParent->transform->GetTransformMatrix();
-//	}
-//}
