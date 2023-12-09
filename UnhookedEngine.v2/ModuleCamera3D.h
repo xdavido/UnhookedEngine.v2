@@ -20,13 +20,14 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
+	float mouseSens = 0.50f;
 
 	void Look(const float3& Position, const float3& Reference, bool RotateAroundReference = false);
 	void LookAt(const float3& Spot);
 	void Move(const float3& Movement);
 	float* GetViewMatrix();
 	void FocusCameraToSelectedObject();
-	void RotationAroundCamera(float dt);
+	void RotationAroundCamera();
 	void OrbitSelectedObject(float dt);
 	float3 RotateVector(const float3& u, float angle, const float3& v);
 
@@ -36,12 +37,13 @@ private:
 
 public:
 
-	
+	Frustum frustum;
+
 	float3 X, Y, Z, Position, Reference;
 
 private:
 
 	mat4x4 ViewMatrix;
-	
-	Frustum frustum;
+	bool click = false;
+
 };

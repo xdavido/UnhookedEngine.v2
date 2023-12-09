@@ -1,11 +1,13 @@
 #include "Globals.h"
 #include "Component.h"
 #include "Imgui/imgui.h"
+#include "MathGeoLib/include/MathGeoLib.h"
 #include "MathGeoLib/include/Math/float3.h"
 #include "MathGeoLib/include/Math/float4x4.h"
 
 class GameObject;
 class Component;
+struct Mesh;
 
 class ComponentCamera : public Component
 {
@@ -22,6 +24,7 @@ public:
 
 	float* GetViewMatrix();
 	float* GetProjectionMatrix();
+	bool FrustumCulling(Mesh* mesh);
 
 	void LookAt(const float3& target);
 

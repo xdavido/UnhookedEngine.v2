@@ -1,9 +1,11 @@
 #include "ModuleAssimpMeshes.h"
 #include "Application.h"
 #include "ModuleTexture.h"
-#include"GameObject.h"
-#include"ComponentMesh.h"
-#include"ComponentMaterial.h"
+#include "GameObject.h"
+#include "ComponentMesh.h"
+#include "ComponentCamera.h"
+#include "ComponentTransform.h"
+#include "ComponentMaterial.h"
 
 ModuleAssimpMeshes::ModuleAssimpMeshes(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -191,13 +193,52 @@ void Mesh::Render()
     glDisable(GL_TEXTURE_2D);
 }
 
+void Mesh::InitAABB()
+{
+    std::vector<float3> correctVertex;
+    for (size_t i = 0; i < vertexCount * VERTEX; i += VERTEX)
+    {
+        correctVertex.emplace_back(vertex[i], vertex[i + 1], vertex[i + 2]);
+    }
+    localAABB.SetFrom(&correctVertex[0], correctVertex.size());
+}
+
+void Mesh::RenderAABB()
+{
+    float3 corners1[8];
+
+    obb.GetCornerPoints(corners1);
+
+    DrawBox(corners1, float3(182, 149, 192));
+
+    float3 corners2[8];
+    GlobalAABB.GetCornerPoints(corners2);
+
+    DrawBox(corners2, float3(182, 149, 192));
+}
+
+void Mesh::DrawBox(float3* corners, float3 color)
+{
+    int indices[24] = { 0,2,2,6,6,4,4,0,0,1,1,3,3,2,4,5,6,7,5,7,3,7,1,5 };
+    glBegin(GL_LINES);
+    glColor3fv(color.ptr());
+
+    for (size_t i = 0; i < 24; i++)
+    {
+        glVertex3fv(corners[indices[i]].ptr());
+    }
+
+    glColor3f(255.f, 255.f, 255.f);
+    glEnd();
+}
+
 void Mesh::RenderVertexNormals()
 {
     //Vertex normals
     float normalLenght = 0.05f;
     
     glBegin(GL_LINES);
-    for (unsigned int i = 0; i < /*indexCount*/vertexCount * 3; i += 3)
+    for (unsigned int i = 0; i < vertexCount * 3; i += 3)
     {
         glVertex3f(vertex[i], vertex[i + 1], vertex[i + 2]);
         glVertex3f(vertex[i] + vertexNormals[i].x * normalLenght, vertex[i + 1] + vertexNormals[i].y * normalLenght, vertex[i + 2] + vertexNormals[i].z * normalLenght);
@@ -341,20 +382,38 @@ void ModuleAssimpMeshes::BufferMesh(Mesh* mesh)
 
 void ModuleAssimpMeshes::RenderScene()
 {
-  //  App->camera->sceneCam->printCount = 0;
-
-  
+    renderedSceneMeshes = 0;
     for (int i = 0; i < meshes.size(); i++) {
-        glColor3f(1.0f, 1.0f, 1.0f);
-        meshes[i]->Render();
-        glColor3f(0.0f, 0.6f, 0.7f);
-        if (meshes[i]->owner->GetMeshComponent()->faceNormals) { 
-            meshes[i]->RenderFaceNormals(); 
+        if (App->camera->sceneCam->FrustumCulling(meshes[i])) {
+            glColor3f(1.0f, 1.0f, 1.0f);
+            meshes[i]->obb = meshes[i]->localAABB;
+            meshes[i]->obb.Transform(meshes[i]->owner->transform->getGlobalMatrix().Transposed());
+            meshes[i]->GlobalAABB.SetNegativeInfinity();
+            meshes[i]->GlobalAABB.Enclose(meshes[i]->obb);
+            meshes[i]->Render();
+            meshes[i]->RenderAABB();
+            renderedSceneMeshes++;
+            glColor3f(0.0f, 0.6f, 0.7f);
+            if (meshes[i]->owner->GetMeshComponent()->faceNormals) {
+                meshes[i]->RenderFaceNormals();
+            }
+            
         }
-       /* glColor3f(1, 0, 0);
-        meshes[i]->RenderVertexNormals();*/
     }
-    glColor3f(1.0f, 1.0f, 1.0f);    
+    glColor3f(1.0f, 1.0f, 1.0f);
+}
+
+void ModuleAssimpMeshes::RenderGameWindow()
+{
+    renderedGameMeshes = 0;
+
+    //Render Game Window
+    for (int i = 0; i < meshes.size(); i++) {
+        if (!App->renderer3D->mainCam->FrustumCulling(meshes[i])) continue;
+
+        meshes[i]->Render();
+        renderedGameMeshes++;
+    }
 }
 
 void ModuleAssimpMeshes::DeleteMesh(Mesh* mesh) {
@@ -380,18 +439,4 @@ bool ModuleAssimpMeshes::CleanUp()
    
     aiDetachAllLogStreams();
     return true;
-}
-
-void Mesh::InnitAABB() {
-    float* vertices_positions = new float[vertexCount * 3];
-    for (size_t i = 0; i < vertexCount; i++)
-    {
-        vertices_positions[i * 3] = vertex[i * VERTEX];
-        vertices_positions[i * 3 + 1] = vertex[i * VERTEX + 1];
-        vertices_positions[i * 3 + 2] = vertex[i * VERTEX + 2];
-    }
-
-    localAABB.SetNegativeInfinity();
-    localAABB.Enclose((float3*)vertices_positions, vertexCount);
-    delete[] vertices_positions;
 }

@@ -12,7 +12,11 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleHierarchy.h"
 #include "OurPrimitive.h"
-#include "Glew/include/glew.h"
+#include "ModuleCamera3D.h"
+#include "ComponentCamera.h"
+#include "ComponentTransform.h"
+
+
 #include "Assimp/include/ai_assert.h"
 #include "Assimp/include/version.h"
 
@@ -52,24 +56,24 @@ bool ModuleEditor::Init()
     wireframeMode = false;
 
     //Window info
-    fullscreen = App->window->IsFullscreen();
-    resizable = App->window->IsResizable();
-    borderless = App->window->IsBorderless();
-    fulldesktop = App->window->IsFulldesktop();
-    brightness = SDL_GetWindowBrightness(App->window->window);
-    
-    //Renderer info
-    vsync = App->renderer3D->GetVsync();
-    depthTest = App->renderer3D->GetDepthTestAttribute();
-    cullFace = App->renderer3D->GetCullFaceAttribute();
-    lighting = App->renderer3D->GetLightingAttribute();
-    coloMaterial = App->renderer3D->GetColorMaterialAttribute();
-    texture2D = App->renderer3D->GetTexture2DAttribute();
-    blend = App->renderer3D->GetBlendAttribute();
-    alphaTest = App->renderer3D->GetAlphaTestAttribute();
-    lineSmooth = App->renderer3D->GetLineSmoothAttribute();
-    pointSmooth = App->renderer3D->GetPointSmoothAttribute();
-    polygonSmooth = App->renderer3D->GetPolygonSmoothAttribute();
+    //fullscreen = App->window->IsFullscreen();
+    //resizable = App->window->IsResizable();
+    //borderless = App->window->IsBorderless();
+    //fulldesktop = App->window->IsFulldesktop();
+    //brightness = SDL_GetWindowBrightness(App->window->window);
+    //
+    ////Renderer info
+    //vsync = App->renderer3D->GetVsync();
+    //depthTest = App->renderer3D->GetDepthTestAttribute();
+    //cullFace = App->renderer3D->GetCullFaceAttribute();
+    //lighting = App->renderer3D->GetLightingAttribute();
+    //coloMaterial = App->renderer3D->GetColorMaterialAttribute();
+    //texture2D = App->renderer3D->GetTexture2DAttribute();
+    //blend = App->renderer3D->GetBlendAttribute();
+    //alphaTest = App->renderer3D->GetAlphaTestAttribute();
+    //lineSmooth = App->renderer3D->GetLineSmoothAttribute();
+    //pointSmooth = App->renderer3D->GetPointSmoothAttribute();
+    //polygonSmooth = App->renderer3D->GetPolygonSmoothAttribute();
 
     //Hardware Info
     SDL_version versionSDL;
@@ -328,10 +332,18 @@ update_status ModuleEditor::DrawEditor()
 
     if (isActiveViewport) {
 
-       /* App->scene->SceneWindow();
+      if (ImGui::Begin("Scene"), true)
+      {
+          App->scene->SceneWindow();
 
-        App->scene->GameWindow();*/
+          ImGui::End();
+      }
+      if (ImGui::Begin("Game"), true)
+      {
+          App->scene->GameWindow();
 
+          ImGui::End();
+      }
     }
 
 

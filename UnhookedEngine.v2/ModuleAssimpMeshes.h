@@ -30,11 +30,12 @@ struct Mesh {
 
     aiVector3D* vertexNormals = nullptr; 
 
-    GameObject* owner;
+    GameObject* owner = nullptr;
 
     AABB localAABB;
     AABB aabb;
     OBB obb;
+    AABB GlobalAABB;
 
     uint VAO;
     uint VBO;
@@ -44,9 +45,13 @@ struct Mesh {
     GLuint texture_width = 0;
     GLuint texture_height = 0;
 
-    void InnitAABB();
+    void InitAABB();
 
     void Render();
+
+    void RenderAABB();
+
+    void DrawBox(float3* corners, float3 color);
 
     void RenderFaceNormals();
 
@@ -67,7 +72,7 @@ public:
     void ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObject, GameObject* CgameObject, const aiScene* scene, int index);
     void BufferMesh(Mesh* mesh);
     void RenderScene();
-
+    void RenderGameWindow();
     void DeleteMesh(Mesh* mesh);
     
     
@@ -75,5 +80,7 @@ public:
     std::vector<Mesh*> meshes;
     const char* file_path;
     bool MeshDebug;
+    int renderedGameMeshes;
+    int renderedSceneMeshes;
 };
 

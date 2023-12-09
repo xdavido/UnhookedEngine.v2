@@ -50,38 +50,61 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	float3 newPos(0, 0, 0);
+	//float3 newPos(0, 0, 0);
 	float speed = 3.0f * dt;
+	int wheel = -App->input->GetMouseZ();
+
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 8.0f * dt;
+		speed = 8.0f * 2 * dt;
 
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) sceneCam->FrustumCam.pos.y += speed;
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) sceneCam->FrustumCam.pos.y -= speed;
+
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) sceneCam->FrustumCam.pos += sceneCam->FrustumCam.front * speed;
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) sceneCam->FrustumCam.pos -= sceneCam->FrustumCam.front * speed;
+
+
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) sceneCam->FrustumCam.pos -= sceneCam->FrustumCam.WorldRight() * speed;
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) sceneCam->FrustumCam.pos += sceneCam->FrustumCam.WorldRight() * speed;
+
+	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT) RotationAroundCamera();
+
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-		if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+		if (App->hierarchy->objSelected != nullptr) {
+			float3 target = App->hierarchy->objSelected->transform->position;
+			sceneCam->LookAt(target);
 
-		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+			float TargetDist = sceneCam->FrustumCam.pos.Distance(target);
 
-		if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) newPos += Y * speed;
-		if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) newPos -= Y * speed;
+			RotationAroundCamera();
 
-		RotationAroundCamera(dt);
+			sceneCam->FrustumCam.pos = target + (sceneCam->FrustumCam.front * -TargetDist);
+		}
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) FocusCameraToSelectedObject();
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+	{
+		if (App->hierarchy->objSelected != nullptr) {
+			float3 target = App->hierarchy->objSelected->transform->position;
 
-	newPos -= App->input->GetMouseZ() * Z;
+			sceneCam->LookAt(target);
+		}
+	}
 
-	Position += newPos;
-	Reference += newPos;
+	if (wheel != 0) sceneCam->FrustumCam.pos += sceneCam->FrustumCam.front * 10 * -wheel;
 
-	OrbitSelectedObject(dt);
+	//newPos -= App->input->GetMouseZ() * Z;
 
-	LookAt(Reference);
+	//Position += newPos;
+	//Reference += newPos;
 
-	// Recalculate matrix -------------
-	CalculateViewMatrix();
+	//OrbitSelectedObject(dt);
+
+	//LookAt(Reference);
+
+	//// Recalculate matrix -------------
+	//CalculateViewMatrix();
 
 	return UPDATE_CONTINUE;
 }
@@ -210,44 +233,35 @@ void ModuleCamera3D::OrbitSelectedObject(float dt)
 
 }
 
-void ModuleCamera3D::RotationAroundCamera(float dt)
+void ModuleCamera3D::RotationAroundCamera()
 {
 	int dx = -App->input->GetMouseXMotion();
 	int dy = -App->input->GetMouseYMotion();
 
-	float Sensitivity = 0.5f * dt;
+	Quat dir;
+	sceneCam->FrustumCam.WorldMatrix().Decompose(float3(), dir, float3());
 
-	Position -= Reference;
+	if (dy != 0) {
+		float DeltaY = (float)dy * mouseSens;
 
-	if (dx != 0)
-	{
-		float DeltaX = (float)dx * Sensitivity;
+		Quat Y = Quat::identity;
+		Y.SetFromAxisAngle(float3(1.0f, 0.0f, 0.0f), DeltaY * DEGTORAD);
 
-		float3 rotationAxis(0.0f, 1.0f, 0.0f);
-		Quat rotationQuat = Quat::RotateAxisAngle(rotationAxis, DeltaX);
-
-		X = rotationQuat * X;
-		Y = rotationQuat * Y;
-		Z = rotationQuat * Z;
+		dir = dir * Y;
 	}
 
-	if (dy != 0)
-	{
-		float DeltaY = (float)dy * Sensitivity;
+	if (dx != 0) {
+		float DeltaX = (float)dx * mouseSens;
 
-		Quat rotationQuat = Quat::RotateAxisAngle(X, DeltaY);
+		Quat X = Quat::identity;
+		X.SetFromAxisAngle(float3(0.0f, 1.0f, 0.0f), DeltaX * DEGTORAD);
 
-		Y = rotationQuat * Y;
-		Z = rotationQuat * Z;
-
-		if (Y.y < 0.0f)
-		{
-			Z = float3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
-			Y = Z.Cross(X);
-		}
+		dir = X * dir;
 	}
 
-	Position = Reference + Z * Position.Length();
+	float4x4 matrix = sceneCam->FrustumCam.WorldMatrix();
+	matrix.SetRotatePart(dir.Normalized());
+	sceneCam->FrustumCam.SetWorldMatrix(matrix.Float3x4Part());
 }
 
 float3 ModuleCamera3D::RotateVector(const float3& u, float angle, const float3& v)

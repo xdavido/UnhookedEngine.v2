@@ -9,7 +9,7 @@
 class ComponentTransform : public Component
 {
 public:
-	ComponentTransform(bool enabled = true);
+	ComponentTransform(GameObject* owner);
 	~ComponentTransform();
 
 

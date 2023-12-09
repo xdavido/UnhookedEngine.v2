@@ -15,10 +15,6 @@
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "Glew/libx86/glew32.lib")
 
-#include <stdio.h>      /* printf, scanf, puts, NULL */
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>  
-
 
 #ifdef _DEBUG
 #pragma comment (lib, "MathGeoLib/libx86/Debug2/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
@@ -325,20 +321,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	Grid.Render();
 	//SethWireframe();
-
+	DrawWithWireframe();
 
 	App->assimpMeshes->RenderScene();
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-
-	if (App->editor->DrawEditor() == UPDATE_STOP)
-	{
-		return UPDATE_STOP;
-	}
-
-
-	App->scene->SceneWindow();
+	//App->scene->SceneWindow();
 
 
 	if (mainCam != nullptr) {
@@ -356,12 +343,20 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-		App->scene->GameWindow();
+		//App->scene->GameWindow();
+
+		App->assimpMeshes->RenderGameWindow();
+
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	//glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
+
+	if (App->editor->DrawEditor() == UPDATE_STOP)
+	{
+		return UPDATE_STOP;
+	}
 
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
@@ -417,7 +412,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glLoadMatrixf(App->camera->sceneCam->FrustumCam.ProjectionMatrix().Transposed().ptr());
+	//glLoadMatrixf(App->camera->sceneCam->FrustumCam.ProjectionMatrix().Transposed().ptr());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
