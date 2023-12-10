@@ -1,4 +1,7 @@
-#pragma once
+#ifndef __ModuleScene_H__
+#define __ModuleScene_H__
+
+
 #include "Module.h"
 #include "Globals.h"
 #include "ModuleAssimpMeshes.h"
@@ -57,3 +60,5 @@ private:
 	GameObject* objdebug;
 
 };
+
+#endif

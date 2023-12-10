@@ -74,13 +74,13 @@ bool ModuleScene::CleanUp() {
 
 void ModuleScene::SceneWindow()
 {
-	//ImGui::Begin("Scene");
+	ImGui::Begin("Scene");
 	WindowSize = ImGui::GetContentRegionAvail();
 
-	if (ImGui::IsWindowFocused())
+	/*if (ImGui::IsWindowFocused())
 	{
 		sceneIsSelected = true;
-	}
+	}*/
 
 	//Prevent image stretching by setting new aspect ratio
 	float aspectRatio = WindowSize.x / WindowSize.y;
@@ -89,9 +89,9 @@ void ModuleScene::SceneWindow()
 
 	ImGui::Image((ImTextureID)App->camera->sceneCam->cameraBuffer, WindowSize, ImVec2(0, 1), ImVec2(1, 0));
 
-	//Raycasting();
+	Raycasting();
 
-	
+	ImGui::End();
 }
 
 void ModuleScene::Raycasting() {
@@ -173,14 +173,14 @@ void ModuleScene::Raycasting() {
 
 void ModuleScene::GameWindow()
 {
-	//ImGui::Begin("Game");
+	ImGui::Begin("Game");
 
 	WindowSize = ImGui::GetContentRegionAvail();
 
-	if (ImGui::IsWindowFocused())
+	/*if (ImGui::IsWindowFocused())
 	{
 		sceneIsSelected = false;
-	}
+	}*/
 	//ImGui::PopStyleColor();
 	 
 
@@ -189,7 +189,7 @@ void ModuleScene::GameWindow()
 	App->renderer3D->mainCam->FrustumCam.horizontalFov = 2.0f * atanf(tanf(App->renderer3D->mainCam->FrustumCam.verticalFov / 2.0f) * aspectRatio);
 
 	ImGui::Image((ImTextureID)App->renderer3D->mainCam->cameraBuffer, WindowSize, ImVec2(0, 1), ImVec2(1, 0));
-
+	ImGui::End();
 	
 }
 
