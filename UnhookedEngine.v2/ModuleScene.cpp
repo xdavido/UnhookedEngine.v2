@@ -31,8 +31,6 @@ bool ModuleScene::Start() {
     root_Assets = new GameObject(nullptr);
     root_Assets->name = ("Assets");
 
-
-
     //Load Street House
     objdebug = App->assimpMeshes->LoadMeshFromFile("Assets/Scenes/scene.DAE");
     //objdebug->transform->setRotation({ -90, 0, 0 });
@@ -55,6 +53,8 @@ update_status ModuleScene::Update(float dt) {
 		App->renderer3D->mainCam->TransformCam();
 	}
 
+
+
     return UPDATE_CONTINUE;
 }
 
@@ -74,8 +74,13 @@ bool ModuleScene::CleanUp() {
 
 void ModuleScene::SceneWindow()
 {
-	
-	 WindowSize = ImGui::GetContentRegionAvail();
+	//ImGui::Begin("Scene");
+	WindowSize = ImGui::GetContentRegionAvail();
+
+	if (ImGui::IsWindowFocused())
+	{
+		sceneIsSelected = true;
+	}
 
 	//Prevent image stretching by setting new aspect ratio
 	float aspectRatio = WindowSize.x / WindowSize.y;
@@ -168,10 +173,16 @@ void ModuleScene::Raycasting() {
 
 void ModuleScene::GameWindow()
 {
-	
-	
+	//ImGui::Begin("Game");
+
+	WindowSize = ImGui::GetContentRegionAvail();
+
+	if (ImGui::IsWindowFocused())
+	{
+		sceneIsSelected = false;
+	}
 	//ImGui::PopStyleColor();
-	 WindowSize = ImGui::GetContentRegionAvail();
+	 
 
 	float aspectRatio = WindowSize.x / WindowSize.y;
 	App->renderer3D->mainCam->FrustumCam.verticalFov = App->renderer3D->mainCam->FOV * DEGTORAD;

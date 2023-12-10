@@ -42,7 +42,7 @@ public:
 
 	GameObject* root = nullptr;
 	GameObject* root_Assets = nullptr;
-
+	bool sceneIsSelected = false;
 
 	GameObject* prova1;
 	GameObject* prova2;

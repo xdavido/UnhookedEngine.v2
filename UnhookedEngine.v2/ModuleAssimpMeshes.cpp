@@ -55,11 +55,7 @@ GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
             ImportAssimpMesh(scene->mMeshes[i],OBJ, obj, scene,i);
            
         }
-       
 
-           
-        
-        
         aiReleaseImport(scene);
 
         return OBJ;
