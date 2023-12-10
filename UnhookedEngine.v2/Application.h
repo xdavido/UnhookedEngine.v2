@@ -39,7 +39,8 @@ public:
 	float	dt;
 	uint	maxFrameRate;
 	float	msLastFrame;
-
+	int fps = 60;
+	Uint32 MsFrame;
 
 public:
 

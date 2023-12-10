@@ -34,32 +34,32 @@ Application::Application()
 
 Application::~Application()
 {
-	for (std::vector<Module*>::iterator it = list_modules.begin(); it != list_modules.end(); ++it)
+	for (int i = list_modules.size() - 1; i >= 0; i--)
 	{
-		delete (*it);
-		(*it) = nullptr;
+		delete list_modules[i];
+		list_modules[i] = nullptr;
 	}
+	list_modules.clear();
 }
 
 bool Application::Init()
 {
 	bool ret = true;
 
-	maxFrameRate = 300;
-
 	// Call Init() in all modules
-	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret; ++it)
+	LOG("Application Init --------------");
+	for (size_t i = 0; i < list_modules.size(); i++)
 	{
-		(*it)->Init();
+		ret = list_modules[i]->Init();
 	}
 
 	// After all Init calls we call Start() in all modules
-	LOG("-------------- Application Start --------------");
-	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret; ++it)
+	LOG("Application Start --------------");
+	for (size_t i = 0; i < list_modules.size(); i++)
 	{
-		(*it)->Start();
+		ret = list_modules[i]->Start();
 	}
-	
+
 	ms_timer.Start();
 	return ret;
 }
@@ -75,18 +75,9 @@ void Application::PrepareUpdate()
 void Application::FinishUpdate()
 {
 	 
-	if (renderer3D->GetVsync())
-	{
-		msLastFrame = ms_timer.Read();
-
-		float timeToWait = 1000.0f / (float)maxFrameRate;
-
-		if (msLastFrame < timeToWait)
-			SDL_Delay(static_cast<Uint32>(fabs(timeToWait - msLastFrame)));
-
-		msLastFrame = ms_timer.Read();
-
-	}
+	MsFrame = ms_timer.Read();
+	float FrameWait = (1000.f / (float)fps) - (float)MsFrame;
+	SDL_Delay(static_cast<Uint32>(fabs(FrameWait)));
 
 }
 
@@ -97,20 +88,20 @@ update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
-	
-	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret == UPDATE_CONTINUE; ++it)
+
+	for (size_t i = 0; i < list_modules.size() && ret == UPDATE_CONTINUE; i++)
 	{
-		ret = (*it)->PreUpdate(dt);
+		ret = list_modules[i]->PreUpdate(dt);
 	}
 
-	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret == UPDATE_CONTINUE; ++it)
+	for (size_t i = 0; i < list_modules.size() && ret == UPDATE_CONTINUE; i++)
 	{
-		ret = (*it)->Update(dt);
+		ret = list_modules[i]->Update(dt);
 	}
 
-	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret == UPDATE_CONTINUE; ++it)
+	for (size_t i = 0; i < list_modules.size() && ret == UPDATE_CONTINUE; i++)
 	{
-		ret = (*it)->PostUpdate(dt);
+		ret = list_modules[i]->PostUpdate(dt);
 	}
 
 	FinishUpdate();
@@ -121,12 +112,14 @@ bool Application::CleanUp()
 {
 	bool ret = true;
 
-	for (std::vector<Module*>::reverse_iterator it = list_modules.rbegin(); it != list_modules.rend() && ret; ++it)
+	for (int i = list_modules.size() - 1; i >= 0; i--)
 	{
-		ret = (*it)->CleanUp();
+		list_modules[i]->CleanUp();
+		delete list_modules[i];
+		list_modules[i] = nullptr;
 	}
 
-
+	list_modules.clear();
 	return ret;
 }
 
