@@ -58,7 +58,5 @@ MathGeoLib
 DevIL
 PhysFS
 
-In process: 
-Hierarchy
-Shows a list of all GameObjects and create and move them.
-GameObject Creation
+In process:
+Serialization
