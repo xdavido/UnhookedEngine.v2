@@ -1,6 +1,15 @@
 unhooked-Engine
 Unhooked Engine is currently under active development as the "Engine Development" subject project for the CITM Bachelor's degree in Video Game Design and Development.
 
+En este proyecto hemos tenido varios problemas, por ejemplo el viewport no nos ha salido bien, a la hora de hacer el frustum y el viewport, se nos ha petado las escenas y no se renderizaban correctamente,
+así que hay muchas cosas que no hemos podido hacer por culpa de esto. Aún así hay bastantes cosas que estan hechas aunque no se vean directamente en el proyecto. Le hemos puesto demasiadas horas a solucionar
+los problemas que teniamos y ni siquiera hemos podido arreglarlos.
+
+No sabemos porqué la camara no se hace correctamente y en la pantalla solo se ven las meshes, sin los gameobjects.
+
+A parte, en la release, la ventana de game no se renderiza igual que cuando está en debug.
+
+
 Link: https://github.com/xdavido/UnhookedEngine.v2
 
 
