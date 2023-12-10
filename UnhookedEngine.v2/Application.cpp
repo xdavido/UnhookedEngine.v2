@@ -25,11 +25,12 @@ Application::Application()
 	AddModule(hierarchy);
 	AddModule(assimpMeshes);
 	AddModule(textures);
+	AddModule(viewport);
 	AddModule(scene);
 
 	// Renderer last!
-	AddModule(renderer3D);
 	AddModule(editor);
+	AddModule(renderer3D);
 }
 
 Application::~Application()

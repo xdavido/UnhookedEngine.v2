@@ -31,22 +31,7 @@ ModuleEditor::~ModuleEditor()
 
 bool ModuleEditor::Init()
 {
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
-    
-
-    // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsClassic();
-
-    // Setup Platform/Renderer backends
-    ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
-    ImGui_ImplOpenGL3_Init();
-
+   
     mFPSLog.reserve(30);
     mMsLog.reserve(30);
 
