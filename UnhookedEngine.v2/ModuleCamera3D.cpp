@@ -34,8 +34,8 @@ bool ModuleCamera3D::Start()
 
 
 
-	ComponentCamera* cam = new ComponentCamera(SceneCamera);
-	sceneCam = cam;
+	sceneCam = new ComponentCamera();
+
 	sceneCam->FrustumCam.pos = float3(0, 2, -10);
 	
 
@@ -54,12 +54,8 @@ bool ModuleCamera3D::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
-	// Implement a debug camera with keys and mouse
-	// Now we can make this movememnt frame rate independant!
-
-	//float3 newPos(0, 0, 0);
-	float speed = 3.0f * dt;
 	int wheel = -App->input->GetMouseZ();
+	float speed = 8.0f * dt;
 
 	if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * 2 * dt;

@@ -15,7 +15,7 @@ public:
 	ModuleCamera3D(Application* app, bool start_enabled = true);
 	~ModuleCamera3D();
 
-	GameObject* SceneCamera;
+	//GameObject* SceneCamera;
 
 	ComponentCamera* sceneCam;
 
@@ -28,7 +28,9 @@ public:
 	void Move(const float3& Movement);
 	float* GetViewMatrix();
 	void FocusCameraToSelectedObject();
+
 	void RotationAroundCamera();
+
 	void OrbitSelectedObject(float dt);
 	float3 RotateVector(const float3& u, float angle, const float3& v);
 
@@ -38,7 +40,7 @@ private:
 
 public:
 
-	Frustum frustum;
+	//Frustum frustum;
 
 	float3 X, Y, Z, Position, Reference;
 
