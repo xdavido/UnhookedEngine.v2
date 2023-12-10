@@ -1,7 +1,7 @@
 unhooked-Engine
 Unhooked Engine is currently under active development as the "Engine Development" subject project for the CITM Bachelor's degree in Video Game Design and Development.
 
-En este proyecto hemos tenido varios problemas, por ejemplo el viewport no nos ha salido bien, a la hora de hacer el frustum y el viewport, se nos ha petado las escenas y no se renderizaban correctamente,
+En este proyecto hemos tenido varios problemas, por ejemplo el viewport no nos ha salido bien, a la hora de hacer el frustum y el viewport, se nos han petado las escenas y no se renderizaban correctamente,
 así que hay muchas cosas que no hemos podido hacer por culpa de esto. Aún así hay bastantes cosas que estan hechas aunque no se vean directamente en el proyecto. Le hemos puesto demasiadas horas a solucionar
 los problemas que teniamos y ni siquiera hemos podido arreglarlos.
 
@@ -33,7 +33,6 @@ Alt + Left Click - Rotate around object
 Features:
 Drag&Drop
 The engine allows the user to Drag&Drop FBX files from anywhere in the hard drive and later, drag and drop files to put textures for the GameObjects.
-
 Move between windows
 Configuration
 Application
@@ -51,6 +50,15 @@ Mouse Information (Position and Motion).
 Hardware Information
 SDL Version.
 Memory consumption.
+.DAE Scene automatically loaded at the star
+Hierarchy: delete, reparent, create empty and create children
+Camera is a component with settings that can be modified.
+Mousepicking
+All meshes use a bounding volume (AABB) and can be discarded using Frustum Culling.
+The user can Start / Pause / Stop the simulation and recover its original state
+The editor has 2 windows one with the scene(editor view) and another captured from a gameobject with a camera component(main game camera), each one has its own framebuffer and the user can visualize both at the same time
+There is an “Assets” window that shows all user assets * it can be a simple tree viewer
+The user can drop/import new files.
 
 Inspector
 Move, rotate and scale the GameObject selected. And also GameObject's name.
@@ -68,4 +76,4 @@ DevIL
 PhysFS
 
 In process:
-Serialization
+Serialization and custom file format
