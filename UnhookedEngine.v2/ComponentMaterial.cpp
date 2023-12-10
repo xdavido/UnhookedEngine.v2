@@ -28,7 +28,6 @@ void ComponentMaterial::SetTexture(const char* path)
 	pathTexture = path;
 	textureID = App->textures->LoadTexture(path);
 
-
 	UpdateMeshTexture();
 }
 
@@ -39,7 +38,6 @@ void ComponentMaterial::ResetTexture()
 		App->textures->CleanTexture(textureID);
 		textureID = 0;
 	}
-
 	UpdateMeshTexture();
 }
 
@@ -62,16 +60,13 @@ void ComponentMaterial::UpdateMeshTexture()
 		componentMesh->mesh->id_texture = App->textures->checkersID;
 		return;
 	}
-	
 	componentMesh->mesh->id_texture = -1;
-
 }
 
 void ComponentMaterial::PrintInspector()
 {
 	const char* listTextures[]{ "Texture", "None", "Checkes" };
 
-	
 	if (ImGui::CollapsingHeader("Texture", ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth))
 	{
 		std::string pathaux = "Path: " + std::string(pathTexture);
@@ -86,9 +81,6 @@ void ComponentMaterial::PrintInspector()
 		ImGui::Text("Texture: ");
 		ImGui::SameLine();
 		ImGui::Combo("##ChoseTexture", &textureSelected, listTextures, IM_ARRAYSIZE(listTextures));
-
 	}
-
 	UpdateMeshTexture();
-
 }

@@ -73,7 +73,6 @@ bool ModuleWindow::Init()
 			screen_surface = SDL_GetWindowSurface(window);
 		}
 	}
-
 	return ret;
 }
 
@@ -87,7 +86,6 @@ bool ModuleWindow::CleanUp()
 	{
 		SDL_DestroyWindow(window);
 	}
-
 	//Quit SDL subsystems
 	SDL_Quit();
 	return true;
@@ -153,5 +151,4 @@ void ModuleWindow::OnHeightChanged()
 
 	std::string aux = "Window Height attribute updated to: " + std::to_string(height);
 	LOG(aux.c_str());
-
 }

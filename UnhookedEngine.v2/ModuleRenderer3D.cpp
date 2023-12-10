@@ -12,19 +12,15 @@
 #include "ModuleEditor.h"
 #include "Glew/include/glew.h"
 
-
-
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "glu32.lib") /* link Microsoft OpenGL lib   */
 #pragma comment (lib, "Glew/libx86/glew32.lib")
-
 
 #ifdef _DEBUG
 #pragma comment (lib, "MathGeoLib/libx86/Debug2/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #else
 #pragma comment (lib, "MathGeoLib/libx86/Release2/MathGeoLib.lib") /* link Microsoft OpenGL lib   */
 #endif // _DEBUG
-
 
 ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -34,94 +30,11 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 ModuleRenderer3D::~ModuleRenderer3D()
 {}
 
-//static const GLfloat g_vertex_buffer_data[] = {
-//	// Cara frontal
-//	-7.0f, -7.0f,  7.0f,  // Vértice 1
-//	 7.0f, -7.0f,  7.0f,  // Vértice 2
-//	 7.0f,  7.0f,  7.0f,  // Vértice 3
-//	-7.0f,  7.0f,  7.0f,  // Vértice 4
-//
-//	// Cara trasera
-//	-7.0f, -7.0f, -7.0f,  // Vértice 5
-//	 7.0f, -7.0f, -7.0f,  // Vértice 6
-//	 7.0f,  7.0f, -7.0f,  // Vértice 7
-//	-7.0f,  7.0f, -7.0f,  // Vértice 8
-//
-//	// Caras laterales
-//	-7.0f, -7.0f, -7.0f,  // Vértice 9
-//	-7.0f, -7.0f,  7.0f,  // Vértice 10
-//	-7.0f,  7.0f,  7.0f,  // Vértice 11
-//	-7.0f,  7.0f, -7.0f,  // Vértice 12
-//
-//	 7.0f, -7.0f, -7.0f,  // Vértice 13
-//	 7.0f, -7.0f,  7.0f,  // Vértice 14
-//	 7.0f,  7.0f,  7.0f,  // Vértice 15
-//	 7.0f,  7.0f, -7.0f,  // Vértice 16
-//
-//	 // Cara superior
-//	 -7.0f,  7.0f,  7.0f,  // Vértice 17
-//	  7.0f,  7.0f,  7.0f,  // Vértice 18
-//	  7.0f,  7.0f, -7.0f,  // Vértice 19
-//	 -7.0f,  7.0f, -7.0f,  // Vértice 20
-//
-//	 // Cara inferior
-//	 -7.0f, -7.0f, -7.0f,  // Vértice 21
-//	  7.0f, -7.0f, -7.0f,  // Vértice 22
-//	  7.0f, -7.0f,  7.0f,  // Vértice 23
-//	 -7.0f, -7.0f,  7.0f   // Vértice 24
-//};
-
-// Called before render is available
-//static const GLfloat CubeVertices[] = {
-//	-1, -1, -1,
-//	1, -1, -1,
-//	1, 1, -1,
-//	-1, 1, -1,
-//	-1, -1, 1,
-//	1, -1, 1,
-//	1, 1, 1,
-//	-1, 1, 1
-//};
-//static const GLuint CubeIndices[] = {
-//	0, 1, 3, 3, 1, 2,
-//	1, 5, 2, 2, 5, 6,
-//	5, 4, 6, 6, 4, 7,
-//	4, 0, 7, 7, 0, 3,
-//	3, 2, 7, 7, 2, 6,
-//	4, 5, 0, 0, 5, 1
-//};
-
-// Array de vertices para rectangulo
-//float vertices[] = {
-//	-3.0f, -3.0f, -6.0f,
-//	3.0f, -3.0f, -6.0f,
-//	3.0f, 3.0f, -6.0f,
-//	-3.0f, 3.0f, -6.0f,
-//};
-//
-//// Array de indices para rectangulo
-//unsigned int indices[] = {
-//  0, 1, 2,
-//  2, 3, 0,
-//};
-
 // Called before render is available
 bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
-	/*vsync = VSYNC;
-	depthTestAttribute = DEPTH_TEST_ATTRIBUTE;
-	cullFaceAttribute = CULL_FACE_ATTRIBUTE;
-	lightingAttribute = LIGHTING_ATTRIBUTE;
-	colorMaterialAttribute = COLOR_MATERIAL_ATTRIBUTE;
-	texture2DAttribute = TEXTURE_2D_ATTRIBUTE;
-	blendAttribute = BLEND_ATTRIBUTE;
-	alphaTestAttribute = ALPHA_TEST_ATTRIBUTE;
-	lineSmoothAttribute = LINE_SMOOTH_ATTRIBUTE;
-	pointSmoothAttribute = POINT_SMOOTH_ATTRIBUTE;
-	polygonSmoothAttribute = POLYGON_SMOOTH_ATTRIBUTE;
-	wireframeMode = WIREFRAME_MODE;*/
 
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
@@ -194,7 +107,6 @@ bool ModuleRenderer3D::Init()
 		GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 
-
 		SetDepthTestAttribute(depthTestAttribute);
 		SetCullFaceAttribute(cullFaceAttribute);
 		lights[0].Active(true);
@@ -207,70 +119,11 @@ bool ModuleRenderer3D::Init()
 		SetLineSmoothAttribute(lineSmoothAttribute);
 		SetPointSmoothAttribute(pointSmoothAttribute);
 		SetPolygonSmoothAttribute(polygonSmoothAttribute);
-
-		
 	}
-
 
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	Grid.axis = true;
-
-	/*
-	glGenBuffers(1, &test);
-	glBindBuffer(GL_ARRAY_BUFFER, test);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	VBO = 0;
-	EBO = 0;
-	VAO = 0;
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
-	glGenVertexArrays(1, &VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeVertices), CubeVertices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CubeIndices), CubeIndices, GL_STATIC_DRAW);
-
-	glBindVertexArray(VAO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-	glBindVertexArray(0);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-
-	VAORect = 0;
-	VBORect = 0;
-	EBORect = 0;
-
-
-	glGenBuffers(1, &VBORect);
-	glGenBuffers(1, &EBORect);
-	glGenVertexArrays(1, &VAORect);
-
-
-
-
-	glBindVertexArray(VAORect);
-	glBindBuffer(GL_ARRAY_BUFFER, VBORect);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBORect);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);*/
-
 
 	return ret;
 }
@@ -290,7 +143,6 @@ bool ModuleRenderer3D::Start()
 	GameCamera->mComponents.push_back(cam);
 	GameCamera->transform->position = float3(0, 2, -10);
 	GameCamera->transform->UpdateMatrixFromInspector();
-
 
 	return true;
 }
@@ -313,13 +165,9 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
 	lights[0].SetPos(0, 0, 0);
-//	lights[0].SetPos(App->camera->sceneCam->FrustumCam.pos.x, App->camera->sceneCam->FrustumCam.pos.y, App->camera->sceneCam->FrustumCam.pos.z);
-
 
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
-
-
 
 	return UPDATE_CONTINUE;
 }
@@ -327,15 +175,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	//SethWireframe();
-	//DrawWithWireframe();
-
-
 	App->assimpMeshes->RenderScene();
-
-	//App->scene->SceneWindow();
-
-	
 
 	if (mainCam != nullptr) {
 
@@ -352,16 +192,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
-		//App->scene->GameWindow();
-
 		App->assimpMeshes->RenderGameWindow();
-
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-	//glViewport(0, 0, (int)io->DisplaySize.x, (int)io->DisplaySize.y);
-
 
 	if (App->editor->DrawEditor() == UPDATE_STOP)
 	{
@@ -423,9 +257,6 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
-	//glLoadMatrixf(App->camera->sceneCam->GetProjectionMatrix());//error frusturm, ??
-
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -528,13 +359,11 @@ void ModuleRenderer3D::SetVsync(bool vsync) {
 	if (vsync)
 	{
 		SDL_GL_SetSwapInterval(1);
-
 	}
 	else
 	{
 		SDL_GL_SetSwapInterval(0);
 	}
-
 
 	std::string aux = "Renderer VSYNC attribute updated to: " + std::string(vsync ? "true" : "false");
 	LOG(aux.c_str());

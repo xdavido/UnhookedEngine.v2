@@ -25,8 +25,6 @@ void ComponentMesh::UpdateAABB()
 		if (App->assimpMeshes->meshes[i] == nullptr)return;
 
 		App->assimpMeshes->meshes[i]->obb = App->assimpMeshes->meshes[i]->localAABB;
-		//App->assimpMeshes->meshes[i]->obb.Transform(mOwner->transform->GetTransformMatrix().Transposed());
-
 		App->assimpMeshes->meshes[i]->aabb.SetNegativeInfinity();
 		App->assimpMeshes->meshes[i]->aabb.Enclose(App->assimpMeshes->meshes[i]->obb);
 	}

@@ -16,7 +16,6 @@ ComponentTransform::~ComponentTransform()
 float4x4 ComponentTransform::getGlobalMatrix()
 {
 	if (mOwner->GetParent() == nullptr) return getLocalMatrix();
-
 	return  matrix * mOwner->GetParent()->transform->getGlobalMatrix();
 }
 
@@ -84,7 +83,6 @@ void ComponentTransform::UpdateMatrixFromInspector()
 	matrix = float4x4::FromTRS(position, q, scale).Transposed();
 
 	ApplyTransformToGameObject();
-
 }
 
 void ComponentTransform::ApplyTransformToGameObject()

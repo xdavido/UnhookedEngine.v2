@@ -25,8 +25,6 @@ public:
 	ModuleTexture(Application* app, bool start_enabled = true);
 	~ModuleTexture() {}
 
-
-
 	bool Start();
 	bool CreateTexture(GLuint* imgData, GLuint width, GLuint height);
 	uint LoadTexture(const char* path);
@@ -35,7 +33,6 @@ public:
 	void DestroyTexture(uint textureID);
 	void NewTexture(uint imgID);
 	
-
 public:
 	GLuint checkersID=0	;
 	GLuint textureWidth = 0;
@@ -44,5 +41,4 @@ public:
 		
 private:
 	GLubyte checkerImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4]; // height width rgba
-
 };

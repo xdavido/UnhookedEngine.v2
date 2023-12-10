@@ -23,6 +23,4 @@ public:
 	std::string pathTexture = " ";
 	GLuint textureID = 0;
 	int textureSelected = 0;
-
-
 };

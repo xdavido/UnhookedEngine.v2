@@ -39,10 +39,8 @@ update_status ModuleViewport::PreUpdate(float dt)
 		playing = false;
 		break;
 	case 4:
-		//Step();
 		break;
 	}
-
 	return UPDATE_CONTINUE;
 }
 update_status ModuleViewport::Update(float dt)
@@ -85,7 +83,6 @@ void ModuleViewport::Play()
 		GameTimer.Stop();
 		playing = false;
 	}
-
 }
 
 void ModuleViewport::Stop()
@@ -93,7 +90,6 @@ void ModuleViewport::Stop()
 	deltaT = 0;
 	ImGui::SetWindowFocus("Scene");
 	TimeStatus = 2;
-
 }
 
 void ModuleViewport::Pause()
@@ -108,13 +104,5 @@ void ModuleViewport::Pause()
 	}
 }
 
-
-
 void ModuleViewport::Step()
-{
-			/*Play();
-			Stop();*/
-}
-
-	
-
+{}

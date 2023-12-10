@@ -197,15 +197,11 @@ GameObject* ModuleScene::CreateGameObject(GameObject* parent)
 {
     GameObject* newGameObject = new GameObject(parent);
 
-
-
     return newGameObject;
-
 }
 
 ImVec2 ModuleScene::NormalizeMouse(float x, float y, float w, float h, ImVec2 pos)
 {
-
 	ImVec2 normalizedPos;
 
 	normalizedPos.x = -1.0 + 2.0 * ((pos.x - x) / w);

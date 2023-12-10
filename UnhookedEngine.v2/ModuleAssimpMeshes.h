@@ -77,8 +77,7 @@ public:
     void RenderScene();
     void RenderGameWindow();
     void DeleteMesh(Mesh* mesh);
-    
-    
+
 public:
     std::vector<Mesh*> meshes;
     const char* file_path;
@@ -86,6 +85,5 @@ public:
     int renderedGameMeshes;
     int renderedSceneMeshes;
     std::vector<Primitive*> gObjPrimList;
-
 };
 

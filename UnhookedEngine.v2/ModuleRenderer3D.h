@@ -13,7 +13,6 @@
 #include "Imgui/backends/imgui_impl_opengl3.h"
 #include "SDL/include/SDL_video.h"
 
-//todo: REMOVE this before 1st delivery!!
 #include "glmath.h"
 
 #define MAX_LIGHTS 8
@@ -64,29 +63,16 @@ public:
 
 	void SetWireframeMode(bool enable);
 
-
 private:
 	void DrawWithWireframe();
 	
-
 public:
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	CPlane Grid;
 	
-	//You won't need this after using Frustum
 	mat4x4 ProjectionMatrix;
-
-	//GLuint test;
-	//GLuint VBO;
-	//GLuint EBO;
-	//GLuint VAO;
-
-	//test rectangulo
-	//GLuint VAORect;
-	//GLuint VBORect;
-	//GLuint EBORect;
 	
 	GameObject* GameCamera;
 	ComponentCamera* mainCam;

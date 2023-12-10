@@ -29,15 +29,11 @@ public:
     void AddMs(const float aFPS);
     float AverageValueFloatVector(const std::vector<float>& fps);
     
-
     std::string ReadFileIO(const char* file);
     void LOGToConsole(const char* text);
-
-    //void PushBackLog(std::vector<float>* log, float current);
     
 private:
 
-    
     void CreateAboutWindow(bool& showAboutWindow);
     void URLButton(const char* url);
     void CreateConsoleWindow(bool& showConsoleWindow);
@@ -47,8 +43,6 @@ private:
     
 public:
     std::deque<std::string>* logs = nullptr;
-
- 
 
 private:
     std::vector<float> mFPSLog;
@@ -101,7 +95,6 @@ private:
 
     std::vector<std::string> screens;
 
-
     bool isActiveInspector;
     bool isActiveConsole;
     bool isActiveHierarchy;
@@ -110,6 +103,5 @@ private:
 
     //About Window
     std::string license;
-
 };
 

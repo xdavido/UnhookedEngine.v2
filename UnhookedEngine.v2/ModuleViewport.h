@@ -29,12 +29,10 @@ public:
 	Timer GameTimer;
 	float rotation;
 
-
 	bool paused = false;
 	bool playing = false;
 	
 	int TimeStatus = 2; //default is paused
 	float deltaT = 0.f;
 	float f;
-
 };

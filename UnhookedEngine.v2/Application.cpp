@@ -2,7 +2,6 @@
 
 Application::Application()
 {
-
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
 	renderer3D = new ModuleRenderer3D(this);
@@ -85,12 +84,8 @@ void Application::FinishUpdate()
 			SDL_Delay(static_cast<Uint32>(fabs(timeToWait - msLastFrame)));
 
 		msLastFrame = ms_timer.Read();
-
 	}
-
 }
-
-
 
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
@@ -126,15 +121,12 @@ bool Application::CleanUp()
 		ret = (*it)->CleanUp();
 	}
 
-
 	return ret;
 }
 
 void Application::LOGToEditor(const char* text)
 {
-	
 	editor->LOGToConsole(text);
-	
 }
 
 void Application::AddModule(Module* mod)

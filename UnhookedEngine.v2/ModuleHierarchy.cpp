@@ -5,15 +5,12 @@
 #include "ModuleHierarchy.h"
 #include "ModuleRenderer3D.h"
 #include"ModuleScene.h"
-
 #include "Primitive.h"
 
 ModuleHierarchy::ModuleHierarchy(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-
 	TargetDropped = nullptr;
 	objSelected = nullptr;
-	
 }
 
 ModuleHierarchy::~ModuleHierarchy()
@@ -22,9 +19,7 @@ ModuleHierarchy::~ModuleHierarchy()
 //-----------------------------------------------------------------
 bool ModuleHierarchy::Start()
 {
-	
 	bool ret = true;
-
 
 	return ret;
 }
@@ -40,15 +35,12 @@ bool ModuleHierarchy::CleanUp()
 // -----------------------------------------------------------------
 update_status ModuleHierarchy::PreUpdate(float dt)
 {
-
-
 	return UPDATE_CONTINUE;
 }
 
 // -----------------------------------------------------------------
 update_status ModuleHierarchy::Update(float dt)
 {
-
 	if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN)
 	{
 		if (objSelected != nullptr) {
@@ -60,7 +52,6 @@ update_status ModuleHierarchy::Update(float dt)
 
 	App->scene->root->UpdateRecu();
 
-
 	return UPDATE_CONTINUE;
 }
 
@@ -69,8 +60,6 @@ update_status ModuleHierarchy::PostUpdate(float dt)
 {
 	return UPDATE_CONTINUE;
 }
-
-
 
 void ModuleHierarchy::GameObjectTree(GameObject* obj, int index)
 {
@@ -116,7 +105,6 @@ void ModuleHierarchy::GameObjectTree(GameObject* obj, int index)
 				SetGameObject(obj);
 			}
 		}
-
 	}
 
 	if (ImGui::IsWindowHovered())
@@ -134,9 +122,7 @@ void ModuleHierarchy::GameObjectTree(GameObject* obj, int index)
 	{
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GameObject")) {
 
-			
 				TargetDropped->SetNewParent(objHovered);
-			
 		}
 		ImGui::EndDragDropTarget();
 	}
@@ -151,7 +137,6 @@ void ModuleHierarchy::GameObjectTree(GameObject* obj, int index)
 		}
 		ImGui::TreePop();
 	}
-
 }
 
 void ModuleHierarchy::SetGameObject(GameObject* obj)

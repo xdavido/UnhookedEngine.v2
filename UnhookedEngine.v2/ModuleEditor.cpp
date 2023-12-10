@@ -38,10 +38,8 @@ bool ModuleEditor::Init()
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
     
-
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
-    //ImGui::StyleColorsClassic();
 
     // Setup Platform/Renderer backends
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
@@ -54,26 +52,6 @@ bool ModuleEditor::Init()
     showConsoleWindow = false;
     showAboutWindow = false;
     wireframeMode = false;
-
-    //Window info
-    //fullscreen = App->window->IsFullscreen();
-    //resizable = App->window->IsResizable();
-    //borderless = App->window->IsBorderless();
-    //fulldesktop = App->window->IsFulldesktop();
-    //brightness = SDL_GetWindowBrightness(App->window->window);
-    //
-    ////Renderer info
-    //vsync = App->renderer3D->GetVsync();
-    //depthTest = App->renderer3D->GetDepthTestAttribute();
-    //cullFace = App->renderer3D->GetCullFaceAttribute();
-    //lighting = App->renderer3D->GetLightingAttribute();
-    //coloMaterial = App->renderer3D->GetColorMaterialAttribute();
-    //texture2D = App->renderer3D->GetTexture2DAttribute();
-    //blend = App->renderer3D->GetBlendAttribute();
-    //alphaTest = App->renderer3D->GetAlphaTestAttribute();
-    //lineSmooth = App->renderer3D->GetLineSmoothAttribute();
-    //pointSmooth = App->renderer3D->GetPointSmoothAttribute();
-    //polygonSmooth = App->renderer3D->GetPolygonSmoothAttribute();
 
     //Hardware Info
     SDL_version versionSDL;
@@ -124,7 +102,6 @@ bool ModuleEditor::Init()
     return true;
 }
 
-
 bool ModuleEditor::CleanUp()
 {
     ImGui_ImplOpenGL3_Shutdown();
@@ -133,10 +110,8 @@ bool ModuleEditor::CleanUp()
 
     RELEASE(logs);
 
-
     return true;
 }
-
 
 update_status ModuleEditor::DrawEditor()
 {
@@ -179,11 +154,9 @@ update_status ModuleEditor::DrawEditor()
                 ret = UPDATE_STOP;
             }
             ImGui::EndMenu();
-            
         }
         if (ImGui::BeginMenu("Game Objects"))
         {
-
             if (ImGui::MenuItem(" EMPTY  ")) {
 
                 PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::EMPTY);
@@ -228,12 +201,9 @@ update_status ModuleEditor::DrawEditor()
             {
                 PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::P_SUZANNE);
             }
-
-
             ImGui::EndMenu();
         }
      
-
         if (ImGui::BeginMenu("Configuration"))
         {
             if (ImGui::Checkbox("Vsync", &vsync))
@@ -251,7 +221,6 @@ update_status ModuleEditor::DrawEditor()
             std::string msText = "Average Miliseconds: " + ms;
             ImGui::Text(msText.c_str());
             ImGui::PlotHistogram("Ms.", &mMsLog[0], mMsLog.size(), 0, "Miliseconds", 0.0f, 100.0f, ImVec2(450, 100));
-
 
             WindowCollapsingHeader();
 
@@ -272,12 +241,8 @@ update_status ModuleEditor::DrawEditor()
                 struct funcs { static bool IsLegacyNativeDupe(ImGuiKey key) { return key < 512 && ImGui::GetIO().KeyMap[key] != -1; } }; 
                 ImGui::Text("Keys down:");         for (ImGuiKey key = start_key; key < ImGuiKey_NamedKey_END; key = (ImGuiKey)(key + 1)) { if (funcs::IsLegacyNativeDupe(key) || !ImGui::IsKeyDown(key)) continue; ImGui::SameLine(); ImGui::Text((key < ImGuiKey_NamedKey_BEGIN) ? "\"%s\"" : "\"%s\" %d", ImGui::GetKeyName(key), key); }
 
-                
             }
-
             HardwareCollapsingHeader();
-
-            
 
             if (ImGui::Button("Close", ImVec2(60, 0)))
             {
@@ -292,7 +257,6 @@ update_status ModuleEditor::DrawEditor()
             {
                 showAboutWindow = true; 
             }
-
             ImGui::EndMenu();
         }
 
@@ -300,7 +264,6 @@ update_status ModuleEditor::DrawEditor()
             LOG("PLAYING SCENE");
             App->viewport->Play();
           
-
             ImGui::SetWindowFocus("Game");
 
         }
@@ -309,7 +272,6 @@ update_status ModuleEditor::DrawEditor()
             App->viewport->Stop();
 
             ImGui::SetWindowFocus("Scene");
-
         }
         if (ImGui::SmallButton("PAUSE")) {
             LOG("PAUSE SCENE");
@@ -317,9 +279,7 @@ update_status ModuleEditor::DrawEditor()
         }
 
         ImGui::Text("Time: %u", App->viewport->GameTimer.Read()); //%g precision... TimeManager::gameTimer.ReadSec()
-           
 
-        //CreateAboutModalPopup(showModalAbout);
         CreateAboutWindow(showAboutWindow);
 
         CreateConsoleWindow(isActiveConsole);
@@ -328,7 +288,6 @@ update_status ModuleEditor::DrawEditor()
 
         ImGui::EndMainMenuBar();
     }
-
 
     if (isActiveViewport) {
 
@@ -346,7 +305,6 @@ update_status ModuleEditor::DrawEditor()
       }
     }
 
-
     if (isActiveAssets) {
 
         if (ImGui::Begin("Assets")) {
@@ -354,7 +312,6 @@ update_status ModuleEditor::DrawEditor()
             App->hierarchy->GameObjectTree(App->scene->root_Assets, 0);
         }
         ImGui::End();
-         
     }
 
     if (App->hierarchy->objSelected && isActiveInspector) {
@@ -366,14 +323,10 @@ update_status ModuleEditor::DrawEditor()
         ImGui::End();
     }
 
-  
-
     if (isActiveHierarchy) {
         if (ImGui::Begin("GameObjects Hierarchy")) {
 
             App->hierarchy->GameObjectTree(App->scene->root, 0);
-
-
         }
         ImGui::End();
     }
@@ -382,8 +335,6 @@ update_status ModuleEditor::DrawEditor()
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     return ret;
-
-    
 }
 
 void ModuleEditor::ViewCollapsingHeader() {
@@ -410,7 +361,6 @@ void ModuleEditor::ViewCollapsingHeader() {
         {
             isActiveAssets != isActiveAssets;
         }
-
         ImGui::EndMenu();
     }
 }
@@ -429,7 +379,6 @@ void ModuleEditor::HardwareCollapsingHeader()
         ImGui::Text(" (Cache: %u", cpuCacheSize);
         ImGui::SameLine();
         ImGui::Text("kb)\n");
-
 
         ImGui::Text("System RAM: ");
         ImGui::SameLine();
@@ -457,7 +406,6 @@ void ModuleEditor::HardwareCollapsingHeader()
         if (SSE3) { ImGui::SameLine(); ImGui::TextColored(IMGUICOL_SKY_BLUE, "SSE3,"); }
         if (SSE41) { ImGui::SameLine(); ImGui::TextColored(IMGUICOL_SKY_BLUE, "SSE41,"); }
         if (SSE42) { ImGui::SameLine(); ImGui::TextColored(IMGUICOL_SKY_BLUE, "SSE42"); }
-
     }
 }
 
@@ -497,7 +445,6 @@ void ModuleEditor::WindowCollapsingHeader()
                 App->window->SetFulldesktop(fulldesktop);
             }
 
-   
             ImGui::TableNextColumn();
             ImGui::SliderInt("Window Height", &App->window->height, 256, 2048);
 
@@ -509,7 +456,6 @@ void ModuleEditor::WindowCollapsingHeader()
             if (ImGui::SliderFloat("Brightness", &brightness, 0.100f, 1.000f))
             {
                 SDL_SetWindowBrightness(App->window->window, brightness);
-                
             }
             ImGui::EndTable();
         }
@@ -594,7 +540,6 @@ void ModuleEditor::RenderCollapsingHeader()
 
             ImGui::Spacing();
 
-   
             ImGui::EndTable();
         }
     }
@@ -691,9 +636,6 @@ void ModuleEditor::CreateAboutWindow(bool& showAboutWindow)
     }
 
     ImGui::End();
-
-
-
 }
 
 
@@ -731,16 +673,13 @@ void ModuleEditor::CreateConsoleWindow(bool& showConsoleWindow)
     {
         ImGui::Text(str.c_str());
     }    
-
     ImGui::End();
-
 }
 
 
 
 void ModuleEditor::URLButton(const char* url)
 {
-    
 #ifdef _WIN32
     ShellExecuteA(NULL, "open", url, NULL, NULL, SW_SHOWNORMAL);
 #elif defined(__APPLE__)
@@ -759,16 +698,13 @@ void ModuleEditor::UpdatePlots()
 {
     AddMs(1000.0 * App->GetDt());
     AddFPS(App->GetFrameRate());
-    
 }
 
 
 void ModuleEditor::AddFPS(const float aFPS)
 {
-
     if (mFPSLog.size() == mFPSLog.capacity())
     {
-
         for (unsigned int i = 0; i < mFPSLog.size(); i++)
         {
             if (i + 1 < mFPSLog.size())
@@ -778,7 +714,6 @@ void ModuleEditor::AddFPS(const float aFPS)
             }
         }
         mFPSLog[mFPSLog.capacity() - 1] = aFPS;
-        
     }
     else
     {
@@ -788,10 +723,8 @@ void ModuleEditor::AddFPS(const float aFPS)
 
 void ModuleEditor::AddMs(const float aFPS)
 {
-
     if (mMsLog.size() == mMsLog.capacity())
     {
-
         for (unsigned int i = 0; i < mMsLog.size(); i++)
         {
             if (i + 1 < mMsLog.size())
@@ -801,14 +734,12 @@ void ModuleEditor::AddMs(const float aFPS)
             }
         }
         mMsLog[mMsLog.capacity() - 1] = aFPS;
-
     }
     else
     {
         mMsLog.push_back(aFPS);
     }
 }
-
 
 std::string ModuleEditor::ReadFileIO(const char* filePath)
 {
@@ -826,7 +757,6 @@ std::string ModuleEditor::ReadFileIO(const char* filePath)
     else {
         return std::string();
     }
-
     return contenido;
 }
 
@@ -835,29 +765,22 @@ float ModuleEditor::AverageValueFloatVector(const std::vector<float>& fps)
     if (fps.empty()) {
         return std::numeric_limits<float>::quiet_NaN();
     }
-
     float total = 0.0f;
     for (float value : fps) {
         total += value;
     }
-
     float average = total / fps.size();
     return std::round(average * 10) / 10.0f;
 }
-
-
 
 void ModuleEditor::LOGToConsole(const char* text) {
 
     if (logs == nullptr) return;
 
-    
     std::time_t tiempoActual = std::time(nullptr);
 
-    
     struct std::tm* tiempoDescompuesto = std::localtime(&tiempoActual);
 
-    
     int horas = tiempoDescompuesto->tm_hour;
     int minutos = tiempoDescompuesto->tm_min;
     int segundos = tiempoDescompuesto->tm_sec;
@@ -869,7 +792,6 @@ void ModuleEditor::LOGToConsole(const char* text) {
     aux += text;
 
     logs->push_front(aux);
-
 }
 
 

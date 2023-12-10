@@ -6,8 +6,6 @@ enum class ComponentType
 	TRANSFORM,
 	MESH,
 	MATERIAL
-	
-
 };
 
 class GameObject;
@@ -28,6 +26,4 @@ public:
 	bool isActive;
 
 	GameObject*	mOwner;
-
-	
  };

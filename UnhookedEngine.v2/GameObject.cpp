@@ -24,7 +24,6 @@ GameObject::~GameObject()
 		mParent->DeleteChild(this);
 	}
 
-
 	for (size_t i = 0; i < mComponents.size(); ++i)
 	{
 		delete mComponents[i];
@@ -36,9 +35,7 @@ GameObject::~GameObject()
 		delete mChildren[i];
 		mChildren[i] = nullptr;
 	}
-
 	mComponents.clear();
-
 }
 
 GameObject::GameObject(GameObject* parent)
@@ -54,7 +51,6 @@ GameObject::GameObject(GameObject* parent)
 	}
 
 	transform = new ComponentTransform(this);
-
 	mComponents.push_back(transform);
 }
 
@@ -63,7 +59,6 @@ void GameObject::AddComponent(Component* component)
 	mComponents.push_back(component);
 	component->mOwner = this;
 }
-
 
 void GameObject::Update()
 {
@@ -105,10 +100,8 @@ ComponentMaterial* GameObject::GetComponentTexture()
 			return (ComponentMaterial*)mComponents[i];
 		}
 	}
-
 	return nullptr;
 }
-
 
 bool GameObject::CheckChildOf(GameObject* parent)
 {
@@ -162,29 +155,22 @@ bool GameObject::SetAsChildOf(GameObject* gameObject)
 	return true;
 }
 
-
 void GameObject::PrintInspector()
 {
-
-
 	char* listComponenets[]{ "Add Component", "Mesh Component", "Texture Component" };
 	char aux[255] = { ' ' }; 
-
 
 	if (mParent != nullptr)
 	{
 		strcpy(aux, this->name.c_str());
 
-
 		ImGui::BulletText("Name:");
 		ImGui::SameLine();
 
-		
 		ImGui::InputText("##Name", aux, 255, ImGuiInputTextFlags_EnterReturnsTrue);
 
 		if (ImGui::IsKeyDown(ImGuiKey_Enter))
 			name = aux;
-
 
 		if (ImGui::Button("Delete")) {
 			
@@ -207,11 +193,7 @@ void GameObject::PrintInspector()
 
 		ImGui::Text("");
 		ImGui::SameLine(ImGui::GetWindowWidth() / 6);
-
-
 	}
-
-
 }
 
 void GameObject::UpdateRecu()
@@ -221,5 +203,4 @@ void GameObject::UpdateRecu()
 	for (int i = 0; i < mChildren.size(); i++) {
 		mChildren[i]->UpdateRecu();
 	}
-
 }

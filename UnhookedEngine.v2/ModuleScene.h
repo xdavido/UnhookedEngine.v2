@@ -4,11 +4,9 @@
 #include "ModuleAssimpMeshes.h"
 #include "ModuleRenderer3D.h"
 #include "ImGui/imgui.h"
-
 #include<string>
 
 using namespace std;
-
 
 class GameObject;
 
@@ -36,9 +34,7 @@ public:
 
 	ImVec2 WindowSize;
 
-
 	void OnSave();
-
 
 	GameObject* root = nullptr;
 	GameObject* root_Assets = nullptr;
@@ -51,9 +47,7 @@ public:
 	GameObject* prova5;
 	GameObject* prova6;
 
-
 private:
 
 	GameObject* objdebug;
-
 };

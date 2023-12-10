@@ -10,12 +10,9 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
-
 ModuleTexture::ModuleTexture(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-
 }
-
 
 bool ModuleTexture::Start()
 {
@@ -29,11 +26,8 @@ bool ModuleTexture::Start()
 			checkerImage[i][j][3] = (GLubyte)255;
 		}
 	}
-
-
 	glEnable(GL_TEXTURE_2D);
 
-	
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glGenTextures(1, &checkersID);
 	glBindTexture(GL_TEXTURE_2D, checkersID);
@@ -45,7 +39,6 @@ bool ModuleTexture::Start()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-	
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
 		0, GL_RGBA, GL_UNSIGNED_BYTE, checkerImage);
 
@@ -58,20 +51,16 @@ bool ModuleTexture::Start()
 	 
 	ilClearColour(255, 255, 255, 000);
 
-
-
 	return true;
 }
 
 bool ModuleTexture::CreateTexture(GLuint* imgData, GLuint width, GLuint height)
 {
-	
 	return true;
 }
 
 uint ModuleTexture::LoadTexture(const char* path)
 {
-	
 	uint devilImageId;
 	ilGenImages(1, &devilImageId);
 	ilBindImage(devilImageId);
@@ -80,8 +69,6 @@ uint ModuleTexture::LoadTexture(const char* path)
 
 	success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 
-
-	
 	BYTE* data = ilGetData();
 	ILuint imgWidth, imgHeight;
 	imgWidth = ilGetInteger(IL_IMAGE_WIDTH);
@@ -91,19 +78,15 @@ uint ModuleTexture::LoadTexture(const char* path)
 	int const type = ilGetInteger(IL_IMAGE_TYPE);
 	int const format = ilGetInteger(IL_IMAGE_FORMAT);
 
-	
 	uint imageId = ilutGLBindTexImage();
 	glBindTexture(GL_TEXTURE_2D, imageId);
 
-	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
-	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-	
 	glTexImage2D(GL_TEXTURE_2D, 0, format, imgWidth, imgHeight, 0, format, type, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -119,8 +102,6 @@ uint ModuleTexture::LoadTexture(const char* path)
 		}
 	}
 
-
-
 	ilDeleteImages(1, &devilImageId);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -130,7 +111,6 @@ uint ModuleTexture::LoadTexture(const char* path)
 
 bool ModuleTexture::CleanTexture()
 {
-	
 	if (textureID != 0)
 	{
 		glDeleteTextures(1, &textureID);
@@ -149,7 +129,6 @@ bool ModuleTexture::CleanTexture(GLuint id)
 		glDeleteTextures(1, &textureID);
 		textureID = 0;
 	}
-
 	return false;
 }
 
@@ -160,7 +139,6 @@ void ModuleTexture::DestroyTexture(uint textureID)
 
 void ModuleTexture::NewTexture( uint imgId)
 {
-
 	if (App->hierarchy->objSelected != nullptr) {
 		
 		ComponentMaterial* mat = App->hierarchy->objSelected->GetComponentTexture();
@@ -171,7 +149,5 @@ void ModuleTexture::NewTexture( uint imgId)
 		{
 			mat->textureID = imgId;
 		}
-
-
 	}
 }

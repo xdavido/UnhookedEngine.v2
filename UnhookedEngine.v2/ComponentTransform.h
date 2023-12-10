@@ -12,16 +12,11 @@ public:
 	ComponentTransform(GameObject* owner);
 	~ComponentTransform();
 
-
-
 	float4x4 getGlobalMatrix();
 	float4x4 getLocalMatrix();
-	// GetTransformMatrix();
-
 	
 	void resetMatrix();
 
-	
 	float3 getPosition(bool globalPosition = false);
 	void setPosition(float3 pos);
 	float3 getRotation();
@@ -33,14 +28,10 @@ public:
 	void ApplyTransformToGameObject();
 	void UpdateMatrixFromInspector();
 
-
 	float4x4 matrix;
 	float3 position;
 	float3 rotation;
 	float3 scale;
 
 private:
-
-
-	
 };

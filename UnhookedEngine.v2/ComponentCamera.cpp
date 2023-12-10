@@ -5,7 +5,6 @@
 #include "ModuleRenderer3D.h"
 
 
-
 ComponentCamera::ComponentCamera() : Component(nullptr)
 {
 	type = ComponentType::CAMERA;
@@ -105,14 +104,11 @@ bool ComponentCamera::FrustumCulling(Mesh* mesh)
 				p++;
 		}
 
-
 		if (p == 8) {
 
 			return false;
 		}
 	}
-
-
 	return true;
 }
 float* ComponentCamera::GetViewMatrix()
@@ -176,7 +172,6 @@ void ComponentCamera::PrintInspector()
 			FrustumCam.verticalFov = FOV * DEGTORAD;
 			FrustumCam.horizontalFov = 2.0f * atanf(tanf(FrustumCam.verticalFov / 2.0f) * 1.7f);
 		}
-
 
 		ImGui::SliderFloat("Near Distance", &FrustumCam.nearPlaneDistance, 0.1f, FrustumCam.farPlaneDistance);
 		if (ImGui::Button("Reset Near Distance")) {

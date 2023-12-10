@@ -46,5 +46,4 @@ private:
 
 	mat4x4 ViewMatrix;
 	bool click = false;
-
 };

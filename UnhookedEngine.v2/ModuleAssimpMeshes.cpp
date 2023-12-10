@@ -31,12 +31,8 @@ bool ModuleAssimpMeshes::Start()
 
     MeshDebug = true;
 
-    
-                
     return ret;
 }
-
-
 
 GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
 {
@@ -53,9 +49,7 @@ GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
             OBJ->SetAsChildOf(obj);
             obj->name = "Mesh_" + std::to_string(i);
             ImportAssimpMesh(scene->mMeshes[i],OBJ, obj, scene,i);
-           
         }
-
         aiReleaseImport(scene);
 
         return OBJ;
@@ -64,17 +58,14 @@ GameObject* ModuleAssimpMeshes::LoadMeshFromFile(const char* file_path)
     {
         LOG("Error loading scene: %s", file_path);
     }
-    
 }
 
 void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObject, GameObject* CgameObject, const aiScene* scene, int index)
 {
     Mesh* ourMesh = new Mesh();
 
-
     std::string assimpMeshName = "Importing Assimp Mesh: " + std::string(aiMesh->mName.C_Str());
     LOG(assimpMeshName.c_str());
-
 
     ourMesh->vertexCount = aiMesh->mNumVertices;
     ourMesh->vertex = new float[ourMesh->vertexCount * VERTEX];
@@ -87,14 +78,12 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
         ourMesh->vertex[v * VERTEX + 1] = aiMesh->mVertices[v].y;
         ourMesh->vertex[v * VERTEX + 2] = aiMesh->mVertices[v].z;
 
-
         if (aiMesh->mTextureCoords[0] == nullptr) continue;
         ourMesh->vertex[v * VERTEX + 3] = aiMesh->mTextureCoords[0][v].x;
         ourMesh->vertex[v * VERTEX + 4] = aiMesh->mTextureCoords[0][v].y;
     }
 
     LOG("New mesh with %d vertices", ourMesh->vertexCount);
-
 
     if (aiMesh->HasFaces())     
     {
@@ -117,11 +106,8 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
         ourMesh->VBO = 0;
         ourMesh->EBO = 0;
         
-
-
         BufferMesh(ourMesh);
 
-        
         meshes.push_back(ourMesh);
 
         ComponentMesh* meshComp = new ComponentMesh(CgameObject);
@@ -130,9 +116,6 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
         CgameObject->AddComponent(meshComp);
 
         ourMesh->id_texture = App->textures->checkersID;
-
-        /*meshComp->type = ComponentType::MESH;*/
-
         
         if (scene->HasMaterials()) {
             if (scene->mMaterials[scene->mMeshes[index]->mMaterialIndex]->GetTextureCount(aiTextureType_DIFFUSE) > 0) {
@@ -142,7 +125,6 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
                 aiString new_path;
                 new_path.Set("Assets/Textures/");
                 new_path.Append(texture_path.C_Str());
-               
                
                 ComponentMaterial* matComp = new ComponentMaterial(CgameObject);
                 matComp->mOwner = CgameObject;
@@ -159,15 +141,10 @@ void ModuleAssimpMeshes::ImportAssimpMesh(aiMesh* aiMesh, GameObject* PgameObjec
 
         ourMesh->texture_height = App->textures->textureWidth;
         ourMesh->texture_width = App->textures->textureWidth;
-
-    
-
-
     }
     else
     {
         delete ourMesh;
-
     }
 }
 
@@ -240,8 +217,6 @@ void Mesh::RenderVertexNormals()
         glVertex3f(vertex[i] + vertexNormals[i].x * normalLenght, vertex[i + 1] + vertexNormals[i].y * normalLenght, vertex[i + 2] + vertexNormals[i].z * normalLenght);
     }
     glEnd();
-    
-
 }
 
 void Mesh::RenderFaceNormals()
@@ -286,7 +261,6 @@ void Mesh::RenderFaceNormals()
         double yFinal = yMidPoint + normaly * lineLength;
         double zFinal = zMidPoint + normalz * lineLength;
 
-
         // Dibujar la normal como una línea roja desde el punto medio de la cara
         glLineWidth(0.8f);
         glBegin(GL_LINES);
@@ -295,85 +269,22 @@ void Mesh::RenderFaceNormals()
         glEnd();
         glLineWidth(1.0f);
     }
-    
-
-    ////---num_vertex
-    //for (size_t i = 0; i < num_vertex; i += 9)
-    //{
-
-    //    // Calcular el punto medio de la cara del triángulo
-    //    double xMedio = (vertex[i] + vertex[i + 3] + vertex[i + 6]) / 3.0;
-    //    double yMedio = (vertex[i + 1] + vertex[i + 4] + vertex[i + 7]) / 3.0;
-    //    double zMedio = (vertex[i + 2] + vertex[i + 5] + vertex[i + 8]) / 3.0;
-
-    //    // Calcular la normal de la cara del triángulo usando el producto cruz
-    //    double edge1x = vertex[i + 3] - vertex[i];
-    //    double edge1y = vertex[i + 4] - vertex[i + 1];
-    //    double edge1z = vertex[i + 5] - vertex[i + 2];
-
-    //    double edge2x = vertex[i + 6] - vertex[i];
-    //    double edge2y = vertex[i + 7] - vertex[i + 1];
-    //    double edge2z = vertex[i + 8] - vertex[i + 2];
-
-    //    double normalx = edge1y * edge2z - edge1z * edge2y;
-    //    double normaly = edge1z * edge2x - edge1x * edge2z;
-    //    double normalz = edge1x * edge2y - edge1y * edge2x;
-
-    //    // Normaliza la normal
-    //    double length = sqrt(normalx * normalx + normaly * normaly + normalz * normalz);
-    //    normalx /= length;
-    //    normaly /= length;
-    //    normalz /= length;
-
-    //    // Define la longitud de la línea en la dirección de la normal
-    //    double lineaLongitud = 3.0;
-
-    //    // Calcula el punto final de la línea
-    //    double xFinal = xMedio + normalx * lineaLongitud;
-    //    double yFinal = yMedio + normaly * lineaLongitud;
-    //    double zFinal = zMedio + normalz * lineaLongitud;
-
-    //    // Establecer el color a rojo
-    //    glColor3f(1.0f, 0.0f, 0.0f);
-
-    //    // Dibujar la normal como una línea roja desde el punto medio de la cara
-    //    glLineWidth(2.0f);
-    //    glBegin(GL_LINES);
-    //    glVertex3d(xMedio, yMedio, zMedio);
-    //    glVertex3d(xFinal, yFinal, zFinal);
-    //    glEnd();
-    //    glLineWidth(1.0f);
-
-
-    //    glEnd();
-    //}
-    
 }
-
-
 
 void ModuleAssimpMeshes::BufferMesh(Mesh* mesh)
 {
     //Fill buffers with vertex
-    // glEnableClientState(GL_VERTEX_ARRAY);
-
 
     glGenBuffers(1, (GLuint*)&(mesh->VBO));
     glGenBuffers(1, (GLuint*)&(mesh->EBO));
-
 
     glBindBuffer(GL_ARRAY_BUFFER, mesh->VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * mesh->vertexCount * VERTEX, mesh->vertex, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
-
-
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->indexCount, mesh->index, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-    //glDisableClientState(GL_VERTEX_ARRAY);
-
 }
 
 void ModuleAssimpMeshes::RenderScene()
@@ -413,8 +324,6 @@ void ModuleAssimpMeshes::RenderGameWindow()
 
 void ModuleAssimpMeshes::DeleteMesh(Mesh* mesh) {
     
-    
-
     auto it = std::find(meshes.begin(), meshes.end(), mesh);
 
     if (it != meshes.end()) {
@@ -430,8 +339,6 @@ void ModuleAssimpMeshes::DeleteMesh(Mesh* mesh) {
 
 bool ModuleAssimpMeshes::CleanUp()
 {
-
-   
     aiDetachAllLogStreams();
     return true;
 }

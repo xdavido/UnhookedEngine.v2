@@ -9,18 +9,8 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleInput.h"
 
-
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	/*X = float3(1.0f, 0.0f, 0.0f);
-	Y = float3(0.0f, 1.0f, 0.0f);
-	Z = float3(0.0f, 0.0f, 1.0f);
-
-	Position = float3(0.0f, 10.0f, 5.0f);
-	Reference = float3(0.0f, 0.0f, 0.0f);
-	ViewMatrix = IdentityMatrix;*/
-
-	//CalculateViewMatrix();
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -32,13 +22,10 @@ bool ModuleCamera3D::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 
-
-
 	ComponentCamera* cam = new ComponentCamera(SceneCamera);
 	sceneCam = cam;
 	sceneCam->FrustumCam.pos = float3(0, 2, -10);
 	
-
 	return ret;
 }
 
@@ -57,7 +44,6 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	//float3 newPos(0, 0, 0);
 	float speed = 3.0f * dt;
 	int wheel = -App->input->GetMouseZ();
 
@@ -101,18 +87,6 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (wheel != 0) sceneCam->FrustumCam.pos += sceneCam->FrustumCam.front * 10 * -wheel;
 
-	//newPos -= App->input->GetMouseZ() * Z;
-
-	//Position += newPos;
-	//Reference += newPos;
-
-	//OrbitSelectedObject(dt);
-
-	//LookAt(Reference);
-
-	//// Recalculate matrix -------------
-	//CalculateViewMatrix();
-
 	return UPDATE_CONTINUE;
 }
 
@@ -131,10 +105,8 @@ void ModuleCamera3D::Look(const float3& Position, const float3& Reference, bool 
 		this->Reference = this->Position;
 		this->Position += Z * 0.05f;
 	}
-
 	CalculateViewMatrix();
 }
-
 
 // -----------------------------------------------------------------
 void ModuleCamera3D::Move(const float3& Movement)
@@ -152,17 +124,7 @@ float* ModuleCamera3D::GetViewMatrix()
 }
 
 void ModuleCamera3D::FocusCameraToSelectedObject()
-{
-
-	//float3 focusObjectPosition;
-	////Get the GameObject selected in hierarchy
-	//if (App->hierarchy->objSelected != nullptr)
-	//{
-	//	focusObjectPosition = App->hierarchy->objSelected->transform->getPosition();
-	//	LookAt(focusObjectPosition);//esta en ComponentCamera
-	//}
-
-}
+{}
 
 void ModuleCamera3D::OrbitSelectedObject(float dt)
 {
@@ -181,7 +143,6 @@ void ModuleCamera3D::OrbitSelectedObject(float dt)
 
 		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 		{
-
 			if (gameObject != nullptr)
 			{
 				pivot = float3(posGO.x, posGO.y, posGO.z);
@@ -218,14 +179,11 @@ void ModuleCamera3D::OrbitSelectedObject(float dt)
 			{
 				Z = float3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
 				Y = Cross(Z, X);
-
 			}
 		}
 		Position = pivot + Z * Length(Position);
 		Reference = pivot;
-
 	}
-
 }
 
 void ModuleCamera3D::RotationAroundCamera()
@@ -273,7 +231,4 @@ void ModuleCamera3D::CalculateViewMatrix()
 {
 	//todo: USE MATHGEOLIB here BEFORE 1st delivery! (TIP: Use MathGeoLib/Geometry/Frustum.h, view and projection matrices are managed internally.)
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -(X.Dot(Position)), -(Y.Dot(Position)), -(Z.Dot(Position)), 1.0f);
-
-	//something like this
-	// frustum.SetFromViewProj(ViewMatrix, App->renderer3D->GetProjectionMatrix());
 }

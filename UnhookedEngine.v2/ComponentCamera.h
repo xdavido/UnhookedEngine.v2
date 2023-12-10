@@ -33,8 +33,6 @@ public:
 
 	void PrintInspector();
 
-	//bool ContainsAaBox(Mesh* refBox); <- sirve para frustrum
-
 	Frustum FrustumCam;
 	float4x4 viewMatrix;
 	float4x4 projectionMatrix;

@@ -40,7 +40,6 @@ public:
 	uint	maxFrameRate;
 	float	msLastFrame;
 
-
 public:
 
 	Application();
