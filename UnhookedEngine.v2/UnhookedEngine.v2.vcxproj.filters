@@ -64,6 +64,9 @@
     <Filter Include="Sources\ImGuizmo">
       <UniqueIdentifier>{0db19da6-3b1e-4435-9046-19db9b0cfd56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\ParticleSystem">
+      <UniqueIdentifier>{989f5ee4-5b90-4096-94c8-2201854c781d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -375,6 +378,18 @@
     <ClInclude Include="ImGuismo\ImZoomSlider.h">
       <Filter>Sources\ImGuizmo</Filter>
     </ClInclude>
+    <ClInclude Include="PartycleSystem.h">
+      <Filter>Sources\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleParticles.h">
+      <Filter>Sources\Modules\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Sources\GameObject\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Emitter.h">
+      <Filter>Sources\GameObject\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="log.cpp">
@@ -592,6 +607,18 @@
     </ClCompile>
     <ClCompile Include="ImGuismo\ImSequencer.cpp">
       <Filter>Sources\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Sources\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleParticles.cpp">
+      <Filter>Sources\Modules\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Sources\GameObject\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Emitter.cpp">
+      <Filter>Sources\GameObject\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

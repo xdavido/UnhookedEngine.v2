@@ -12,6 +12,8 @@ Application::Application()
 	textures = new ModuleTexture(this);
 	scene = new ModuleScene(this);
 	hierarchy = new ModuleHierarchy(this);
+	particle = new ModuleParticles(this);
+
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -23,6 +25,7 @@ Application::Application()
 	AddModule(hierarchy);
 	AddModule(assimpMeshes);
 	AddModule(textures);
+	AddModule(particle);
 	AddModule(scene);
 
 	// Renderer last!
