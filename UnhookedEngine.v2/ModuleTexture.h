@@ -7,7 +7,7 @@
 #pragma comment(lib,"DevIL/libx86/DevIL.lib")
 #pragma comment(lib,"DevIL/libx86/ILU.lib")
 #pragma comment(lib,"DevIL/libx86/ILUT.lib")
-#include <string>
+using namespace std;
 
 #define CHECKERS_HEIGHT 64
 #define CHECKERS_WIDTH 64
@@ -34,7 +34,9 @@ public:
 	bool CleanTexture(GLuint id);
 	void DestroyTexture(uint textureID);
 	void NewTexture(uint imgID);
-	
+	GLuint GenParticleTexture(GLuint* imgData, GLuint width, GLuint height);
+	GLuint LoadParticleTexture(string path);
+
 
 public:
 	GLuint checkersID=0	;

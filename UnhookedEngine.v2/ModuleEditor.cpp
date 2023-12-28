@@ -250,7 +250,11 @@ update_status ModuleEditor::DrawEditor()
             {
                 PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::P_SUZANNE);
             }
-
+            if (ImGui::MenuItem(" PATRICLE EMMITER  "))
+            
+            {
+              
+            }
 
             ImGui::EndMenu();
         }

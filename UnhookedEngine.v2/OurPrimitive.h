@@ -14,6 +14,7 @@ enum class GeometryType {
 	P_CONE,
 	P_TORUS,
 	CAMERA,
+	EMITTER,
 	NONE
 };
 

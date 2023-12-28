@@ -1,25 +1,14 @@
 #pragma once
 #include "Globals.h"
 #include "Component.h"
-#include "imgui.h"
+#include "ImGui/imgui.h"
 #include "MathGeoLib/include/MathGeoLib.h"
+#include "ParticleSystem.h"
 
 class GameObject;
 class Component;
 
-struct Particle {
-
-	float3 pos;
-	Quat rot;
-	float3 scale;
-	float speed;
-	float lifetime;
-
-	float elapsedtime;
-};
-
 class CEmitter : public Component
-
 {
 public:
 
@@ -27,8 +16,20 @@ public:
 	CEmitter(GameObject* owner);
 	~CEmitter();
 
-	bool Update();
+	void Update();
+
+	void RenderParticles();
 
 	void Inspector();
 
+	void RefreshParticleText();
+
+	bool isActive;
+
+	bool PrintText = true;
+
+	uint textureID = 0;
+
+	ParticleProps particleProps;
+	ParticleSystem particleSystem;
 };

@@ -26,6 +26,7 @@ public:
 	void SaveSceneRequest() { saveSceneRequest = true; }
 	void LoadSceneRequest() { loadSceneRequest = true; }
 	 
+	bool sceneSelected = false;
 
 private:
 	void UpdateGameObjects();

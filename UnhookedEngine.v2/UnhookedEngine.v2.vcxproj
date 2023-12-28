@@ -181,9 +181,9 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="OurPrimitive.h" />
     <ClInclude Include="parson.h" />
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="PartycleSystem.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="SceneWindow.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="ComponentTransform.h" />
@@ -259,9 +259,9 @@
     <ClCompile Include="OurPrimitive.cpp" />
     <ClCompile Include="parson.c" />
     <ClCompile Include="ModuleParticles.cpp" />
-    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="Random.cpp" />
     <ClCompile Include="SceneWindow.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />

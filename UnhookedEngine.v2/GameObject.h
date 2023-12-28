@@ -1,5 +1,8 @@
 #pragma once
 #include "Module.h"
+#include "ImGui/imgui.h"
+#include "MathGeoLib/include/MathGeoLib.h"
+
 #include <vector>
 #include <string>
 
@@ -11,6 +14,8 @@ class ComponentTransform;
 class ComponentMesh;
 class ComponentMaterial;
 class ComponentCamera;
+class CEmitter;
+
 class GameObject
 {
 public:
@@ -38,6 +43,9 @@ public:
 
 	ComponentCamera* GetComponentCamera();
 
+	CEmitter* GetComponentEmitter();
+
+
 
 	void SetPendingToDelete(bool deleteGO) { isTimetoDelete = deleteGO; };
 
@@ -51,5 +59,9 @@ public:
 
 	ComponentTransform* transform;
 	GeometryType Stype;
+
+	bool explosion = false;
+	int LifeTime;
+	float3 speed;
 
 };

@@ -87,8 +87,8 @@ public:
 
 	LineSegment linesegment;
 	
-	
+	ComponentCamera* mainGameCamera;
+
 private:
 
-	ComponentCamera* mainGameCamera;
 };

@@ -1,4 +1,18 @@
 #include "Application.h"
+#include<string>
+#include "Globals.h"
+#include "Random.h"
+
+extern Application* App = nullptr;
+
+Application* Application::GetApp()
+{
+	if (App == nullptr)
+	{
+		App = new Application();
+	}
+	return App;
+}
 
 Application::Application()
 {

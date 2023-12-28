@@ -32,6 +32,25 @@ bool ModuleScene::Start() {
    street->transform->rotation.x = -90;
    street->transform->calculateMatrix();
 
+   //Smoke Particles
+   GameObject* b = new GameObject(App->scene->root);
+   b->name = "Someke 1";
+   b->transform->position = float3(33.7f, 7.5f, -30.5f);
+   b->transform->calculateMatrix();
+   CEmitter* emitter = new CEmitter(b);
+   emitter->textureID = App->textures->LoadParticleTexture("Assets/smokeTexture.png");
+   emitter->RefreshParticleText();
+   b->mComponents.push_back(emitter);
+
+   GameObject* c = new GameObject(App->scene->root);
+   c->name = "Smoke 2";
+   c->transform->position = float3(-40.6f, 10.5f, 24.7f);
+   c->transform->calculateMatrix();
+   CEmitter* emitter2 = new CEmitter(c);
+   emitter2->textureID = App->textures->LoadParticleTexture("Assets/smokeTexture.png");
+   emitter2->RefreshParticleText();
+   c->mComponents.push_back(emitter2);
+
 
     return true;
 }
@@ -367,3 +386,4 @@ float4x4 ModuleScene::strMatrixToF4x4(const char* convert)
 
     return matrix;
 }
+

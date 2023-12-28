@@ -1,8 +1,8 @@
 #include "Application.h"
 #include "ParticleSystem.h"
 #include "Random.h"
-#include "Camera.h"
-#include "Transform.h"
+#include "ComponentCamera.h"
+#include "ComponentTransform.h"
 #include "ModuleScene.h"
 
 ParticleSystem::ParticleSystem() {
@@ -80,7 +80,7 @@ void ParticleSystem::ParticleBuffer()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glGenBuffers(1, (GLuint*)&(id_vertices));
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 4 * VERTICES, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 4 * VERTEX, vertices, GL_STATIC_DRAW);
 
 	//Fill buffers with indices
 	glGenBuffers(1, (GLuint*)&(id_indices));
@@ -99,8 +99,8 @@ void ParticleSystem::Render() {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 
-	glVertexPointer(3, GL_FLOAT, sizeof(float) * VERTICES, NULL);
-	glTexCoordPointer(2, GL_FLOAT, sizeof(float) * VERTICES, (void*)(sizeof(float) * 3));
+	glVertexPointer(3, GL_FLOAT, sizeof(float) * VERTEX, NULL);
+	glTexCoordPointer(2, GL_FLOAT, sizeof(float) * VERTEX, (void*)(sizeof(float) * 3));
 	//bind and use other buffers
 
 
@@ -174,17 +174,17 @@ float4x4 Particle::GetTransformMatrix()
 void ParticleSystem::Billboard(Particle& particle) {
 
 	float3 right, up, look;
-	CCamera* cam;
+	ComponentCamera* cam;
 
 	if (Application::GetApp()->scene->sceneSelected) {
-		cam = Application::GetApp()->camera->sceneCam;
+		cam = Application::GetApp()->camera->camera;
 	}
 	else {
-		cam = Application::GetApp()->renderer3D->mainCam;
+		cam = Application::GetApp()->renderer3D->mainGameCamera;
 	}
 
-	look = float3(cam->FrustumCam.pos - particle.pos).Normalized();
-	up = cam->FrustumCam.up;
+	look = float3(cam->frustum.pos - particle.pos).Normalized();
+	up = cam->frustum.up;
 	right = up.Cross(look);
 
 	float4x4 transform = float4x4::identity;
@@ -213,4 +213,5 @@ void ParticleSystem::Billboard(Particle& particle) {
 
 	particle.transformMat = transform;
 }
+
 

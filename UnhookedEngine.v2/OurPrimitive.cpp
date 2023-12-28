@@ -23,6 +23,18 @@ GameObject* PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryTyp
         gameObject->AddComponent(cc);
         return gameObject;
     }
+
+    if (type == GeometryType::EMITTER)
+    {
+        GameObject* gameObject = new GameObject(App->scene->root);
+        gameObject->name = "Particle Emitter";
+        CEmitter* cc = new CEmitter();
+        cc->RefreshParticleText();
+        gameObject->AddComponent(cc);
+        return gameObject;
+
+    }
+
     else
     {
         const char* aux = " ";

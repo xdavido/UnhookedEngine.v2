@@ -71,6 +71,9 @@ public:
 	Application();
 	~Application();
 
+	static Application* GetApp();
+
+
 	bool Init();
 	update_status Update();
 	bool CleanUp();

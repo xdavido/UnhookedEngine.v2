@@ -135,6 +135,18 @@ ComponentCamera* GameObject::GetComponentCamera()
 	return nullptr;
 }
 
+CEmitter* GameObject::GetComponentEmitter()
+{
+	for (int i = 0; i < mComponents.size(); i++) {
+
+		if (mComponents[i]->type == ComponentType::EMITTER)
+		{
+			return (CEmitter*)mComponents[i];
+		}
+	}
+
+	return nullptr;
+}
 
 bool GameObject::CheckChildOf(GameObject* parent)
 {

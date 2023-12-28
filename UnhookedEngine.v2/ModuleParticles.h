@@ -2,11 +2,13 @@
 #include "Module.h"
 #include "Globals.h"
 #include "ModuleRenderer3D.h"
-#include "PartycleSystem.h"
+#include "ParticleSystem.h"
 #include "Emitter.h"
 #include "GameObject.h"
 
 #include <vector>
+
+using namespace std;
 
 class ModuleParticles : public Module
 {
@@ -15,7 +17,18 @@ public:
 	~ModuleParticles();
 
 	bool Start();
+	update_status PreUpdate(float dt);
+	update_status Update(float dt);
+	update_status PostUpdate(float dt);
+	bool CleanUp();
 
+	void castFirework();
+
+public:
+
+	vector<CEmitter*> emitterVector;
+
+	vector<GameObject*> fireworksList;
 
 private:
 
