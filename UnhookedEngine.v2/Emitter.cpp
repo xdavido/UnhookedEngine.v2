@@ -85,7 +85,7 @@ void CEmitter::RenderParticles()
 	}
 }
 
-void CEmitter::Inspector()
+void CEmitter::PrintInspector()
 {
 
 	if (ImGui::CollapsingHeader("Particle Emitter"))

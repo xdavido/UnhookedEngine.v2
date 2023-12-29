@@ -28,9 +28,9 @@ GameObject* PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryTyp
     {
         GameObject* gameObject = new GameObject(App->scene->root);
         gameObject->name = "Particle Emitter";
-        CEmitter* cc = new CEmitter();
-        cc->RefreshParticleText();
-        gameObject->AddComponent(cc);
+        CEmitter* ee = new CEmitter();
+        ee->RefreshParticleText();
+        gameObject->AddComponent(ee);
         return gameObject;
 
     }

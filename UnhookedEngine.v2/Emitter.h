@@ -20,7 +20,7 @@ public:
 
 	void RenderParticles();
 
-	void Inspector();
+	void PrintInspector();
 
 	void RefreshParticleText();
 
