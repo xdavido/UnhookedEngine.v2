@@ -452,6 +452,9 @@ void ModuleAssimpMeshes::RenderScene()
                 meshes[i]->RenderVertexNormals();*/
         }
     }
+    for (int i = 0; i < App->particle->emitterVector.size(); i++) {
+        App->particle->emitterVector[i]->RenderParticles();
+    }
     ComponentCamera* pilota = App->renderer3D->GetMainCamera();
     if (pilota != nullptr) {
         float3 corners[8];
@@ -472,6 +475,9 @@ void ModuleAssimpMeshes::RenderGameWindow()
 
         meshes[i]->Render();
         renderedGameMeshes++;
+    }
+    for (int i = 0; i < App->particle->emitterVector.size(); i++) {
+        App->particle->emitterVector[i]->RenderParticles();
     }
 }
 
