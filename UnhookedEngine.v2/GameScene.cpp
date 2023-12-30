@@ -11,6 +11,8 @@ void GameWindows::PrintCamera(Application* app)
 	ImGui::Begin("Game", 0, ImGuiWindowFlags_NoFocusOnAppearing | ImGuiWindowFlags_NoNavFocus);
 	sizeWindScn = ImGui::GetContentRegionAvail();
 
+
+
 	//Get proportion, and match with 16:9
 	ImVec2 newWinSize = sizeWindScn;
 	newWinSize.x = (newWinSize.y / 9.0f) * 16.0f;

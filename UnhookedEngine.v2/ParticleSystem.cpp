@@ -76,16 +76,20 @@ void ParticleSystem::ParticleBuffer()
 
 	};
 
-	//Fill buffers with vertices
-	glEnableClientState(GL_VERTEX_ARRAY);
+
 	glGenBuffers(1, (GLuint*)&(id_vertices));
+	glGenBuffers(1, (GLuint*)&(id_indices));
+
+
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 4 * VERTEX, vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	//Fill buffers with indices
-	glGenBuffers(1, (GLuint*)&(id_indices));
+
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * 6, indices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 
@@ -93,25 +97,22 @@ void ParticleSystem::ParticleBuffer()
 
 void ParticleSystem::Render() {
 
-	//Vertices
-	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_TEXTURE_COORD_ARRAY);
+	glEnable(GL_TEXTURE_2D);
 	glEnableClientState(GL_VERTEX_ARRAY);
+	glBindTexture(GL_TEXTURE_2D, textID);
+
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
 
 	glVertexPointer(3, GL_FLOAT, sizeof(float) * VERTEX, NULL);
 	glTexCoordPointer(2, GL_FLOAT, sizeof(float) * VERTEX, (void*)(sizeof(float) * 3));
-	//bind and use other buffers
-
 
 	if (text) {
 
 		glBindTexture(GL_TEXTURE_2D, textID);
 
 	}
-
-	//Indices
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
 
 	for (int i = 0; i < ParticleList.size(); i++)
 	{
@@ -176,12 +177,14 @@ void ParticleSystem::Billboard(Particle& particle) {
 	float3 right, up, look;
 	ComponentCamera* cam;
 
-	if (Application::GetApp()->scene->sceneSelected) {
+	/*if (Application::GetApp()->SceneWindows->isHovered) {
 		cam = Application::GetApp()->camera->camera;
 	}
 	else {
 		cam = Application::GetApp()->renderer3D->mainGameCamera;
-	}
+	}*/
+	cam = Application::GetApp()->camera->camera;
+
 
 	look = float3(cam->frustum.pos - particle.pos).Normalized();
 	up = cam->frustum.up;

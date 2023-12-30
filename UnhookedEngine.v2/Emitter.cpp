@@ -7,28 +7,28 @@
 
 CEmitter::CEmitter() : Component(nullptr)
 {
-	type = ComponentType::EMITTER;
-	mOwner = nullptr;
+	//type = ComponentType::EMITTER;
+	//mOwner = nullptr;
 
-	//Default Particle
-	particleProps.pos = float3::zero;
-	particleProps.rot = float3::zero;
-	particleProps.beginScale = float3::one;
-	particleProps.endScale = float3::zero;
-	particleProps.speed = float3(0.0f, 1.0f, 0.0f);
-	particleProps.speedVariation = float3::one;
-	particleProps.Color = float4(255.0f, 255.0f, 255.0f, 1.0f); //r g b a
-	particleProps.endColor = float4(0.0f, 0.0f, 0.0f, 0.0f); //r g b a
+	////Default Particle
+	//particleProps.pos = float3::zero;
+	//particleProps.rot = float3::zero;
+	//particleProps.beginScale = float3::one;
+	//particleProps.endScale = float3::zero;
+	//particleProps.speed = float3(0.0f, 1.0f, 0.0f);
+	//particleProps.speedVariation = float3::one;
+	//particleProps.Color = float4(255.0f, 255.0f, 255.0f, 1.0f); //r g b a
+	//particleProps.endColor = float4(0.0f, 0.0f, 0.0f, 0.0f); //r g b a
 
-	particleProps.LifeTime = 1.0f;
+	//particleProps.LifeTime = 1.0f;
 
-	textureID = Application::GetApp()->textures->checkersID;
-	particleSystem.textID = Application::GetApp()->textures->checkersID;
-	particleSystem.ParticleBuffer();
+	//textureID = Application::GetApp()->textures->checkersID;
+	//particleSystem.textID = Application::GetApp()->textures->checkersID;
+	//particleSystem.ParticleBuffer();
 
-	isActive = true;
+	//isActive = true;
 
-	Application::GetApp()->particle->emitterVector.push_back(this);
+	//Application::GetApp()->particle->emitterVector.push_back(this);
 
 }
 

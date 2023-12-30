@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "Application.h"
 
 using namespace std;
