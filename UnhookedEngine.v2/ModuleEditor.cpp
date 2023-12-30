@@ -251,9 +251,15 @@ update_status ModuleEditor::DrawEditor()
                 PrimitivesGeomtriesLibrary::InstanciatePrimitiveGeometry(GeometryType::P_SUZANNE);
             }
             if (ImGui::MenuItem(" PATRICLE EMMITER  "))
-            
             {
-              
+                GameObject* b = new GameObject(App->scene->root);
+                b->name = "Someke 1";
+                b->transform->position = float3(0.0f, 5.0f, 0.0f);
+                b->transform->calculateMatrix();
+                CEmitter* emitter = new CEmitter(b);
+                emitter->textureID = App->textures->LoadParticleTexture("Assets/VFX/smokeTexture.png");
+                emitter->RefreshParticleText();
+                b->mComponents.push_back(emitter);
             }
 
             ImGui::EndMenu();
