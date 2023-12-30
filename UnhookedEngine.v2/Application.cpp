@@ -39,12 +39,13 @@ Application::Application()
 	AddModule(hierarchy);
 	AddModule(assimpMeshes);
 	AddModule(textures);
-	AddModule(particle);
 	AddModule(scene);
 
 	// Renderer last!
 	AddModule(renderer3D);
 	AddModule(editor);
+	AddModule(particle);
+
 
 	loadRequested = true;
 	saveRequested = false;
@@ -78,6 +79,8 @@ bool Application::Init()
 	maxFrameRate = 300;
 
 	// Call Init() in all modules
+	Random::Init();
+
 	for (std::vector<Module*>::const_iterator it = list_modules.cbegin(); it != list_modules.cend() && ret; ++it)
 	{
 		(*it)->Init();
