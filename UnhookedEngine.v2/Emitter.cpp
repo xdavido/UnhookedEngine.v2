@@ -118,3 +118,44 @@ void CEmitter::RefreshParticleText()
 {
 	particleSystem.textID = textureID;
 }
+
+void CEmitter::SaveEmitterState(std::ofstream& outputFile)
+{
+	outputFile << "    BeginEmitter\n";
+	outputFile << "      Position " << particleProps.pos.x << " " << particleProps.pos.y << " " << particleProps.pos.z << "\n";
+	outputFile << "      BeginScale " << particleProps.beginScale.x << " " << particleProps.beginScale.y << " " << particleProps.beginScale.z << "\n";
+	outputFile << "      EndScale " << particleProps.endScale.x << " " << particleProps.endScale.y << " " << particleProps.endScale.z << "\n";
+	// Add more properties as needed
+	outputFile << "    EndEmitter\n";
+}
+
+void CEmitter::LoadEmitterState(std::ifstream& inputFile)
+{
+	std::string line;
+	std::string propertyName;
+
+	while (std::getline(inputFile, line))
+	{
+		// Parse each line to identify properties and load their values
+		std::istringstream iss(line);
+		iss >> propertyName;
+
+		if (propertyName == "EndEmitter")
+		{
+			break; // End of emitter data
+		}
+		else if (propertyName == "Position")
+		{
+			iss >> particleProps.pos.x >> particleProps.pos.y >> particleProps.pos.z;
+		}
+		else if (propertyName == "BeginScale")
+		{
+			iss >> particleProps.beginScale.x >> particleProps.beginScale.y >> particleProps.beginScale.z;
+		}
+		else if (propertyName == "EndScale")
+		{
+			iss >> particleProps.endScale.x >> particleProps.endScale.y >> particleProps.endScale.z;
+		}
+		// Add more properties as needed
+	}
+}

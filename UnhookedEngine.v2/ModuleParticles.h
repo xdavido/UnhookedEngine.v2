@@ -23,6 +23,8 @@ public:
 	bool CleanUp();
 
 	void castFirework();
+	bool SaveParticleSystem(const char* filename);
+	bool LoadParticleSystem(const char* filename);
 
 public:
 

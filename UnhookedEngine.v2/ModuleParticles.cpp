@@ -5,6 +5,7 @@
 #include "Emitter.h"
 #include "ParticleSystem.h"
 #include "Random.h"
+#include <fstream>
 
 ModuleParticles::ModuleParticles(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -145,4 +146,66 @@ void ModuleParticles::castFirework() {
 
 	fireworksList.push_back(f);
 
+}
+
+bool ModuleParticles::SaveParticleSystem(const char* filename)
+{
+	LOG("Saving particle system");
+
+	std::ofstream outputFile(filename);
+
+	if (outputFile.is_open())
+	{
+		// Save particle system state
+		outputFile << "Emitters\n{\n";
+
+		for (int i = 0; i < emitterVector.size(); ++i)
+		{
+			outputFile << "  Emitter " << i << "\n";
+			emitterVector[i]->SaveEmitterState(outputFile);
+		}
+
+		outputFile << "}\n";
+
+		outputFile.close();
+		return true;
+	}
+	else
+	{
+		LOG("Unable to open file for writing: %s", filename);
+		return false;
+	}
+}
+
+bool ModuleParticles::LoadParticleSystem(const char* filename)
+{
+	LOG("Loading particle system");
+
+	std::ifstream inputFile(filename);
+
+	if (inputFile.is_open())
+	{
+		// Load particle system state
+		std::string line;
+		while (std::getline(inputFile, line))
+		{
+			// Parse each line to identify emitters and load their states
+			if (line.find("Emitter") != std::string::npos)
+			{
+				int emitterIndex;
+				if (sscanf(line.c_str(), "  Emitter %d", &emitterIndex) == 1 && emitterIndex >= 0 && emitterIndex < emitterVector.size())
+				{
+					emitterVector[emitterIndex]->LoadEmitterState(inputFile);
+				}
+			}
+		}
+
+		inputFile.close();
+		return true;
+	}
+	else
+	{
+		LOG("Unable to open file for reading: %s", filename);
+		return false;
+	}
 }

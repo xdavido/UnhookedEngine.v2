@@ -24,6 +24,10 @@ public:
 
 	void RefreshParticleText();
 
+	void SaveEmitterState(std::ofstream& outputFile);
+
+	void LoadEmitterState(std::ifstream& inputFile);
+
 	bool isActive;
 
 	bool PrintText = true;

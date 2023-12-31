@@ -12,7 +12,23 @@
                 }
             },
             "Child 0": {
-                "name": "BakerHouse.fbx",
+                "name": "MainCamera",
+                "active": true,
+                "isTimeToDelete": false,
+                "components": {
+                    "Component 0": {
+                        "Type": 1,
+                        "active": false,
+                        "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-1.000000,2.000000,-10.000000,1.000000,"
+                    },
+                    "Component 1": {
+                        "Type": 4,
+                        "active": false
+                    }
+                }
+            },
+            "Child 1": {
+                "name": "RootNode",
                 "active": true,
                 "isTimeToDelete": false,
                 "components": {
@@ -23,7 +39,7 @@
                     }
                 },
                 "Child 0": {
-                    "name": "Mesh_0",
+                    "name": "Chimney",
                     "active": true,
                     "isTimeToDelete": false,
                     "components": {
@@ -35,7 +51,7 @@
                         "Component 1": {
                             "Type": 2,
                             "active": false,
-                            "Mesh": "Mesh_0"
+                            "Mesh": "Chimney"
                         },
                         "Component 2": {
                             "Type": 3,
@@ -45,7 +61,7 @@
                     }
                 },
                 "Child 1": {
-                    "name": "Mesh_1",
+                    "name": "Baker_house",
                     "active": true,
                     "isTimeToDelete": false,
                     "components": {
@@ -57,13 +73,714 @@
                         "Component 1": {
                             "Type": 2,
                             "active": false,
-                            "Mesh": "Mesh_1"
+                            "Mesh": "Baker_house"
                         },
                         "Component 2": {
                             "Type": 3,
                             "active": false,
                             "Material": "Assets\/Textures\/Baker_house.png"
                         }
+                    }
+                }
+            },
+            "Child 2": {
+                "name": "scene",
+                "active": true,
+                "isTimeToDelete": false,
+                "components": {
+                    "Component 0": {
+                        "Type": 1,
+                        "active": false,
+                        "LocalTransform": "1.000000,0.000000,-0.000000,0.000000,-0.000000,-0.000000,-1.000000,0.000000,0.000000,1.000000,-0.000000,0.000000,0.000000,0.000000,0.000000,1.000000,"
+                    }
+                },
+                "Child 0": {
+                    "name": "Dummy001",
+                    "active": true,
+                    "isTimeToDelete": false,
+                    "components": {
+                        "Component 0": {
+                            "Type": 1,
+                            "active": false,
+                            "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,"
+                        }
+                    },
+                    "Child 0": {
+                        "name": "City_building_004",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-41.475891,21.014099,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_004"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building03_c.tga"
+                            }
+                        }
+                    },
+                    "Child 1": {
+                        "name": "City_building_001",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,17.707165,20.053276,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_001"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/Building_V02_C.png"
+                            }
+                        }
+                    },
+                    "Child 2": {
+                        "name": "City_building_007",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,16.010492,37.493286,-0.000002,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_007"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building_016_c.tga"
+                            }
+                        }
+                    },
+                    "Child 3": {
+                        "name": "City_building_008",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,40.979996,18.270824,-0.000002,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_008"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building_025_c.tga"
+                            }
+                        }
+                    },
+                    "Child 4": {
+                        "name": "Line002",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-2.159772,1.853838,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "Line002"
+                            }
+                        }
+                    },
+                    "Child 5": {
+                        "name": "Plane001",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-0.028603,0.026032,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "Plane001"
+                            }
+                        }
+                    },
+                    "Child 6": {
+                        "name": "City_building_010",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,25.154011,-39.153721,0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_010"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building 01_c.tga"
+                            }
+                        }
+                    },
+                    "Child 7": {
+                        "name": "City_building_011",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,30.134541,37.493286,-0.000002,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_011"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building_016_c.tga"
+                            }
+                        }
+                    },
+                    "Child 8": {
+                        "name": "City_building_013",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-42.288055,33.201576,0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_013"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building 06_ c.tga"
+                            }
+                        }
+                    },
+                    "Child 9": {
+                        "name": "City_building_014",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-19.439707,32.061729,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_014"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building03_c.tga"
+                            }
+                        }
+                    },
+                    "Child 10": {
+                        "name": "City_building_016",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,34.270424,-41.972748,0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_016"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building 01_c.tga"
+                            }
+                        }
+                    },
+                    "Child 11": {
+                        "name": "City_building_017",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,44.260082,-39.153721,0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_017"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building 01_c.tga"
+                            }
+                        }
+                    },
+                    "Child 12": {
+                        "name": "City_building_022",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-20.831324,-27.426489,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_022"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building05 _c.tga"
+                            }
+                        }
+                    },
+                    "Child 13": {
+                        "name": "City_building_023",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,42.130642,37.493286,-0.000002,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_023"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building_016_c.tga"
+                            }
+                        }
+                    },
+                    "Child 14": {
+                        "name": "City_building_024",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-20.572771,43.060829,-0.069194,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_024"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building_025_c.tga"
+                            }
+                        }
+                    },
+                    "Child 15": {
+                        "name": "City_building_026",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,31.511889,-16.446016,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_026"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building05 _c.tga"
+                            }
+                        }
+                    },
+                    "Child 16": {
+                        "name": "City_building_028",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,13.387990,-33.755039,-0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_028"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/Building_V01_C.png"
+                            }
+                        }
+                    },
+                    "Child 17": {
+                        "name": "Object010",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-20.604874,4.066742,-0.475960,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "Object010"
+                            }
+                        }
+                    },
+                    "Child 18": {
+                        "name": "City_building_030",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-42.807240,-41.835564,-0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_030"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/Building_V01_C.png"
+                            }
+                        }
+                    },
+                    "Child 19": {
+                        "name": "City_building_031",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-34.679482,-41.835564,-0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_031"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/Building_V01_C.png"
+                            }
+                        }
+                    },
+                    "Child 20": {
+                        "name": "City_building_032",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-29.478403,21.014099,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_032"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building03_c.tga"
+                            }
+                        }
+                    },
+                    "Child 21": {
+                        "name": "City_building_033",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-32.361496,42.370422,0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_033"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building 06_ c.tga"
+                            }
+                        }
+                    },
+                    "Child 22": {
+                        "name": "City_building_034",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,16.049517,-16.696884,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_034"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building05 _c.tga"
+                            }
+                        }
+                    },
+                    "Child 23": {
+                        "name": "City_building_035",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,13.387990,-40.802517,-0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_035"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/Building_V01_C.png"
+                            }
+                        }
+                    },
+                    "Child 24": {
+                        "name": "City_building_036",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-31.216331,33.201576,0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_036"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building 06_ c.tga"
+                            }
+                        }
+                    },
+                    "Child 25": {
+                        "name": "City_building_037",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-20.317694,-16.163609,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_037"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building05 _c.tga"
+                            }
+                        }
+                    },
+                    "Child 26": {
+                        "name": "City_building_038",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-41.649002,-16.495394,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_038"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/building05 _c.tga"
+                            }
+                        }
+                    },
+                    "Child 27": {
+                        "name": "City_building_039",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-42.807240,-30.643888,-0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_039"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/Building_V01_C.png"
+                            }
+                        }
+                    },
+                    "Child 28": {
+                        "name": "City_building_040",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-34.679482,-30.643888,-0.000001,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_040"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/Building_V01_C.png"
+                            }
+                        }
+                    },
+                    "Child 29": {
+                        "name": "City_building_041",
+                        "active": true,
+                        "isTimeToDelete": false,
+                        "components": {
+                            "Component 0": {
+                                "Type": 1,
+                                "active": false,
+                                "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,30.695278,21.612646,0.000000,1.000000,"
+                            },
+                            "Component 1": {
+                                "Type": 2,
+                                "active": false,
+                                "Mesh": "City_building_041"
+                            },
+                            "Component 2": {
+                                "Type": 3,
+                                "active": false,
+                                "Material": "Assets\/Textures\/Building_V02_C.png"
+                            }
+                        }
+                    }
+                }
+            },
+            "Child 3": {
+                "name": "Someke 1",
+                "active": true,
+                "isTimeToDelete": false,
+                "components": {
+                    "Component 0": {
+                        "Type": 1,
+                        "active": false,
+                        "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-1.020000,3.934000,0.017000,1.000000,"
+                    },
+                    "Component 1": {
+                        "Type": 5,
+                        "active": false
+                    }
+                }
+            },
+            "Child 4": {
+                "name": "Smoke 2",
+                "active": true,
+                "isTimeToDelete": false,
+                "components": {
+                    "Component 0": {
+                        "Type": 1,
+                        "active": false,
+                        "LocalTransform": "1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,-31.785000,7.577000,-34.035000,1.000000,"
+                    },
+                    "Component 1": {
+                        "Type": 5,
+                        "active": false
                     }
                 }
             }
