@@ -28,6 +28,10 @@ public:
 
 	void LoadEmitterState(std::ifstream& inputFile);
 
+	void LoadEmitterStateFromFile(const char* filename);
+
+	void SaveEmitterStateToFile(const char* filename);
+
 	bool isActive;
 
 	bool PrintText = true;

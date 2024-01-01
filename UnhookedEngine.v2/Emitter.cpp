@@ -106,12 +106,44 @@ void CEmitter::PrintInspector()
 		ImGui::Checkbox("Particle Texture\t", &particleProps.texture);
 		ImGui::NewLine();
 		ImGui::Checkbox("Active\t", &isActive);
+
+		if (ImGui::Button("Save Emitter State"))
+		{
+			SaveEmitterStateToFile("emitter_state.txt");
+		}
+
+		if (ImGui::Button("Load Emitter State"))
+		{
+			LoadEmitterStateFromFile("emitter_state.txt");
+		}
 	}
 	//RefreshParticleText();
 
 	ImGui::NewLine();
 	ImGui::Separator();
 	ImGui::NewLine();
+}
+
+void CEmitter::SaveEmitterStateToFile(const char* filename)
+{
+	std::ofstream outputFile(filename);
+
+	if (outputFile.is_open())
+	{
+		SaveEmitterState(outputFile);
+		outputFile.close();
+	}
+}
+
+void CEmitter::LoadEmitterStateFromFile(const char* filename)
+{
+	std::ifstream inputFile(filename);
+
+	if (inputFile.is_open())
+	{
+		LoadEmitterState(inputFile);
+		inputFile.close();
+	}
 }
 
 void CEmitter::RefreshParticleText()
