@@ -96,6 +96,37 @@ bool ModuleParticles::CleanUp()
 	return true;
 }
 
+
+
+bool ModuleParticles::SaveParticleSystem(const char* filename)
+{
+	LOG("Saving particle system");
+
+	std::ofstream outputFile(filename);
+
+	if (outputFile.is_open())
+	{
+		// Save particle system state
+		outputFile << "Emitters\n{\n";
+
+		for (int i = 0; i < emitterVector.size(); ++i)
+		{
+			outputFile << "  Emitter " << i << "\n";
+			emitterVector[i]->SaveEmitterState(outputFile);
+		}
+
+		outputFile << "}\n";
+
+		outputFile.close();
+		return true;
+	}
+	else
+	{
+		LOG("Unable to open file for writing: %s", filename);
+		return false;
+	}
+}
+
 void ModuleParticles::castFirework() {
 	LOG("Casting Firework");
 
@@ -128,7 +159,7 @@ void ModuleParticles::castFirework() {
 		emitter2->textureID = App->textures->LoadParticleTexture("Assets/VFX/fire5.png");
 		break;
 	}
-	
+
 	emitter2->RefreshParticleText();
 
 	emitter2->particleProps.speed = float3(0.0f, -10.0f, 0.0f);
@@ -146,35 +177,6 @@ void ModuleParticles::castFirework() {
 
 	fireworksList.push_back(f);
 
-}
-
-bool ModuleParticles::SaveParticleSystem(const char* filename)
-{
-	LOG("Saving particle system");
-
-	std::ofstream outputFile(filename);
-
-	if (outputFile.is_open())
-	{
-		// Save particle system state
-		outputFile << "Emitters\n{\n";
-
-		for (int i = 0; i < emitterVector.size(); ++i)
-		{
-			outputFile << "  Emitter " << i << "\n";
-			emitterVector[i]->SaveEmitterState(outputFile);
-		}
-
-		outputFile << "}\n";
-
-		outputFile.close();
-		return true;
-	}
-	else
-	{
-		LOG("Unable to open file for writing: %s", filename);
-		return false;
-	}
 }
 
 bool ModuleParticles::LoadParticleSystem(const char* filename)
