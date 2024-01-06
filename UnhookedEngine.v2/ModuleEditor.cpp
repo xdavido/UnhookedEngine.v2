@@ -253,7 +253,7 @@ update_status ModuleEditor::DrawEditor()
             if (ImGui::MenuItem(" PATRICLE EMMITER  "))
             {
                 GameObject* b = new GameObject(App->scene->root);
-                b->name = "Someke 1";
+                b->name = "Smoke";
                 b->transform->position = float3(0.0f, 5.0f, 0.0f);
                 b->transform->calculateMatrix();
                 CEmitter* emitter = new CEmitter(b);

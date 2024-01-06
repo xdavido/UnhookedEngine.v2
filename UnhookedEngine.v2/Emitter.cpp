@@ -157,7 +157,9 @@ void CEmitter::SaveEmitterState(std::ofstream& outputFile)
 	outputFile << "      Position " << particleProps.pos.x << " " << particleProps.pos.y << " " << particleProps.pos.z << "\n";
 	outputFile << "      BeginScale " << particleProps.beginScale.x << " " << particleProps.beginScale.y << " " << particleProps.beginScale.z << "\n";
 	outputFile << "      EndScale " << particleProps.endScale.x << " " << particleProps.endScale.y << " " << particleProps.endScale.z << "\n";
-	// Add more properties as needed
+	outputFile << "      Speed " << particleProps.speed.x << " " << particleProps.speed.y << " " << particleProps.speed.z << "\n";
+	outputFile << "      SpeedVariation " << particleProps.speedVariation.x << " " << particleProps.speedVariation.y << " " << particleProps.speedVariation.z << "\n";
+	outputFile << "      LifeTime " << particleProps.LifeTime << "\n";
 	outputFile << "    EndEmitter\n";
 }
 
@@ -187,6 +189,18 @@ void CEmitter::LoadEmitterState(std::ifstream& inputFile)
 		else if (propertyName == "EndScale")
 		{
 			iss >> particleProps.endScale.x >> particleProps.endScale.y >> particleProps.endScale.z;
+		}
+		else if (propertyName == "Speed")
+		{
+			iss >> particleProps.speed.x >> particleProps.speed.y >> particleProps.speed.z;
+		}
+		else if (propertyName == "SpeedVariation")
+		{
+			iss >> particleProps.speedVariation.x >> particleProps.speedVariation.y >> particleProps.speedVariation.z;
+		}
+		else if (propertyName == "LifeTime")
+		{
+			iss >> particleProps.LifeTime;
 		}
 		// Add more properties as needed
 	}
