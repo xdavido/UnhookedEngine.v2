@@ -29,8 +29,9 @@ void ParticleSystem::Update() {
 			continue;
 		}
 
-		ParticleList[i].LifeRemaining -= Application::GetApp()->dt;
-		ParticleList[i].pos += ParticleList[i].speed * Application::GetApp()->dt;
+		float DTspeed = (Application::GetApp()->dt) * 0.5f;
+		ParticleList[i].LifeRemaining -= DTspeed;
+		ParticleList[i].pos += ParticleList[i].speed * DTspeed;
 		ParticleList[i].SetTransformMatrix();
 	}
 }
