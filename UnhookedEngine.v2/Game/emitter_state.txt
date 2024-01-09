@@ -1,8 +1,8 @@
     BeginEmitter
-      Position -1.02 3.934 0.017
-      BeginScale 2 2 2
-      EndScale 2 2 2
-      Speed 2 2 2
-      SpeedVariation 2 2 2
-      LifeTime 2
+      Position -31.785 7.577 -34.035
+      BeginScale 1 1 1
+      EndScale 0 0 0
+      Speed 0 1 0
+      SpeedVariation 1 1 1
+      LifeTime 1
     EndEmitter

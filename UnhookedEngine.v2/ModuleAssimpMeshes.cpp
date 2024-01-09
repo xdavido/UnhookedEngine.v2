@@ -452,9 +452,7 @@ void ModuleAssimpMeshes::RenderScene()
                 meshes[i]->RenderVertexNormals();*/
         }
     }
-    for (int i = 0; i < App->particle->emitterVector.size(); i++) {
-        App->particle->emitterVector[i]->RenderParticles();
-    }
+    
     ComponentCamera* pilota = App->renderer3D->GetMainCamera();
     if (pilota != nullptr) {
         float3 corners[8];
@@ -462,6 +460,9 @@ void ModuleAssimpMeshes::RenderScene()
         DrawBox(corners, float3(1, .5, .9));
     }
     glColor3f(1.0f, 1.0f, 1.0f);
+    for (int i = 0; i < App->particle->emitterVector.size(); i++) {
+        App->particle->emitterVector[i]->RenderParticles();
+    }
 
 }
 
