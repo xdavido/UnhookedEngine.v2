@@ -26,6 +26,7 @@ void ParticleSystem::Update() {
 		if (ParticleList[i].LifeRemaining <= 0.0f)
 		{
 			ParticleList[i].Active = false;
+			ParticleList[i].Active = false;
 			continue;
 		}
 

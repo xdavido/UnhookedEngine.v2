@@ -68,8 +68,9 @@ update_status ModuleParticles::Update(float dt)
 			}
 		}
 
-		fireworksList[i]->LifeTime -= Application::GetApp()->dt;
-		fireworksList[i]->transform->position += fireworksList[i]->speed * Application::GetApp()->dt;
+		float DTspd = Application::GetApp()->dt * 0.5;
+		fireworksList[i]->LifeTime -= DTspd;
+		fireworksList[i]->transform->position += fireworksList[i]->speed * DTspd;
 		fireworksList[i]->transform->calculateMatrix();
 	}
 

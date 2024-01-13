@@ -76,7 +76,8 @@ update_status ModuleCamera3D::Update(float dt)
 	int dy = -App->input->GetMouseYMotion();
 	int dw = -App->input->GetMouseZ(); //wheel
 
-	gameCamera->transform->position += {.1f * App->dtG, .1f * App->dtG, .1f * App->dtG};
+	gameCamera->transform->position += {-0.1f * App->dtG, 0.18f * App->dtG, -0.5f * App->dtG};
+	gameCamera->transform->rotation += {0, App->dtG, 0};
 
 	//Camera states
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
