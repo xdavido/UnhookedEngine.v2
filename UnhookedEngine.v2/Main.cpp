@@ -14,8 +14,6 @@ enum main_states
 	MAIN_FINISH,
 	MAIN_EXIT
 };
-
-	//Application* App = NULL;
 	long long timeElapsed = 0;
 
 int main(int argc, char ** argv)

@@ -61,7 +61,6 @@ CEmitter::CEmitter(GameObject* owner) : Component(owner)
 
 CEmitter::~CEmitter()
 {
-
 }
 
 void CEmitter::Update()
@@ -73,9 +72,6 @@ void CEmitter::Update()
 
 		particleSystem.Update();
 	}
-
-
-
 }
 
 void CEmitter::RenderParticles()
@@ -117,7 +113,6 @@ void CEmitter::PrintInspector()
 			LoadEmitterStateFromFile("emitter_state.txt");
 		}
 	}
-	//RefreshParticleText();
 
 	ImGui::NewLine();
 	ImGui::Separator();
@@ -170,13 +165,12 @@ void CEmitter::LoadEmitterState(std::ifstream& inputFile)
 
 	while (std::getline(inputFile, line))
 	{
-		// Parse each line to identify properties and load their values
 		std::istringstream iss(line);
 		iss >> propertyName;
 
 		if (propertyName == "EndEmitter")
 		{
-			break; // End of emitter data
+			break;
 		}
 		else if (propertyName == "Position")
 		{
@@ -202,6 +196,5 @@ void CEmitter::LoadEmitterState(std::ifstream& inputFile)
 		{
 			iss >> particleProps.LifeTime;
 		}
-		// Add more properties as needed
 	}
 }

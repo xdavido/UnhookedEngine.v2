@@ -128,13 +128,8 @@ void Application::FinishUpdate()
 			SDL_Delay(static_cast<Uint32>(fabs(timeToWait - msLastFrame)));
 
 		msLastFrame = ms_timer.Read();
-
 	}
-
 }
-
-
-
 
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()

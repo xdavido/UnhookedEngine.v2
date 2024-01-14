@@ -9,7 +9,6 @@
 
 ModuleParticles::ModuleParticles(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	//fireworksList.resize(100);
 }
 
 ModuleParticles::~ModuleParticles()

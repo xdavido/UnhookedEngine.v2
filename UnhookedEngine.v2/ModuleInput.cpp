@@ -122,7 +122,6 @@ update_status ModuleInput::PreUpdate(float dt)
 				}
 				else if (extension == "png" || extension == "dds" || extension == "PNG" || extension == "DDS")
 				{
-					/*App->textures->LoadTexture(dropped_filedir);*/
 					if (App->hierarchy->objSelected != nullptr && App->hierarchy->objSelected->Stype != GeometryType::EMPTY)
 					{
 						if (App->hierarchy->objSelected->GetComponentTexture()) {
@@ -137,8 +136,6 @@ update_status ModuleInput::PreUpdate(float dt)
 				SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "File dropped", dropped_filedir, App->window->window);
 				SDL_free(dropped_filedir);
 				break;
-			
-			
 
 			case SDL_QUIT:
 			quit = true;

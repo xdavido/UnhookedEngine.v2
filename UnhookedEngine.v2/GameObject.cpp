@@ -68,7 +68,6 @@ void GameObject::AddComponent(Component* component)
 
 void GameObject::Update()
 {
-	// No tots els children o components tenen un update
 	for (size_t i = 0; i < mChildren.size(); ++i)
 	{
 		mChildren[i]->Update();
@@ -204,12 +203,7 @@ void GameObject::AttachChild(GameObject* child)
 {
 	child->mParent = this;
 	mChildren.push_back(child);
-	//child->transform
-	//child->transform
 }
-
-
-
 void GameObject::PrintInspector()
 {
 
@@ -254,9 +248,5 @@ void GameObject::PrintInspector()
 
 		ImGui::Text("");
 		ImGui::SameLine(ImGui::GetWindowWidth() / 6);
-
-
 	}
-
-
 }

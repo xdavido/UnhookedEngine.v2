@@ -15,8 +15,6 @@ ComponentTransform::~ComponentTransform()
 	resetMatrix();
 }
 
-
-
 float4x4 ComponentTransform::getGlobalMatrix()
 {
 	if (mOwner->GetParent() == nullptr) return getLocalMatrix();
@@ -117,9 +115,5 @@ void ComponentTransform:: PrintInspector() {
 		ImGui::Text("X\t\t Y\t\t Z");
 		ImGui::DragFloat3("Scale", scale.ptr());
 	}
-
-
 	calculateMatrix();
-
-
 }

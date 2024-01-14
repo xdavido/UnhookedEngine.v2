@@ -27,6 +27,4 @@ void GameWindows::PrintCamera(Application* app)
 
 	ImGui::End();
 	ImGui::PopStyleVar();
-	//ImGui::Render();
-	//ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

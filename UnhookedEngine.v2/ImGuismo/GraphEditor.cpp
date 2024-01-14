@@ -188,28 +188,6 @@ static void DisplayLinks(Delegate& delegate,
             // curves
              drawList->AddBezierCubic(p1, p1 + ImVec2(50, 0) * factor, p2 + ImVec2(-50, 0) * factor, p2, 0xFF000000, options.mLineThickness * 1.5f * factor);
              drawList->AddBezierCubic(p1, p1 + ImVec2(50, 0) * factor, p2 + ImVec2(-50, 0) * factor, p2, col, options.mLineThickness * 1.5f * factor);
-             /*
-            ImVec2 p10 = p1 + ImVec2(20.f * factor, 0.f);
-            ImVec2 p20 = p2 - ImVec2(20.f * factor, 0.f);
-
-            ImVec2 dif = p20 - p10;
-            ImVec2 p1a, p1b;
-            if (fabsf(dif.x) > fabsf(dif.y))
-            {
-                p1a = p10 + ImVec2(fabsf(fabsf(dif.x) - fabsf(dif.y)) * 0.5 * sign(dif.x), 0.f);
-                p1b = p1a + ImVec2(fabsf(dif.y) * sign(dif.x) , dif.y);
-            }
-            else
-            {
-                p1a = p10 + ImVec2(0.f, fabsf(fabsf(dif.y) - fabsf(dif.x)) * 0.5 * sign(dif.y));
-                p1b = p1a + ImVec2(dif.x, fabsf(dif.x) * sign(dif.y));
-            }
-            drawList->AddLine(p1,  p10, col, 3.f * factor);
-            drawList->AddLine(p10, p1a, col, 3.f * factor);
-            drawList->AddLine(p1a, p1b, col, 3.f * factor);
-            drawList->AddLine(p1b, p20, col, 3.f * factor);
-            drawList->AddLine(p20,  p2, col, 3.f * factor);
-            */
         }
         else
         {
@@ -290,7 +268,6 @@ static void HandleQuadSelection(Delegate& delegate, ImDrawList* drawList, const 
     }
     ImGuiIO& io = ImGui::GetIO();
     static ImVec2 quadSelectPos;
-    //auto& nodes = delegate->GetNodes();
     auto nodeCount = delegate.GetNodeCount();
 
     if (nodeOperation == NO_QuadSelecting && ImGui::IsWindowFocused())
@@ -487,7 +464,7 @@ static bool HandleConnections(ImDrawList* drawList,
             // when ImGui::IsWindowHovered() && !ImGui::IsAnyItemActive() is uncommented, one can't click the node
             // input/output when mouse is over the node itself.
             if (nodeOperation == NO_None &&
-                /*ImGui::IsWindowHovered() && !ImGui::IsAnyItemActive() &&*/ io.MouseClicked[0] && !bDrawOnly)
+               io.MouseClicked[0] && !bDrawOnly)
             {
                 nodeOperation = NO_EditingLink;
                 editingInput = i == 0;
@@ -556,31 +533,6 @@ static bool DrawNode(ImDrawList* drawList,
     const size_t InputsCount = nodeTemplate.mInputCount;
     const size_t OutputsCount = nodeTemplate.mOutputCount;
 
-    /*
-    for (int i = 0; i < 2; i++)
-    {
-        const size_t slotCount[2] = {InputsCount, OutputsCount};
-        
-        for (size_t slotIndex = 0; slotIndex < slotCount[i]; slotIndex++)
-        {
-            const char* con = i ? nodeTemplate.mOutputNames[slotIndex] : nodeTemplate.mInputNames[slotIndex];//node.mOutputs[slot_idx] : node->mInputs[slot_idx];
-            if (!delegate->IsIOPinned(nodeIndex, slot_idx, i == 1))
-            {
-               
-            }
-            continue;
-
-            ImVec2 p = offset + (i ? GetOutputSlotPos(delegate, node, slotIndex, factor) : GetInputSlotPos(delegate, node, slotIndex, factor));
-            const float arc = 28.f * (float(i) * 0.3f + 1.0f) * (i ? 1.f : -1.f);
-            const float ofs = 0.f;
-
-            ImVec2 pts[3] = {p + ImVec2(arc + ofs, 0.f), p + ImVec2(0.f + ofs, -arc), p + ImVec2(0.f + ofs, arc)};
-            drawList->AddTriangleFilled(pts[0], pts[1], pts[2], i ? 0xFFAA5030 : 0xFF30AA50);
-            drawList->AddTriangle(pts[0], pts[1], pts[2], 0xFF000000, 2.f);
-        }
-    }
-    */
-
     ImGui::SetCursorScreenPos(nodeRectangleMin);
     float maxHeight = ImMin(viewPort.Max.y, nodeRectangleMin.y + nodeSize.y) - nodeRectangleMin.y;
     float maxWidth = ImMin(viewPort.Max.x, nodeRectangleMin.x + nodeSize.x) - nodeRectangleMin.x;
@@ -639,34 +591,8 @@ static bool DrawNode(ImDrawList* drawList,
     float imgSizeComp = std::min(imgSize.x, imgSize.y);
 
     drawList->AddRectFilled(nodeRectangleMin, nodeRectangleMax, node_bg_color, options.mRounding);
-    /*float progress = delegate->NodeProgress(nodeIndex);
-    if (progress > FLT_EPSILON && progress < 1.f - FLT_EPSILON)
-    {
-        ImVec2 progressLineA = nodeRectangleMax - ImVec2(nodeSize.x - 2.f, 3.f);
-        ImVec2 progressLineB = progressLineA + ImVec2(nodeSize.x * factor - 4.f, 0.f);
-        drawList->AddLine(progressLineA, progressLineB, 0xFF400000, 3.f);
-        drawList->AddLine(progressLineA, ImLerp(progressLineA, progressLineB, progress), 0xFFFF0000, 3.f);
-    }*/
+
     ImVec2 imgPosMax = imgPos + ImVec2(imgSizeComp, imgSizeComp);
-
-    //ImVec2 imageSize = delegate->GetEvaluationSize(nodeIndex);
-    /*float imageRatio = 1.f;
-    if (imageSize.x > 0.f && imageSize.y > 0.f)
-    {
-        imageRatio = imageSize.y / imageSize.x;
-    }
-    ImVec2 quadSize = imgPosMax - imgPos;
-    ImVec2 marge(0.f, 0.f);
-    if (imageRatio > 1.f)
-    {
-        marge.x = (quadSize.x - quadSize.y / imageRatio) * 0.5f;
-    }
-    else
-    {
-        marge.y = (quadSize.y - quadSize.y * imageRatio) * 0.5f;
-    }*/
-
-    //delegate->DrawNodeImage(drawList, ImRect(imgPos, imgPosMax), marge, nodeIndex);
 
     drawList->AddRectFilled(nodeRectangleMin,
                             ImVec2(nodeRectangleMax.x, nodeRectangleMin.y + 20),
@@ -681,37 +607,7 @@ static bool DrawNode(ImDrawList* drawList,
     {
         delegate.CustomDraw(drawList, customDrawRect, nodeIndex);
     }
-/*
-    const ImTextureID bmpInfo = (ImTextureID)(uint64_t)delegate->GetBitmapInfo(nodeIndex).idx;
-    if (bmpInfo)
-    {
-        ImVec2 bmpInfoPos(nodeRectangleMax - ImVec2(26, 12));
-        ImVec2 bmpInfoSize(20, 20);
-        if (delegate->NodeIsCompute(nodeIndex))
-        {
-            drawList->AddImageQuad(bmpInfo,
-                                   bmpInfoPos,
-                                   bmpInfoPos + ImVec2(bmpInfoSize.x, 0.f),
-                                   bmpInfoPos + bmpInfoSize,
-                                   bmpInfoPos + ImVec2(0., bmpInfoSize.y));
-        }
-        else if (delegate->NodeIs2D(nodeIndex))
-        {
-            drawList->AddImageQuad(bmpInfo,
-                                   bmpInfoPos,
-                                   bmpInfoPos + ImVec2(bmpInfoSize.x, 0.f),
-                                   bmpInfoPos + bmpInfoSize,
-                                   bmpInfoPos + ImVec2(0., bmpInfoSize.y));
-        }
-        else if (delegate->NodeIsCubemap(nodeIndex))
-        {
-            drawList->AddImageQuad(bmpInfo,
-                                   bmpInfoPos + ImVec2(0., bmpInfoSize.y),
-                                   bmpInfoPos + bmpInfoSize,
-                                   bmpInfoPos + ImVec2(bmpInfoSize.x, 0.f),
-                                   bmpInfoPos);
-        }
-    }*/
+
     return nodeHovered;
 }
 
@@ -836,7 +732,6 @@ void Show(Delegate& delegate, const Options& options, ViewState& viewState, bool
     ImVec2 offset = ImGui::GetCursorScreenPos() + viewState.mPosition * viewState.mFactor;
     captureOffset = viewState.mPosition * viewState.mFactor;
 
-    //ImGui::InvisibleButton("GraphEditorButton", canvasSize);
     ImGui::BeginChildFrame(71711, canvasSize);
 
     ImGui::SetCursorPos(windowPos);
@@ -907,7 +802,6 @@ void Show(Delegate& delegate, const Options& options, ViewState& viewState, bool
         {
             for (NodeIndex nodeIndex = 0; nodeIndex < nodeCount; nodeIndex++)
             {
-                //const auto* node = &nodes[nodeIndex];
                 const auto node = delegate.GetNode(nodeIndex);
                 if (node.mSelected != (i != 0))
                 {
@@ -929,28 +823,6 @@ void Show(Delegate& delegate, const Options& options, ViewState& viewState, bool
 
                 bool overInput = (!inMinimap) && HandleConnections(drawList, nodeIndex, offset, viewState.mFactor, delegate, options, false, inputSlot, outputSlot, inMinimap);
 
-                // shadow
-                /*
-                ImVec2 shadowOffset = ImVec2(30, 30);
-                ImVec2 shadowPivot = (nodeRect.Min + nodeRect.Max) /2.f;
-                ImVec2 shadowPointMiddle = shadowPivot + shadowOffset;
-                ImVec2 shadowPointTop = ImVec2(shadowPivot.x, nodeRect.Min.y) + shadowOffset;
-                ImVec2 shadowPointBottom = ImVec2(shadowPivot.x, nodeRect.Max.y) + shadowOffset;
-                ImVec2 shadowPointLeft = ImVec2(nodeRect.Min.x, shadowPivot.y) + shadowOffset;
-                ImVec2 shadowPointRight = ImVec2(nodeRect.Max.x, shadowPivot.y) + shadowOffset;
-
-                // top left
-                drawList->AddRectFilledMultiColor(nodeRect.Min + shadowOffset, shadowPointMiddle, IM_COL32(0 ,0, 0, 0), IM_COL32(0,0,0,0), IM_COL32(0, 0, 0, 255), IM_COL32(0, 0, 0, 0));
-
-                // top right
-                drawList->AddRectFilledMultiColor(shadowPointTop, shadowPointRight, IM_COL32(0 ,0, 0, 0), IM_COL32(0,0,0,0), IM_COL32(0, 0, 0, 0), IM_COL32(0, 0, 0, 255));
-
-                // bottom left
-                drawList->AddRectFilledMultiColor(shadowPointLeft, shadowPointBottom, IM_COL32(0 ,0, 0, 0), IM_COL32(0, 0, 0, 255), IM_COL32(0, 0, 0, 0), IM_COL32(0,0,0,0));
-
-                // bottom right
-                drawList->AddRectFilledMultiColor(shadowPointMiddle, nodeRect.Max + shadowOffset, IM_COL32(0, 0, 0, 255), IM_COL32(0 ,0, 0, 0), IM_COL32(0,0,0,0), IM_COL32(0, 0, 0, 0));
-                */
                 if (DrawNode(drawList, nodeIndex, offset, viewState.mFactor, delegate, overInput, options, inMinimap, regionRect))
                 {
                     hoveredNode = nodeIndex;

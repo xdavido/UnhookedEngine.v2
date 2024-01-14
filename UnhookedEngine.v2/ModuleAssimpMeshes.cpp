@@ -61,7 +61,6 @@ Mesh* ModuleAssimpMeshes::ImportMesh(aiMesh* aiMesh)
     // copy vertices
     mesh->vertexCount = aiMesh->mNumVertices;
     mesh->vertex = new float[mesh->vertexCount * VERTEX];
-    //memcpy(mesh->vertices, scene->mMeshes[i]->mVertices, sizeof(float) * mesh->num_vertices * 3);
 
     for (int k = 0; k < mesh->vertexCount; k++) {
 
@@ -171,7 +170,6 @@ GameObject* ModuleAssimpMeshes::ProcessNode(const aiScene* scene, aiNode* node, 
 
     gObj->transform->getScale() = float3(scale.x, scale.y, scale.z);
     gObj->transform->position = float3(position.x, position.y, position.z);
-    /*gObj->mTransform->mRotation = float3(rotation.x, rotation.y, rotation.z);*/
     gObj->transform->calculateMatrix();
 
     if (node->mNumMeshes != 0) {
@@ -287,7 +285,7 @@ void Mesh::RenderVertexNormals()
     float normalLenght = 0.05f;
     
     glBegin(GL_LINES);
-    for (unsigned int i = 0; i < /*indexCount*/vertexCount * 3; i += 3)
+    for (unsigned int i = 0; i < vertexCount * 3; i += 3)
     {
         glVertex3f(vertex[i], vertex[i + 1], vertex[i + 2]);
         glVertex3f(vertex[i] + vertexNormals[i].x * normalLenght, vertex[i + 1] + vertexNormals[i].y * normalLenght, vertex[i + 2] + vertexNormals[i].z * normalLenght);
@@ -299,7 +297,6 @@ void Mesh::RenderVertexNormals()
 
 void Mesh::RenderFaceNormals()
 {
-    //---num_index
     for (size_t i = 0; i < indexCount; i += 3)
     {
         // Obtener los índices de los vértices para esta cara
@@ -349,58 +346,6 @@ void Mesh::RenderFaceNormals()
         glLineWidth(1.0f);
     }
     
-
-    ////---num_vertex
-    //for (size_t i = 0; i < num_vertex; i += 9)
-    //{
-
-    //    // Calcular el punto medio de la cara del triángulo
-    //    double xMedio = (vertex[i] + vertex[i + 3] + vertex[i + 6]) / 3.0;
-    //    double yMedio = (vertex[i + 1] + vertex[i + 4] + vertex[i + 7]) / 3.0;
-    //    double zMedio = (vertex[i + 2] + vertex[i + 5] + vertex[i + 8]) / 3.0;
-
-    //    // Calcular la normal de la cara del triángulo usando el producto cruz
-    //    double edge1x = vertex[i + 3] - vertex[i];
-    //    double edge1y = vertex[i + 4] - vertex[i + 1];
-    //    double edge1z = vertex[i + 5] - vertex[i + 2];
-
-    //    double edge2x = vertex[i + 6] - vertex[i];
-    //    double edge2y = vertex[i + 7] - vertex[i + 1];
-    //    double edge2z = vertex[i + 8] - vertex[i + 2];
-
-    //    double normalx = edge1y * edge2z - edge1z * edge2y;
-    //    double normaly = edge1z * edge2x - edge1x * edge2z;
-    //    double normalz = edge1x * edge2y - edge1y * edge2x;
-
-    //    // Normaliza la normal
-    //    double length = sqrt(normalx * normalx + normaly * normaly + normalz * normalz);
-    //    normalx /= length;
-    //    normaly /= length;
-    //    normalz /= length;
-
-    //    // Define la longitud de la línea en la dirección de la normal
-    //    double lineaLongitud = 3.0;
-
-    //    // Calcula el punto final de la línea
-    //    double xFinal = xMedio + normalx * lineaLongitud;
-    //    double yFinal = yMedio + normaly * lineaLongitud;
-    //    double zFinal = zMedio + normalz * lineaLongitud;
-
-    //    // Establecer el color a rojo
-    //    glColor3f(1.0f, 0.0f, 0.0f);
-
-    //    // Dibujar la normal como una línea roja desde el punto medio de la cara
-    //    glLineWidth(2.0f);
-    //    glBegin(GL_LINES);
-    //    glVertex3d(xMedio, yMedio, zMedio);
-    //    glVertex3d(xFinal, yFinal, zFinal);
-    //    glEnd();
-    //    glLineWidth(1.0f);
-
-
-    //    glEnd();
-    //}
-    
 }
 
 
@@ -408,7 +353,6 @@ void Mesh::RenderFaceNormals()
 void ModuleAssimpMeshes::BufferMesh(Mesh* mesh)
 {
     //Fill buffers with vertex
-    // glEnableClientState(GL_VERTEX_ARRAY);
 
 
     glGenBuffers(1, (GLuint*)&(mesh->VBO));
@@ -425,7 +369,6 @@ void ModuleAssimpMeshes::BufferMesh(Mesh* mesh)
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh->indexCount, mesh->index, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-    //glDisableClientState(GL_VERTEX_ARRAY);
     meshes.push_back(mesh);
 
 }
@@ -448,8 +391,6 @@ void ModuleAssimpMeshes::RenderScene()
             if (meshes[i]->owner->GetMeshComponent()->faceNormals) {
                 meshes[i]->RenderFaceNormals();
             }
-            /* glColor3f(1, 0, 0);
-                meshes[i]->RenderVertexNormals();*/
         }
     }
     
@@ -498,8 +439,6 @@ void ModuleAssimpMeshes::DeleteMesh(Mesh* mesh) {
         LOG("DELETE MESH NO HA ENCONTRADO LA MESH DESEADA DE ELIMINAR")
     }
 }
-
-
 
 bool ModuleAssimpMeshes::CleanUp()
 {

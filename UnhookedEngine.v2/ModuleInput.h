@@ -70,5 +70,4 @@ private:
 	
 public:
 	char* dropped_filedir;
-	//int mouse_z_motion;
 };

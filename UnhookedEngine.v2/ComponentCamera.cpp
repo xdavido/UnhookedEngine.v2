@@ -72,7 +72,6 @@ void ComponentCamera::PrintInspector()
 		}
 
 		ImGui::Text("");
-
 		ImGui::Text("Near Distance\t");
 		ImGui::SameLine();
 		if (ImGui::InputFloat("##nearDistance", &nearDistance))
@@ -82,7 +81,6 @@ void ComponentCamera::PrintInspector()
 				farDistance = nearDistance + 1;
 				frustum.farPlaneDistance = farDistance;
 			}
-
 			frustum.nearPlaneDistance = nearDistance;
 		}
 
@@ -101,7 +99,6 @@ void ComponentCamera::PrintInspector()
 		{
 			App->renderer3D->SetMainCamera(this);
 
-			
 		}
 	}
 }
@@ -170,7 +167,6 @@ bool ComponentCamera::FrustumCulling(Mesh* mesh)
 		}
 	}
 
-	
 	return true;
 }
 void ComponentCamera::Look(const float3& Position, const float3& Reference)

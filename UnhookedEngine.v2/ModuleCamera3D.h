@@ -5,7 +5,6 @@
 #include "MathGeoLib/include/Math/float4x4.h"
 #include "ImGuismo/ImGuizmo.h"
 
-
 class ComponentCamera;
 
 enum class CamStates {
@@ -14,7 +13,6 @@ enum class CamStates {
 	FLYING,	
 	FOCUSED,
 };
-
 
 class ModuleCamera3D : public Module
 {
@@ -36,7 +34,6 @@ private:
 
 public:
 
-	
 	float3 X, Y, Z, Position, Reference;
 
 	ComponentCamera* camera;
@@ -46,6 +43,4 @@ public:
 
 	ImGuizmo::OPERATION operation;
 	ImGuizmo::MODE mode;
-
-	
 };

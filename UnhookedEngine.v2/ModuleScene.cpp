@@ -127,7 +127,6 @@ void ModuleScene::SaveGameObjects(GameObject* parentGO, JsonParser& node) {
     {
         // Create Child of component
         num = "Component " + std::to_string(i);
-        //num += FormatComponentType(parentGO, i);
 
         
 
@@ -146,8 +145,6 @@ void ModuleScene::SaveGameObjects(GameObject* parentGO, JsonParser& node) {
             {
                 for (int j = 0; j < 4; j++)
                 {
-                   /* if (i == 0 && j == 0)num += std::to_string(localTransform.At(i, j));
-                    else num += "," + std::to_string(localTransform.At(i, j));*/
 
                     num += std::to_string(localTransform.At(i, j));
                     num += ",";
@@ -213,9 +210,6 @@ bool ModuleScene::LoadScene()
     return false;
 }
 
-
-
-
 void ModuleScene::LoadComponents(JsonParser& parent, std::string num, GameObject* gamObj)
 {
 
@@ -248,45 +242,11 @@ void ModuleScene::LoadComponents(JsonParser& parent, std::string num, GameObject
 
                 LOG(gamObj->transform->getLocalMatrix().ToString().c_str());
 
-                //gamObj->transform = transform;
-
                 break;
             case ComponentType::MESH:
-                /*gamObj->AddComponent(ComponentType::MESHRENDERER);
-                meshRender = static_cast<MeshRenderer*>(gamObj->GetComponent(ComponentType::MESHRENDERER));
-
-                if (meshRender != NULL && tmp.JsonValToNumber("PrimType") == -1)
-                {
-                    mesh = new Mesh();
-                    debugPath = tmp.JsonValToString("LibraryPath");
-                    mesh->SetAssetsPath(tmp.JsonValToString("Mesh"));
-                    mesh->SetLibraryPath(debugPath.c_str());
-                    mesh->LoadFromFME(debugPath.c_str());
-
-                    meshRender->SetMesh(mesh);
-                    meshRender->SetBoundingBoxes(mesh);
-                }
-                else
-                {
-                    size = float3(tmp.JsonValToNumber("SizeX"), tmp.JsonValToNumber("SizeY"), tmp.JsonValToNumber("SizeZ"));
-                    mesh = app->editor->LoadPrimitive(tmp.JsonValToNumber("PrimType"), size, tmp.JsonValToNumber("Radius"), size.y);
-                    meshRender->SetMesh(mesh);
-                    meshRender->SetBoundingBoxes(mesh);
-                }
-
-                meshRender->SetOwner(gamObj);*/
 
                 break;
             case ComponentType::MATERIAL:
-                //gamObj->AddComponent(ComponentType::MATERIAL);
-                //material = static_cast<Material*>(gamObj->GetComponent(ComponentType::MATERIAL));
-                //material->active = tmp.JsonValToBool("active");
-                //material->texture = new Texture(tmp.JsonValToString("Material"), gamObj->name);
-                //material->texture->SetLibraryPath(tmp.JsonValToString("LibraryPath"));
-                //material->texture->path = material->texture->GetLibraryPath();
-                ////material->texture->SetAssetsPath();
-                //material->SetOwner(gamObj);
-                //material->texture->LoadToMemory();
 
                 break;
 

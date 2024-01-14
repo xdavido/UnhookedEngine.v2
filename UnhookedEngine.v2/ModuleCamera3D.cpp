@@ -224,11 +224,6 @@ bool ModuleCamera3D::SaveConfig(JsonParser& node) const
 
 bool ModuleCamera3D::LoadConfig(JsonParser& node)
 {
-
-	//X.x = node.JsonValToNumber("X.x");
-	//X.y = node.JsonValToNumber("X.y");
-	//X.z = node.JsonValToNumber("X.z");
-
 	camera->frustum.up.x = node.JsonValToNumber("Y.x");
 	camera->frustum.up.y = node.JsonValToNumber("Y.y");
 	camera->frustum.up.z = node.JsonValToNumber("Y.z");

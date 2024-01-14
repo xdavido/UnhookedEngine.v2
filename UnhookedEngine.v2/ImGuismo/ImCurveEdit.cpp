@@ -273,8 +273,7 @@ namespace ImCurveEdit
                draw_list->AddLine(dp2, dp3, curveColor, 1.3f);
 
                if ((distance(io.MousePos.x, io.MousePos.y, dp1.x, dp1.y, dp3.x, dp1.y) < 8.f ||
-                  distance(io.MousePos.x, io.MousePos.y, dp3.x, dp1.y, dp3.x, dp3.y) < 8.f)
-                  /*&& localOverCurve == -1*/)
+                  distance(io.MousePos.x, io.MousePos.y, dp3.x, dp1.y, dp3.x, dp3.y) < 8.f))
                {
                   localOverCurve = int(c);
                   overCurve = int(c);
