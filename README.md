@@ -7,7 +7,8 @@ Unhooked Engine V2, forked with Sheeesh Engine, is a 3D game engine made by two 
 - Our GitHub project: [Unhhoked Engine V2](https://github.com/xdavido/UnhookedEngine.v2)
 - Forked GitHub project: [Sheeesh Engine](https://github.com/Urii98/SheeeshEngine)
 
-
+>[!CAUTION]
+> Unhooked Engine V2 is the official name, "V2" is not refered to the actual version.
 
 ## Engine Description
 
@@ -76,7 +77,7 @@ The editor features two windows: one displaying the scene (editor view), and the
 
 The user can Start / Pause / Stop the simulation and recover its original state.
 >[!TIP]
-> Animation among the two smokes will be activated when pressing Start button.
+> Animation among the two smokes will be activated when pressing Start button and selecting MainCamera in the hierarchy.
 #### Mouse Picking
 GameObjects can be picked from the world using the mouse.
 
