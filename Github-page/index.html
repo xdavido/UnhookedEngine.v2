@@ -182,8 +182,12 @@
 	<section id="last-assignment">
     <h2>Last Assignment Sub-system</h2>
 	<h3>Particles High Level System</h3>
-    <p>Last assignment was to implement a particle system inside our general engine to include...
-	</p>
+    <p>Last assignment was to implement a particle system inside our general engine:</p>
+ <p>The CEmitter component plays a crucial role in our game engine as it defines and oversees particle emitters. When an emitter is created, its constructor sets default values for the particles it will emit. Importantly, the emitter can be linked to a specific object in the game. The Update() and RenderParticles() methods control the regular updates and visualization of the emitter's particles. For user convenience, PrintInspector() offers an interface to adjust emitter properties, and save/load methods enable storing and retrieving the emitter's state from files.
+</p>
+ <p>The ModuleParticles module takes on the responsibility of globally managing the particle system. Its constructor and destructor handle the initialization and release of module resources. The update methods (PreUpdate, Update, PostUpdate) are in charge of keeping emitters updated and managing logic related to the life and explosion of fireworks. CleanUp() is used to free up memory occupied by emitters. This module also provides functionalities for saving/loading the state of the particle system to/from files. Additionally, castFirework() is a function that creates and launches fireworks with random properties.</p>
+ <p>Moving on to the ParticleSystem component, it defines the overall particle system in our game engine. The constructor initializes a system with a fixed-size list of particles. The Update() method takes care of updating particle positions and life. Emit() generates new particles with specific properties. ParticleBuffer() fills buffers with indices and vertices to represent a particle, while Render() displays active particles using OpenGL, applying interpolation to enhance visual quality. Billboard() ensures that particles always face the camera.</p>
+ <p>The cohesion of these components is achieved through ModuleParticles, which handles both the update and rendering of emitters and fireworks. ParticleSystem manages the life, emission, and rendering logic of particles. CEmitter defines the specific properties and behavior of individual particles. This system is designed with user-friendliness in mind, offering a straightforward interface to adjust particle properties in real-time. Its modular structure facilitates system expansion and maintenance. In summary, this setup provides a robust foundation for creating and managing dynamic visual effects in graphic environments or games.</p></p>
     <p>Videos:</p>
     <video width="600" height="400" controls loop>
         <source src="smokes.mp4" type="video/mp4">
